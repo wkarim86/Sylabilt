@@ -1,17 +1,20 @@
+import React, { Component } from 'react';
 import Splash from '../screens/Splash';
 import Home from '../screens/Home';
-import { DrawerNavigator } from 'react-navigation';
-
+import {ScrollView} from 'react-native';
+import { DrawerNavigator, DrawerItems } from 'react-navigation';
+import Sidebar from './Sidebar';
 const Drawer = DrawerNavigator(
   {
-    Splash : {screen : Splash},
-    Home : {screen : Home}
+    splash : {screen : Splash},
+    home : {screen : Home}
   },
   {
-    initialRouteName : "Splash",
+    initialRouteName : "splash",
     contentOptions : {
-                               activeTintColor : '#e91e63'
-                    }
+                      activeTintColor : '#e91e63'
+                    },
+    contentComponent : props => <Sidebar {...props} />
   }
 );
 export default Drawer;
