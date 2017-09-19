@@ -1,27 +1,33 @@
 import React, { Component } from 'react';
-import {Header, Left, Right, Body, Text, Icon, Button} from 'native-base';
-
+import {Header, Left, Right, Body, Icon, Button, Text} from 'native-base';
+import {Alert} from 'react-native';
+import sidebarStyle from '../styles/sidebar';
+import textStyle from '../styles/text';
+import colors from '../strings/colors';
 class Topbar extends Component {
 constructor(props){
   super(props);
-  console.log(props);
+  
 }
+ 
   render() {
     return ( 
-      <Header>
+      <Header style={sidebarStyle.header} 
+        androidStatusBarColor = {colors.headerColor}
+        iosBarStyle = "light-content">
         <Left>
         <Button transparent onPress={()=>this.props.navigateTo("DrawerOpen")}>
-              <Icon name='menu' />
+              <Icon name='menu' style={{color: colors.black}}/>
             </Button>
         </Left>
-          <Body>
-          <Text>
-            {this.props.title}
-          </Text>
+          <Body style = {sidebarStyle.headerButtons}>
+           <Text style={ {color : colors.white} }>
+             {this.props.title}
+            </Text>            
         </Body>
         <Right>
           <Button transparent>
-            <Icon name="search" />
+            <Icon name="search" style={{color: colors.black}} />
           </Button>
         </Right>
       </Header>

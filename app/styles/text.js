@@ -1,8 +1,16 @@
 import { StyleSheet } from 'react-native';
-
-export default {
+import colors from '../strings/colors';
+const textStyle ={
   textAlignCenter: {
-    textAlign : 'center',
-    color : '#FF0000' 
+    textAlign : 'center'    
+  },
+  textItalicBoldWhite : {
+    color : colors.white,
+    fontWeight : 'bold',
+    fontStyle : 'italic',
+    letterSpacing : -1
   }
+  
 }
+
+export default textStyle;

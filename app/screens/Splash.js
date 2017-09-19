@@ -19,12 +19,16 @@ export default class Splash extends Component{
          <Body><Title>Splash Screen</Title></Body>
         </Header>
         <Content padder>
+          <Image 
+            source={require('../image/homeicon.png')} style={{width:50, height:50}}
+            />
+          
           <Button primary full
             onPress={()=> navigate('home',{name:"Hello world"})}>
             <Text>Launch Home Screen</Text>
           </Button>
            <Image
-      source={require('../images/splash.png')}
+      source={require('../image/homeicon.png')}
       style={{flex:1, resizeMode:'cover', width:'100%', height : '100%'}}
           />
            
