@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {ScrollView, Image} from 'react-native';
 import {Container, Content, List, ListItem, Text, Body, Left, Right, Header, Footer} from 'native-base';
 import colors from '../strings/colors';
+import sidebarStyle from '../styles/sidebar';
 const menus = [
     {
       title : 'Home',
@@ -75,23 +76,23 @@ class Sidebar extends Component{
         </Header>  
       <Content>
         <List dataArray = {menus}
-          renderRow = {data => <ListItem icon button noBorder onPress={() => this.props.navigation.navigate(data.route)}> 
+          renderRow = {data => <ListItem icon button noBorder 
+                                 onPress={() => this.props.navigation.navigate(data.route)}
+                                 style={{ height:50}}> 
            <Left>
-            <Image source={data.icon} style={ {width:20, height:20, resizeMode : 'contain'} } />
+            <Image source={data.icon} style={ {width:30, height:30, resizeMode : 'contain'} } />
             </Left>
-            <Body>
-               <Text>{data.title}</Text>
+            <Body style={{borderBottomWidth:0}}>
+               <Text style={sidebarStyle.menuItem}>{data.title}</Text>
               
             </Body>
-             <Right>
-            </Right>
             
           </ListItem>}
           />
         
        
         </Content>
-         <Footer>
+         <Footer style={sidebarStyle.footer}>
           <Right>
             <Text>Privacy Policy</Text>
           </Right>

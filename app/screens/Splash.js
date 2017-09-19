@@ -24,7 +24,7 @@ export default class Splash extends Component{
             />
           
           <Button primary full
-            onPress={()=> navigate('home',{name:"Hello world"})}>
+            onPress={()=> navigate('home')}>
             <Text>Launch Home Screen</Text>
           </Button>
            <Image

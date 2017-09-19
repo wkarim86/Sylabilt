@@ -10,7 +10,7 @@ const Drawer = DrawerNavigator(
     home : {screen : Home}
   },
   {
-    initialRouteName : "splash",
+    initialRouteName : "home",
     contentOptions : {
                       activeTintColor : '#e91e63'
                     },

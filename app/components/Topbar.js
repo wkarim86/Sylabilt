@@ -7,14 +7,16 @@ import colors from '../strings/colors';
 class Topbar extends Component {
 constructor(props){
   super(props);
-  
+ 
 }
  
   render() {
     return ( 
       <Header style={sidebarStyle.header} 
         androidStatusBarColor = {colors.headerColor}
-        iosBarStyle = "light-content">
+        iosBarStyle = "light-content"
+        hasTabs
+        >
         <Left>
         <Button transparent onPress={()=>this.props.navigateTo("DrawerOpen")}>
               <Icon name='menu' style={{color: colors.black}}/>
