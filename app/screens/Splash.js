@@ -9,6 +9,13 @@ import {Container, Body, Content, Header, Title, Button} from  'native-base';
 
 export default class Splash extends Component{
  
+  constructor(props){
+      super(props);
+    setTimeout(()=> {
+      this.props.navigation.navigate('signup');
+    },500);
+  }
+  
   render (){
     const {navigate} = this.props.navigation;
     
