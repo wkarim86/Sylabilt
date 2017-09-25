@@ -25,9 +25,24 @@ const textStyle ={
     fontSize : 17,
     fontStyle : 'italic',
     fontFamily : 'SteelfishRg-Italic'
+  },
+  labelWhiteItalic : {
+    fontSize : 20,
+    color : colors.white,
+    fontStyle : 'italic',
+    fontFamily: 'SteelfishRg-Italic'
+  },
+  textLinkWhite15 : {
+    fontSize : 15,
+    color : colors.white,
+    fontFamily: 'SteelfishRg-Regular'
+  },
+  textLinkWhite17 : {
+    fontSize : 17,
+    color : colors.white,
+    fontFamily: 'SteelfishRg-Regular'
   }
-  
-  
+
 }
 
 export default textStyle;

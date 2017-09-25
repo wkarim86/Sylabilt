@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  
+import {
   StyleSheet,
   Text,
   Image
@@ -15,39 +15,39 @@ import TabMonth from './partials/tab_month';
 export default class Home extends Component{
   render (){
     const {navigate,state} = this.props.navigation;
-    
-    return (           
+
+    return (
       <Container>
-      <Topbar /*title={state.params.name} */ navigateTo={navigate} />
+      <Topbar /*title={state.params.name} */  navigateTo={navigate} />
         <Tabs renderTabBar = {() => <ScrollableTab />} tabBarUnderlineStyle={{borderBottomColor : colors.white,
     borderBottomWidth : 4  }} >
-        
+
           <Tab heading="Agenda" tabStyle={tabStyle.bg} textStyle={tabStyle.text} activeTabStyle={tabStyle.active} activeTextStyle={tabStyle.activeText} >
             <TabAgenda />
           </Tab>
           <Tab heading="Day" tabStyle={tabStyle.bg} textStyle={tabStyle.text} activeTabStyle={tabStyle.active} activeTextStyle={tabStyle.activeText} >
             <TabDay />
           </Tab>
-          
+
           <Tab heading="Week" tabStyle={tabStyle.bg} textStyle={tabStyle.text} activeTabStyle={tabStyle.active} activeTextStyle={tabStyle.activeText} >
             <TabWeek />
           </Tab>
-        
+
           <Tab heading="Month" tabStyle={tabStyle.bg} textStyle={tabStyle.text} activeTabStyle={tabStyle.active} activeTextStyle={tabStyle.activeText} >
             <TabMonth />
           </Tab>
         </Tabs>
-        
-        <Content padder>         
-          
+
+        <Content padder>
+
            <Text>Hi, Welcome to Sylabilt React Native</Text>
-          
+
         </Content>
-      
+
       </Container>
-    
-      
-     
+
+
+
       );
   }
 }

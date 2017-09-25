@@ -6,11 +6,14 @@ import {
   View,
   TextInput
 } from 'react-native';
-import {Container, Body, Content, Header, Left, Right, Button, Icon, Label, Input} from  'native-base';
+import {Container, Body, Content, Header, Left, Right, Button, Icon, Label, Input, Toast} from  'native-base';
 import {Grid, Col, Row} from 'react-native-easy-grid';
 import colors from '../strings/colors';
 import styles from '../styles/signup';
 import textStyles from '../styles/text';
+import Utils from '../lib/utils';
+import Settings from '../config/settings';
+
 
 class UserSignup extends Component {
   constructor(props){
@@ -20,8 +23,13 @@ class UserSignup extends Component {
     */
   }
 
+  showAlert(){
+    alert('Hello world');
+  }
+
   //Render screen components
   render() {
+    const {navigate} = this.props.navigation;
     return (
       <Container>
        <Image source={require('../image/registerbg.png')} style={styles.signupBg} />
@@ -83,28 +91,40 @@ class UserSignup extends Component {
 
                 <View style={{ flex:1, flexDirection: 'column', marginTop:50}}>
 
-                  <View style={{flex:0, flexDirection :'row', alignItems:'center', paddingLeft:10, paddingRight:10, marginBottom:10}}>
-                      <Text style={{flex:1.5, backgroundColor: 'grey'}}>Username</Text>
-                      <TextInput placeholder="email" style={{flex:3, marginLeft:10, borderBottomWidth:1}}></TextInput>
+                  <View style={styles.formControl}>
+                      <Text style={styles.inputLabel}>Username</Text>
+                      <TextInput placeholder="handle" style={styles.inputField}></TextInput>
                       <View style={{flex:2, flexDirection:'row'}}>
 
-                          <Image source={require('../image/checkmark.png')} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignItems:'center'}} />
-                          <Text style={{flexWrap: 'wrap', flex:1}}>Handle Available</Text>
+                          <Image source={require('../image/checkmark.png')} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignSelf:'center'}} />
+                          <Text style={{flexWrap: 'wrap', flex:1, textAlign: 'right', padding:5}}>Handle Available</Text>
                       </View>
                   </View>
 
-                  <View style={{flex:0, flexDirection :'row', alignItems:'center', paddingLeft:10, paddingRight:10, marginBottom:10}}>
-                      <Text style={{flex:1.5, backgroundColor: 'grey'}}>Password</Text>
-                      <TextInput placeholder="password" style={{flex:3, marginLeft:10, borderBottomWidth:1}}></TextInput>
+                  <View style={styles.formControl}>
+                      <Text style={styles.inputLabel}>Password</Text>
+                      <TextInput placeholder="password" style={styles.inputField}></TextInput>
                       <View style={{flex:2, flexDirection:'row'}}>
 
-                          <Image source={require('../image/checkmark.png')} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignItems:'center'}} />
-                          <Text style={{flexWrap: 'wrap', flex:1}}>Show Password</Text>
+                          <Text style={styles.formHint}>Show Password</Text>
                       </View>
                   </View>
 
+                  <View style={styles.formControlV}>
+                    <Text style={styles.privacyText}>By registering I confirm I am over the age of 13 and agree to Privacy Terms & Agreements</Text>
+                      <Button onPress = {() => {alert('Hello world')}} transparent style={{alignSelf:'center'}}>
+                    <Image source={require('../image/registerbutton.png')} style={{resizeMode:'contain'}}/>
+                      </Button>
+                    <Button transparent style={{alignSelf : 'center'}}><Text style={styles.linkButton}>Privacy Terms & Agreements</Text></Button>
+                    <Button transparent
+                      style={{alignSelf : 'center'}} onPress = {()=>{navigate('signin')}}>
+                      <Text style={styles.linkButton}>Already have account? Login</Text>
+                    </Button>
 
-                </View> 
+                  </View>
+
+
+                </View>
 
 
               </View>
