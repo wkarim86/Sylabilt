@@ -4,7 +4,6 @@ import {
   Text,
   Image
 } from 'react-native';
-import DatePicker from '../components/DatePicker'
 import {Container, Body, Content, Header, Title, Button} from  'native-base';
 
 export default class Splash extends Component{

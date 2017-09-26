@@ -24,7 +24,7 @@ class UserSignin extends Component {
     const {navigate} = this.props.navigation;
     return (
         <Container>
-           <Image source={require('../image/registerbg.png')} style={styles.signupBg} />
+           <Image source={require('../image/loginbg.png')} style={styles.signupBg} />
           <Grid>
             <Row size={1}>
             </Row>
@@ -46,14 +46,14 @@ class UserSignin extends Component {
               <View style={{ flex:0.6, flexDirection: 'column'}}>
 
                 <View style={styles.formControl}>
-                  <Image source={require('../image/user_shape.png')} style={{width:20, height: 20, flex:0}} />
+                  <Image source={require('../image/username.png')} style={{width:20, height: 20, flex:0}} />
                     <Text style={styles.inputLabel}>Username</Text>
                     <TextInput placeholder="handle" style={styles.inputField}></TextInput>
 
                 </View>
 
                 <View style={styles.formControl}>
-                <Image source={require('../image/unlocked_padlock.png')} style={{width:20, height: 20, flex:0}} />
+                <Image source={require('../image/password.png')} style={{width:20, height: 20, flex:0}} />
                     <Text style={styles.inputLabel}>Password</Text>
                     <TextInput placeholder="password" style={styles.inputField}></TextInput>
 
@@ -61,9 +61,11 @@ class UserSignin extends Component {
 
                 <View style={styles.formControlV}>
                   <Button style={styles.loginButton} onPress = {() => {alert('Hello world')}} transparent style={{alignSelf:'center'}}>
-                      <Image source={require('../image/registerbutton.png')} style={{resizeMode:'contain'}}/>
+                      <Image source={require('../image/login.png')} style={{resizeMode:'contain'}}/>
                   </Button>
-                  <Text style={styles.linkButtonBlack}>Reset Password</Text>
+                  <Button transparent style={styles.alignCenter}>
+                    <Text style={styles.linkButtonBlack}>Reset Password</Text>
+                  </Button>
                 </View>
 
 

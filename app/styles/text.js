@@ -41,6 +41,12 @@ const textStyle ={
     fontSize : 17,
     color : colors.white,
     fontFamily: 'SteelfishRg-Regular'
+  },
+  mysyllabiButton : {
+    fontSize : 17,
+    color : colors.white,
+    fontFamily: 'SteelfishRg-Regular',
+    alignSelf : 'center'
   }
 
 }

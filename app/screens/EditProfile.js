@@ -17,7 +17,7 @@ import Settings from '../config/settings';
 import Topbar from '../components/Topbar';
 import UserThumbnail from '../components/UserThumbnail';
 import ShareProfileButton from '../components/ShareProfileButton';
-import DatePicker from '../components/DatePicker';
+import Dob from '../components/Dob';
 class EditProfile extends Component {
   constructor(props){
     super(props);
@@ -58,7 +58,21 @@ class EditProfile extends Component {
 
         <View style={styles.formControlV}>
           <Text style={styles.inputLabel, textStyles.textLinkWhite17}>DOB</Text>
-          <DatePicker />
+          <Dob />
+        </View>
+
+        <View style={styles.formControlV}>
+          <Text style={styles.inputLabel, textStyles.textLinkWhite17}>School</Text>
+          <TextInput style={styles.inputFieldBigWhite} value='Harward' ></TextInput>
+        </View>
+
+        <View style={styles.formControlV}>
+          <Button transparent style={styles.alignCenter}><Text style={textStyles.textLinkWhite17}>Adjust Subscription</Text></Button>
+        </View>
+        <View style={styles.formControlV}>
+          <Button transparent style={styles.alignCenter}>
+            <Image source={require('../image/confirmgreen.png')} />
+          </Button>
         </View>
 
       </Content>

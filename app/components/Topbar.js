@@ -6,6 +6,7 @@ import textStyle from '../styles/text';
 import colors from '../strings/colors';
 import Utils from '../lib/utils';
 class Topbar extends Component {
+
 constructor(props){
   super(props);
 
@@ -13,6 +14,7 @@ constructor(props){
 
 
   render() {
+
     return (
       <Header style={sidebarStyle.header}
         androidStatusBarColor = {colors.headerColor}
@@ -32,10 +34,18 @@ constructor(props){
         <Right>
 
         {Utils.renderIf(this.props.isSearchButton,
-          <Button transparent>
+          <Button transparent onPress={ this.props.searchBtnEventListner }>
             <Icon name="search" style={{color: colors.black}} />
           </Button>
           )}
+
+          {Utils.renderIf(this.props.isEditButton,
+            <Button transparent onPress={ this.props.editBtnEventListner } >
+              <Text style={{color : colors.white} }>Edit</Text>
+            </Button>
+            )}
+
+
 
 
         </Right>

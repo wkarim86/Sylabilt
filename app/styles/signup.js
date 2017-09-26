@@ -85,7 +85,7 @@ export default{
     paddingLeft:10,
     paddingRight:10,
     marginBottom:10,
-    
+
   },
   linkButton : {
     fontStyle : 'italic',
@@ -122,6 +122,11 @@ export default{
    flex : 1,
    width : '70%',
    textAlign : 'center'
+ },
+ alignCenter : {
+   flex:1,
+   justifyContent:'center',
+   alignSelf : 'center'
  }
 
 

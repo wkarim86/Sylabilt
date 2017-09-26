@@ -4,6 +4,7 @@ import Home from '../screens/Home';
 import UserSignup from '../screens/UserSignup';
 import UserSignin from '../screens/UserSignin';
 import EditProfile from '../screens/EditProfile';
+import MySyllabi from '../screens/MySyllabi';
 import {ScrollView} from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import { Root } from 'native-base';
@@ -14,10 +15,11 @@ const Drawer = DrawerNavigator(
     home : {screen : Home},
     signup : {screen : UserSignup},
     signin : {screen : UserSignin},
-    editprofile : {screen : EditProfile}
+    editprofile : {screen : EditProfile},
+    mysyllabi : { screen : MySyllabi }
   },
   {
-    initialRouteName : "editprofile",
+    initialRouteName : "home",
     contentOptions : {
                       activeTintColor : '#e91e63'
                     },
