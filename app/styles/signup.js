@@ -127,6 +127,9 @@ export default{
    flex:1,
    justifyContent:'center',
    alignSelf : 'center'
+ },
+ paddingAround : {
+   padding:20
  }
 
 

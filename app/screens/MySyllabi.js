@@ -37,8 +37,8 @@ class MySyllabi extends Component {
 
   addNewSylabi = () => {
     //upload new syllabi
-    console.log(Config.siteUrl + Config.apiPath + Config.apis.resetPassword);
-    Server.get(Config.siteUrl + Config.apiPath + Config.apis.resetPassword)
+    let api_url = Config.siteUrl + Config.apiPath + Config.apis.resetPassword;
+    Server.post(api_url)
     .then( (response) => {
       console.log(response);
     }).

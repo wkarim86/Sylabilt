@@ -1,5 +1,5 @@
 const settings =  {
-  siteUrl  : 'http://localhost/sylabiltapi/',
+  siteUrl  : 'http://localhost/sylabilt-api/',
   apiPath  : 'public/api/',
   apiToken : 'Jmnx9P8p3Y0rRy7yxkaLa5oF7IQ1ir5Y',
   apis     : {
