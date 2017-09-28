@@ -130,6 +130,33 @@ export default{
  },
  paddingAround : {
    padding:20
+ },
+ boxCenter :{
+   padding: 20,
+   flex : 1 ,
+   justifyContent : 'center',
+   alignSelf : 'center'
+ },
+ image20 : {
+   resizeMode : 'contain',
+   width  : 20,
+   height : 20
+ },
+ textBig40 : {
+   fontFamily : 'SteelfishRg-Regular',
+   fontSize : 30,
+ },
+ textArea : {
+   padding :10,
+   borderRadius : 20,
+   backgroundColor : '#DCDEE0',
+   flex : 1,
+   shadowColor : colors.black,
+   shadowOffset : { width : 1, height : 2},
+   shadowOpacity : 0.8,
+   shadowRadius:3,
+   height : 100,
+   margin : 15
  }
 
 

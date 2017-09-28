@@ -10,7 +10,7 @@ import {
 import {Container, Body, Content, Header, Left, Right, Button, Icon, Label, Input, ListItem, List} from  'native-base';
 import {Grid, Col, Row} from 'react-native-easy-grid';
 import colors from '../strings/colors';
-import styles from '../styles/signup';
+import styles from '../styles';
 import textStyles from '../styles/text';
 import Utils from '../lib/utils';
 import Topbar from '../components/Topbar';
@@ -37,7 +37,7 @@ class MySyllabi extends Component {
 
   addNewSylabi = () => {
     //upload new syllabi
-    let api_url = Config.siteUrl + Config.apiPath + Config.apis.resetPassword;
+    let api_url = Config.endPoint + Config.apis.resetPassword;
     Server.post(api_url)
     .then( (response) => {
       console.log(response);

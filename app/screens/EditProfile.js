@@ -10,7 +10,7 @@ import {
 import {Container, Body, Content, Header, Left, Right, Button, Icon, Label, Input, Toast} from  'native-base';
 import {Grid, Col, Row} from 'react-native-easy-grid';
 import colors from '../strings/colors';
-import styles from '../styles/signup';
+import styles from '../styles';
 import textStyles from '../styles/text';
 import Utils from '../lib/utils';
 import Settings from '../config/settings';
