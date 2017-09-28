@@ -20,9 +20,9 @@ class ExportView extends Component{
       <ImageBackground source={require('../../image/ExportCalendarBg.png')} style={styles.fullWidth}>
       <Content>
       <Grid>
-        <Row>
+        <Row style={{flex: 1}}>
         </Row>
-        <Row>
+        <Row style={{flex : 2}}>
         <Text>{lang.export_calendar_content}</Text>
         </Row>
       </Grid>
