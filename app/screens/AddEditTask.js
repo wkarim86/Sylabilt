@@ -95,4 +95,4 @@ class AddEditTask extends Component{
   }
 
 }
-export default AddTask;
+export default AddEditTask;

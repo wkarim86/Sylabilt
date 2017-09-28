@@ -6,6 +6,7 @@ import UserSignin from '../screens/UserSignin';
 import EditProfile from '../screens/EditProfile';
 import MySyllabi from '../screens/MySyllabi';
 import AddEditTask from '../screens/AddEditTask';
+import ExportCalendar from '../screens/ExportCalendar';
 import {ScrollView} from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import { Root } from 'native-base';
@@ -18,7 +19,8 @@ const Drawer = DrawerNavigator(
     signin : {screen : UserSignin},
     editprofile : {screen : EditProfile},
     mysyllabi : { screen : MySyllabi },
-    addtask  : {screen : AddEditTask}
+    addtask  : {screen : AddEditTask},
+    exportcalendar : {screen : ExportCalendar}
   },
   {
     initialRouteName : "addtask",

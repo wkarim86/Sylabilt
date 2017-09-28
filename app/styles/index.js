@@ -157,6 +157,10 @@ export default{
    shadowRadius:3,
    height : 100,
    margin : 15
+ },
+ fullWidth : {
+   width : '100%',
+   height : '100%'
  }
 
 
