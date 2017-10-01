@@ -2,17 +2,35 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  Image
+  Image,
+  ImageBackground
 } from 'react-native';
 import {Container, Body, Content, Header, Title, Button} from  'native-base';
-
+import Db from '../config/db';
+const Realm = require('realm');
 export default class Splash extends Component{
 
   constructor(props){
       super(props);
-    setTimeout(()=> {
-      this.props.navigation.navigate('signin');
-    },500);
+      this.state = { realm : null};
+
+  }
+
+  componentDidMount(){
+    Realm.open({schema : [Db]}).then( realm => {
+      console.log("Realm database initialized");
+      //insert default settings
+      if(realm.objects("settings").length ==  0){
+        this.setState({realm});
+        setTimeout(()=> {
+          this.props.navigation.navigate('signin');
+        },1000);
+      }else{
+        setTimeout(()=> {
+          this.props.navigation.navigate('home');
+        },1000);
+      }
+    });
   }
 
   render (){
@@ -21,26 +39,8 @@ export default class Splash extends Component{
     return (
 
       <Container>
-       <Header>
-         <Body><Title>Splash Screen</Title></Body>
-        </Header>
-        <Content padder>
-          <Image
-            source={require('../image/homeicon.png')} style={{width:50, height:50}}
-            />
-
-          <Button primary full
-            onPress={()=> navigate('home')}>
-            <Text>Launch Home Screen</Text>
-          </Button>
-           <Image
-      source={require('../image/homeicon.png')}
-      style={{flex:1, resizeMode:'cover', width:'100%', height : '100%'}}
-          />
-
-
-        </Content>
-
+       <ImageBackground source={require('../image/splash.png')} style={{width:'100%', height : '100%'}}>
+       </ImageBackground>
       </Container>
 
 

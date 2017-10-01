@@ -38,7 +38,7 @@ class AddEditTask extends Component{
         <List>
           <ListItem icon>
             <Body>
-              <Text style={styles.textBig40}>Task Type</Text>
+              <Text style={textStyles.textBig40}>Task Type</Text>
             </Body>
             <Right>
               <Text>Subtext</Text>
@@ -47,7 +47,7 @@ class AddEditTask extends Component{
           </ListItem>
           <ListItem icon>
             <Body>
-              <Text style={styles.textBig40}>Date</Text>
+              <Text style={textStyles.textBig40}>Date</Text>
             </Body>
             <Right>
               <Text>Subtext</Text>
@@ -56,7 +56,7 @@ class AddEditTask extends Component{
           </ListItem>
           <ListItem icon>
             <Body>
-              <Text style={styles.textBig40}>Class</Text>
+              <Text style={textStyles.textBig40}>Class</Text>
             </Body>
             <Right>
               <Text>Subtext</Text>
@@ -65,7 +65,7 @@ class AddEditTask extends Component{
           </ListItem>
           <ListItem icon>
             <Body>
-              <Text style={styles.textBig40}>Alert</Text>
+              <Text style={textStyles.textBig40}>Alert</Text>
             </Body>
             <Right>
               <Text>Subtext</Text>
@@ -75,7 +75,7 @@ class AddEditTask extends Component{
 
           <ListItem icon>
             <Body>
-              <Text style={styles.textBig40}>Repeat</Text>
+              <Text style={textStyles.textBig40}>Repeat</Text>
             </Body>
             <Right>
               <Text>Subtext</Text>

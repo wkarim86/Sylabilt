@@ -46,16 +46,23 @@ class UserSignin extends Component {
               <View style={{ flex:0.6, flexDirection: 'column'}}>
 
                 <View style={styles.formControl}>
-                  <Image source={require('../image/username.png')} style={{width:20, height: 20, flex:0}} />
-                    <Text style={styles.inputLabel}>Username</Text>
-                    <TextInput placeholder="handle" style={styles.inputField}></TextInput>
-
+                  <View style={{flex:0.2, alignItems:'flex-end'}}>
+                    <Image source={require('../image/username.png')} style={{width:20, height: 20, flex:0}} />
+                  </View>
+                    <View style={{flex:0.8, flexDirection:'row'}}>
+                      <Text style={styles.inputLabel}>Username</Text>
+                      <TextInput placeholder="handle" style={styles.inputField}></TextInput>
+                    </View>
                 </View>
 
                 <View style={styles.formControl}>
-                <Image source={require('../image/password.png')} style={{width:20, height: 20, flex:0}} />
-                    <Text style={styles.inputLabel}>Password</Text>
-                    <TextInput placeholder="password" style={styles.inputField}></TextInput>
+                    <View style={{flex:0.2, alignItems:'flex-end'}}>
+                      <Image source={require('../image/password.png')} style={{width:20, height: 20, flex:0}} />
+                    </View>
+                    <View style={{flex:0.8, flexDirection:'row'}}>
+                      <Text style={styles.inputLabel}>Password</Text>
+                      <TextInput placeholder="password" style={styles.inputField}></TextInput>
+                    </View>
 
                 </View>
 
@@ -63,7 +70,7 @@ class UserSignin extends Component {
                   <Button style={styles.loginButton} onPress = {() => {alert('Hello world')}} transparent style={{alignSelf:'center'}}>
                       <Image source={require('../image/login.png')} style={{resizeMode:'contain'}}/>
                   </Button>
-                  <Button transparent style={styles.alignCenter}>
+                  <Button transparent style={styles.alignCenter} onPress={() => {this.props.navigation.navigate("forgotpassword")}}>
                     <Text style={styles.linkButtonBlack}>Reset Password</Text>
                   </Button>
                 </View>

@@ -32,6 +32,18 @@ const textStyle ={
     fontStyle : 'italic',
     fontFamily: 'SteelfishRg-Italic'
   },
+  labelGreenItalic : {
+    fontSize : 25,
+    fontWeight: 'bold',
+    color : colors.buttonColor,
+    fontStyle : 'italic',
+    fontFamily: 'SteelfishRg-Italic'
+  },
+  labelWhite : {
+    fontSize : 20,
+    color : colors.white,
+    fontFamily: 'SteelfishRg-Regular'
+  },
   textLinkWhite15 : {
     fontSize : 15,
     color : colors.white,
@@ -47,7 +59,82 @@ const textStyle ={
     color : colors.white,
     fontFamily: 'SteelfishRg-Regular',
     alignSelf : 'center'
+  },
+  downloadPDF : {
+    fontSize : 20,
+    fontFamily : 'SteelfishRg-Regular',
+    color : colors.white,
+    textAlign : 'center'
+  },
+  exportError : {
+    fontSize : 30,
+    fontFamily : 'SteelfishRg-Regular',
+    width : '100%',
+    justifyContent : 'center',
+    textAlign : 'center'
+  },
+  alignCenter : {
+    justifyContent : 'center',
+    alignItems : 'center'
+  },
+  bookFilterButtonText : {
+    fontSize : 20,
+    fontFamily : 'SteelfishRg-Regular',
+    color : colors.white,
+    textAlign : 'center'
+  },
+  bookListItemText : {
+    fontSize : 20,
+    fontFamily : 'SteelfishRg-Regular',
+    color : colors.white,
+    marginBottom : 5
+  },
+  bookListItemPrice : {
+    fontSize : 25,
+    fontFamily : 'SteelfishRg-Regular',
+    color : colors.white
+  },
+  friendListItem : {
+    fontSize: 20,
+    fontFamily : 'SteelfishRg-Italic',
+    fontStyle : 'italic',
+    color : colors.white
+  },
+  textBig40 : {
+    fontFamily : 'SteelfishRg-Regular',
+    fontSize : 30,
+  },
+  textBigItalic40 : {
+    fontFamily : 'SteelfishRg-Italic',
+    fontSize : 30,
+  },
+  textBig30 : {
+    fontFamily : 'SteelfishRg-Regular',
+    fontSize : 25,
+    fontWeight: 'bold'
+  },
+  textBigItalic30 : {
+    fontFamily : 'SteelfishRg-Italic',
+    fontSize : 25,
+    fontWeight : 'bold'
+  },
+  textBigItalic20 : {
+    fontFamily : 'SteelfishRg-Italic',
+    fontSize : 20,
+    fontWeight : 'bold'
+  },
+  textWhiteBig20 : {
+    fontFamily : 'SteelfishRg-Italic',
+    fontSize : 25,
+    fontWeight: 'bold',
+    color : colors.white
+  },
+  textGrey30 : {
+    color : colors.grey,
+    fontFamily : 'SteelfishRg-Regular',
+    fontSize : 25
   }
+
 
 }
 

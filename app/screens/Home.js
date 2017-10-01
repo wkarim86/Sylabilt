@@ -38,11 +38,7 @@ export default class Home extends Component{
           </Tab>
         </Tabs>
 
-        <Content padder>
-
-           <Text>Hi, Welcome to Sylabilt React Native</Text>
-
-        </Content>
+      
 
       </Container>
 

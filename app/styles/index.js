@@ -49,8 +49,8 @@ export default{
   inputLabel : {
     fontSize : 17,
     fontFamily : 'SteelfishRg-Regular',
-    flex:1.5,
-    textAlign:'right'
+    flex:1,
+    textAlign:'center'
   },
   formControl : {
     flex:0,
@@ -122,6 +122,21 @@ export default{
    flex : 1,
    width : '70%',
    textAlign : 'center'
+
+ },
+ inputFieldWhite : {
+   fontSize : 20,
+   fontFamily : 'SteelfishRg-Regular',
+   color : colors.white,
+   borderBottomWidth : 1,
+   borderBottomColor : colors.transparent,
+ },
+ inputFieldWhite2 : {
+   fontSize : 20,
+   fontFamily : 'SteelfishRg-Regular',
+   color : colors.white,
+   borderBottomWidth : 1,
+   borderBottomColor : colors.white,
  },
  alignCenter : {
    flex:1,
@@ -142,10 +157,6 @@ export default{
    width  : 20,
    height : 20
  },
- textBig40 : {
-   fontFamily : 'SteelfishRg-Regular',
-   fontSize : 30,
- },
  textArea : {
    padding :10,
    borderRadius : 20,
@@ -161,6 +172,58 @@ export default{
  fullWidth : {
    width : '100%',
    height : '100%'
+ },
+ paddingHorizontal : {
+   paddingLeft : 15,
+   paddingRight : 15
+ },
+ marginHorizontal : {
+   marginLeft : 15,
+   marginRight : 15
+ },
+ bookLabels : {
+   fontSize: 20,
+   fontFamily : 'SteelfishRg-Regular',
+   marginBottom : 15
+ },
+ bookFilterButton : {
+   backgroundColor : '#55C77D',
+   padding: 10,
+   marginLeft: 5,
+   marginRight: 5
+
+ },
+ bookListItem : {
+   backgroundColor : '#55C77D',
+   borderRadius : 5,
+   padding : 10,
+   flex : 1,
+   marginTop : 5,
+   marginBottom : 5,
+   marginLeft: 10,
+   marginRight : 10
+ },
+ listItemTransparent : {
+   backgroundColor : 'transparent',
+
+ },
+ inputFieldForgotEmail : {
+   fontSize : 20,
+   fontFamily : 'SteelfishRg-Regular',
+   color : colors.grey,
+   borderBottomWidth : 1,
+   borderBottomColor : colors.grey,
+   width : '100%',
+   height : 40,
+   padding: 5
+ },
+ inviteButton : {
+   borderRadius : 60,
+   backgroundColor : colors.buttonColor,
+   width: 100,
+   height : 30,
+   flex:1,
+   justifyContent:'center'
  }
 
 

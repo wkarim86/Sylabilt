@@ -4,7 +4,8 @@ import {
   Text,
   Image,
   View,
-  TextInput
+  TextInput,
+  KeyboardAvoidingView
 } from 'react-native';
 import {Container, Body, Content, Header, Left, Right, Button, Icon, Label, Input, Toast} from  'native-base';
 import {Grid, Col, Row} from 'react-native-easy-grid';
@@ -91,24 +92,27 @@ class UserSignup extends Component {
 
                 <View style={{ flex:1, flexDirection: 'column', marginTop:50}}>
 
-                  <View style={styles.formControl}>
-                      <Text style={styles.inputLabel}>Username</Text>
-                      <TextInput placeholder="handle" style={styles.inputField}></TextInput>
-                      <View style={{flex:2, flexDirection:'row'}}>
+                  <KeyboardAvoidingView behavior="position">
+                    <View style={styles.formControl}>
+                        <Text style={styles.inputLabel}>Username</Text>
+                        <TextInput placeholder="handle" style={styles.inputField}></TextInput>
+                        <View style={{flex:2, flexDirection:'row'}}>
 
-                          <Image source={require('../image/checkmark.png')} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignSelf:'center'}} />
-                          <Text style={{flexWrap: 'wrap', flex:1, textAlign: 'right', padding:5}}>Handle Available</Text>
-                      </View>
-                  </View>
+                            <Image source={require('../image/checkmark.png')} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignSelf:'center'}} />
+                            <Text style={{flexWrap: 'wrap', flex:1, textAlign: 'right', padding:5}}>Handle Available</Text>
+                        </View>
+                    </View>
 
-                  <View style={styles.formControl}>
-                      <Text style={styles.inputLabel}>Password</Text>
-                      <TextInput placeholder="password" style={styles.inputField}></TextInput>
-                      <View style={{flex:2, flexDirection:'row'}}>
+                    <View style={styles.formControl}>
+                        <Text style={styles.inputLabel}>Password</Text>
+                        <TextInput placeholder="password" style={styles.inputField}></TextInput>
+                        <View style={{flex:2, flexDirection:'row'}}>
 
-                          <Text style={styles.formHint}>Show Password</Text>
-                      </View>
-                  </View>
+                            <Text style={styles.formHint}>Show Password</Text>
+                        </View>
+                    </View>
+                  </KeyboardAvoidingView>
+
 
                   <View style={styles.formControlV}>
                     <Text style={styles.privacyText}>By registering I confirm I am over the age of 13 and agree to Privacy Terms & Agreements</Text>

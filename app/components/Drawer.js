@@ -7,6 +7,14 @@ import EditProfile from '../screens/EditProfile';
 import MySyllabi from '../screens/MySyllabi';
 import AddEditTask from '../screens/AddEditTask';
 import ExportCalendar from '../screens/ExportCalendar';
+import ISBNDeals from '../screens/ISBNDeals';
+import Friends from '../screens/Friends';
+import AddFriends from '../screens/AddFriends';
+import AddGroupMeeting from '../screens/AddGroupMeeting';
+import GroupMeetings from '../screens/GroupMeetings';
+import MeetingDetails from '../screens/MeetingDetails';
+import AddClass from '../screens/AddClass';
+import ForgotPassword from '../screens/ForgotPassword';
 import {ScrollView} from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import { Root } from 'native-base';
@@ -20,10 +28,18 @@ const Drawer = DrawerNavigator(
     editprofile : {screen : EditProfile},
     mysyllabi : { screen : MySyllabi },
     addtask  : {screen : AddEditTask},
-    exportcalendar : {screen : ExportCalendar}
+    exportcalendar : {screen : ExportCalendar},
+    isbn : {screen : ISBNDeals},
+    friends : {screen : Friends},
+    addfriends: {screen : AddFriends},
+    addmeeting : {screen : AddGroupMeeting},
+    groupmeetings : {screen : GroupMeetings},
+    meetingdetails : {screen : MeetingDetails},
+    addclass : {screen : AddClass},
+    forgotpassword : {screen : ForgotPassword},
   },
   {
-    initialRouteName : "addtask",
+    initialRouteName : "splash",
     contentOptions : {
                       activeTintColor : '#e91e63'
                     },

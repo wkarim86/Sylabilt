@@ -5,11 +5,17 @@ const sidebarStyle  = {
    },
    header : {
     backgroundColor: colors.headerColor
-      
+
   },
-  headerButtons : {    
-    flexDirection: 'row',
-    justifyContent: 'center'
+  headerButtons : {
+    flex : 2
+  },
+  headerTitle : {
+    fontFamily : 'SteelfishRg-Regular',
+    fontSize: 27,
+    fontWeight :'bold',
+    color : colors.white,
+    textAlign : 'center'
   },
   footer : {
     padding:5,
@@ -19,7 +25,7 @@ const sidebarStyle  = {
   menuItem : {
     fontWeight : 'bold',
     color : colors.primary
-    
+
   }
 }
 export default sidebarStyle;
