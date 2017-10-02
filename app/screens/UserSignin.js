@@ -17,7 +17,15 @@ import Settings from '../config/settings';
 class UserSignin extends Component {
   constructor(props) {
     super(props);
+    this.state  = { username : null, password : null};
+  }
 
+  doLogin() {
+    if(this.state.username == "test123" && this.state.password == "123456"){
+      this.props.navigation.navigate("home");
+    }else{
+      alert("Invalid login. Try again");
+    }
   }
 
   render() {
@@ -51,7 +59,7 @@ class UserSignin extends Component {
                   </View>
                     <View style={{flex:0.8, flexDirection:'row'}}>
                       <Text style={styles.inputLabel}>Username</Text>
-                      <TextInput placeholder="handle" style={styles.inputField}></TextInput>
+                      <TextInput placeholder="handle" style={styles.inputField} onChangeText={(text) => this.setState({username:text})}></TextInput>
                     </View>
                 </View>
 
@@ -61,13 +69,13 @@ class UserSignin extends Component {
                     </View>
                     <View style={{flex:0.8, flexDirection:'row'}}>
                       <Text style={styles.inputLabel}>Password</Text>
-                      <TextInput placeholder="password" style={styles.inputField}></TextInput>
+                      <TextInput placeholder="password" style={styles.inputField} secureTextEntry={true} onChangeText={(text) => this.setState({password:text})}></TextInput>
                     </View>
 
                 </View>
 
                 <View style={styles.formControlV}>
-                  <Button style={styles.loginButton} onPress = {() => {alert('Hello world')}} transparent style={{alignSelf:'center'}}>
+                  <Button style={styles.loginButton} onPress = {() => this.doLogin() } transparent style={{alignSelf:'center'}}>
                       <Image source={require('../image/login.png')} style={{resizeMode:'contain'}}/>
                   </Button>
                   <Button transparent style={styles.alignCenter} onPress={() => {this.props.navigation.navigate("forgotpassword")}}>

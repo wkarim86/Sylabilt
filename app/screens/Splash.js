@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {Container, Body, Content, Header, Title, Button} from  'native-base';
 import Db from '../config/db';
-const Realm = require('realm');
+
 export default class Splash extends Component{
 
   constructor(props){
@@ -17,20 +17,16 @@ export default class Splash extends Component{
   }
 
   componentDidMount(){
-    Realm.open({schema : [Db]}).then( realm => {
-      console.log("Realm database initialized");
-      //insert default settings
-      if(realm.objects("settings").length ==  0){
-        this.setState({realm});
-        setTimeout(()=> {
-          this.props.navigation.navigate('signin');
-        },1000);
-      }else{
-        setTimeout(()=> {
-          this.props.navigation.navigate('home');
-        },1000);
-      }
-    });
+    const db = new Db();
+    if(Db.getCount() > 0){
+      setTimeout(()=> {
+         this.props.navigation.navigate('home');
+       },1000);
+    }else{
+      setTimeout(()=> {
+         this.props.navigation.navigate('signin');
+       },1000);
+    }
   }
 
   render (){
