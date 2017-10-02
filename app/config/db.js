@@ -3,7 +3,14 @@ var realm;
 class Db {
 
   constructor(){
-    realm = new Realm({ schema : [Db.schema]});
+
+    try{
+      realm = new Realm({ schema : [Db.schema]});
+    }catch(error){
+      console.log(error);
+    }
+
+
 
   }
 
@@ -11,7 +18,7 @@ class Db {
     name : 'settings',
     primaryKey: 'id',
     properties : {
-      id : {type : 'string'},
+      id : {type : 'int'},
       username : {type : 'string'},
       email : {type : 'string'},
       uid : {type: 'string', default : null},
@@ -27,6 +34,20 @@ class Db {
   }
   static getCount(){
     return realm.objects(Db.schema.name).length;
+  }
+
+  insert(tableName, ...params){
+    try{
+        realm.write( ()=> {
+          params.forEach((values) => {
+            realm.create(tableName, values);
+          })
+
+        });
+    }catch(error){
+      console.log(error);
+    }
+
   }
 
 }

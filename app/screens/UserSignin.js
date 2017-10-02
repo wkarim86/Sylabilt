@@ -13,6 +13,7 @@ import styles from '../styles';
 import textStyles from '../styles/text';
 import Utils from '../lib/utils';
 import Settings from '../config/settings';
+import Db from '../config/db';
 
 class UserSignin extends Component {
   constructor(props) {
@@ -22,6 +23,10 @@ class UserSignin extends Component {
 
   doLogin() {
     if(this.state.username == "test123" && this.state.password == "123456"){
+      var db = new Db();
+      if(Db.getCount() == 0){
+        db.insert(Db.schema.name, {id:1,username : this.state.username, password : this.state.password});
+      }
       this.props.navigation.navigate("home");
     }else{
       alert("Invalid login. Try again");

@@ -18,6 +18,7 @@ export default class Splash extends Component{
 
   componentDidMount(){
     const db = new Db();
+    alert(Db.getCount());
     if(Db.getCount() > 0){
       setTimeout(()=> {
          this.props.navigation.navigate('home');
