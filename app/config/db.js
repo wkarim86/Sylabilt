@@ -19,28 +19,45 @@ class Db {
     primaryKey: 'id',
     properties : {
       id : {type : 'int'},
-      username : {type : 'string'},
-      email : {type : 'string'},
-      uid : {type: 'string', default : null},
-      isLoggedIn : {type:'bool', default : 0},
-      membership : {type: 'int', default: 0},
-      soundNotification : {type:'int', default : 0},
-      pushNotification : {type:'int', default : 0}
+      isLoggedIn : {type:'bool', default : false},
+      memebershipId : {type : 'int', default : 0, optional : true},
+      soundNotification : {type:'int', default : 0, optional : true},
+      pushNotification : {type:'int', default : 0, optional: true}
     }
   }
 
-  static get (realm : Realm) {
-    return realm.objects(Db.schema.name);
+  // static UserSchema = {
+  //   name : 'users',
+  //   primaryKey: 'id',
+  //   properties : {
+  //     id : {type : 'int'},
+  //     username : {type : 'string'},
+  //     email : {type : 'string'},
+  //     uid : {type: 'string', default : null},
+  //     dob : {type : 'string', optional : true},
+  //     phone : {type : 'string', optional :true},
+  //     gender : {type :'int', optional : true},
+  //     name : {type :'string', optional : true},
+  //     school : {type :'string', optional : true},
+  //     status : {type :'int', optional : true},
+  //     isLoggedIn : {type:'bool', default : false},
+  //     membership : {type: 'int', default: 0, optional : true}
+  //
+  //   }
+  // }
+
+  static get () {
+    return realm.objects(Db.schema.name).filtered("id=1");
   }
   static getCount(){
     return realm.objects(Db.schema.name).length;
   }
 
-  insert(tableName, ...params){
+  insert(...params){
     try{
         realm.write( ()=> {
-          params.forEach((values) => {
-            realm.create(tableName, values);
+          params[0].values.forEach((value) => {
+            realm.create(params[0].schema, value, params[0].isUpdate);
           })
 
         });

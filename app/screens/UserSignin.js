@@ -11,26 +11,40 @@ import {Grid, Col, Row} from 'react-native-easy-grid';
 import colors from '../strings/colors';
 import styles from '../styles';
 import textStyles from '../styles/text';
-import Utils from '../lib/utils';
+import Http from '../lib/http';
 import Settings from '../config/settings';
 import Db from '../config/db';
-
+var db = new Db();
 class UserSignin extends Component {
   constructor(props) {
     super(props);
-    this.state  = { username : null, password : null};
+    this.state  = { username : null, password : null, friendList : [], userInfo: []};
   }
 
   doLogin() {
-    if(this.state.username == "test123" && this.state.password == "123456"){
-      var db = new Db();
-      if(Db.getCount() == 0){
-        db.insert(Db.schema.name, {id:1,username : this.state.username, password : this.state.password});
+
+    const loginUrl = Settings.endPoint + Settings.apis.login;
+    console.log(loginUrl);
+    Http.post(loginUrl, {username: this.state.username, password: this.state.password}).then( (responseJson)=>{
+      let response = responseJson.data.data;
+
+      if(response.status){
+        db.insert({schema:Db.schema.name, values :[{id:1, membershipId : response.membership, isLoggedIn : true}], isUpdate : true});
+        this.setState({
+          friendList : response.friends,
+          userInfo : [{user_id : response.id, name : response.name, username : response.username, email: response.email, dob : response.dob, gender : response.gender, school : response.school, status : response.status, phone : response.phone}]
+        });
+        console.log(this.state);
+        this.props.navigation.navigate("home");
+      }else{
+        alert("Invalid login. Try again");
       }
-      this.props.navigation.navigate("home");
-    }else{
-      alert("Invalid login. Try again");
-    }
+
+
+    }).catch( (error)=>{
+      console.log(error);
+    });
+
   }
 
   render() {

@@ -3,6 +3,8 @@ import {ScrollView, Image} from 'react-native';
 import {Container, Content, List, ListItem, Text, Body, Left, Right, Header, Footer} from 'native-base';
 import colors from '../strings/colors';
 import sidebarStyle from '../styles/sidebar';
+import Db from '../config/db';
+var db = new Db();
 const menus = [
     {
       title : 'Home',
@@ -55,14 +57,28 @@ const menus = [
       icon  : require('../image/loginico.png')
     }
   ];
-  
+
 class Sidebar extends Component{
   constructor(props){
     super(props);
+
+    if(Db.getCount() > 0){
+      this.state = {isLoggedIn : Db.get()[0].isLoggedIn};
+      if(this.state.isLoggedIn){
+        menus[9].title = "Logout";
+        menus[9].icon = require("../image/logoutico.png");
+      }
+    }
+
+
   }
-  
-  
-  
+
+logout(){
+  db.insert({schema : Db.schema.name, values : [{id:1, isLoggedIn :false}], isUpdate :true});
+  this.props.navigation.navigate("signin");
+}
+
+
   render() {
     return(
       <Container>
@@ -73,24 +89,24 @@ class Sidebar extends Component{
         <Right>
           <Image source={require('../image/editprofileico.png')} style={{ width:40, height:40, resizeMode:'contain'}} />
         </Right>
-        </Header>  
+        </Header>
       <Content>
         <List dataArray = {menus}
-          renderRow = {data => <ListItem icon button noBorder 
-                                 onPress={() => this.props.navigation.navigate(data.route)}
-                                 style={{ height:50}}> 
+          renderRow = {(data,sectionID, rowID) => <ListItem icon button noBorder
+                                 onPress={() => (rowID == 9) ? this.logout(): this.props.navigation.navigate(data.route)}
+                                 style={{ height:50}}>
            <Left>
             <Image source={data.icon} style={ {width:30, height:30, resizeMode : 'contain'} } />
             </Left>
             <Body style={{borderBottomWidth:0}}>
                <Text style={sidebarStyle.menuItem}>{data.title}</Text>
-              
+
             </Body>
-            
+
           </ListItem>}
           />
-        
-       
+
+
         </Content>
          <Footer style={sidebarStyle.footer}>
           <Right>
@@ -103,4 +119,3 @@ class Sidebar extends Component{
 }
 
 export default Sidebar;
-

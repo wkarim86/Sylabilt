@@ -1,6 +1,6 @@
 const settings =  {
-  siteUrl  : 'http://localhost/sylabilt-api/',
-  endPoint  : 'http://localhost/sylabilt-api/public/api/', 
+  siteUrl  : 'http://api.sylabilt.com/',
+  endPoint  : 'http://api.sylabilt.com/public/api/',
   apiToken : 'Jmnx9P8p3Y0rRy7yxkaLa5oF7IQ1ir5Y',
   apis     : {
     login           : 'user/login',
@@ -24,7 +24,7 @@ const settings =  {
     deleteFriend    : 'friends/delete'
   },
 
-  requestTimeout : 1000
+  requestTimeout : 5000
 
 }
 export default settings;
