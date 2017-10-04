@@ -5,7 +5,7 @@ class Db {
   constructor(){
 
     try{
-      realm = new Realm({ schema : [Db.schema]});
+      realm = new Realm({ schema : [Db.SettingsSchema, Db.UserSchema]});
     }catch(error){
       console.log(error);
     }
@@ -14,7 +14,7 @@ class Db {
 
   }
 
-  static schema = {
+  static SettingsSchema = {
     name : 'settings',
     primaryKey: 'id',
     properties : {
@@ -26,31 +26,28 @@ class Db {
     }
   }
 
-  // static UserSchema = {
-  //   name : 'users',
-  //   primaryKey: 'id',
-  //   properties : {
-  //     id : {type : 'int'},
-  //     username : {type : 'string'},
-  //     email : {type : 'string'},
-  //     uid : {type: 'string', default : null},
-  //     dob : {type : 'string', optional : true},
-  //     phone : {type : 'string', optional :true},
-  //     gender : {type :'int', optional : true},
-  //     name : {type :'string', optional : true},
-  //     school : {type :'string', optional : true},
-  //     status : {type :'int', optional : true},
-  //     isLoggedIn : {type:'bool', default : false},
-  //     membership : {type: 'int', default: 0, optional : true}
-  //
-  //   }
-  // }
-
-  static get () {
-    return realm.objects(Db.schema.name).filtered("id=1");
+  static UserSchema = {
+    name : 'users',
+    primaryKey: 'id',
+    properties : {
+      id : {type : 'int'},
+      user_id : {type : 'int', optional: true},
+      username : {type : 'string', optional: true},
+      name : {type :'string', optional : true},
+      email : {type : 'string', optional: true},
+      dob : {type : 'string', optional : true},
+      phone : {type : 'string', optional :true},
+      gender : {type :'int', optional : true},
+      school : {type :'string', optional : true},
+      status : {type :'int', default :0,  optional : true}
+    }
   }
-  static getCount(){
-    return realm.objects(Db.schema.name).length;
+
+  static get (schema) {
+    return realm.objects(schema.name).filtered("id=1");
+  }
+  static getCount(schema){
+    return realm.objects(schema.name).length;
   }
 
   insert(...params){

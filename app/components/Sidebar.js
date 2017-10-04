@@ -61,20 +61,23 @@ const menus = [
 class Sidebar extends Component{
   constructor(props){
     super(props);
-
-    if(Db.getCount() > 0){
-      this.state = {isLoggedIn : Db.get()[0].isLoggedIn};
-      if(this.state.isLoggedIn){
-        menus[9].title = "Logout";
-        menus[9].icon = require("../image/logoutico.png");
+    if(Db.getCount(Db.SettingsSchema) > 0) {
+      var isLoggedIn = Db.get(Db.SettingsSchema)[0].isLoggedIn;
+      if( isLoggedIn ){
+        this.state = {isLoggedIn : isLoggedIn};
+        if(this.state.isLoggedIn){
+          menus[9].title = "Logout";
+          menus[9].icon = require("../image/logoutico.png");
+        }
       }
     }
+
 
 
   }
 
 logout(){
-  db.insert({schema : Db.schema.name, values : [{id:1, isLoggedIn :false}], isUpdate :true});
+  db.insert({schema:Db.schema.name, values :[{id:1, isLoggedIn : false}], isUpdate : true});
   this.props.navigation.navigate("signin");
 }
 

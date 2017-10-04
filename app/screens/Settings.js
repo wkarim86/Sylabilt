@@ -25,15 +25,19 @@ class Settings extends Component {
   }
 
 
-  render(){
-    const {navigate} = this.props.navigation;
-    return(
-      <Container>
-      <Topbar title={lang.text_settings} {...this.props} navigateTo={navigate}/>
-      <ImageBackground source={require('../image/settingsbg.png')} style={{width:'100%', height: '100%'}}>
-      </ImageBackground>
-      </Container>
-    )
+    render(){
+      const {navigate} = this.props.navigation;
+      return(
+        <Container>
+        <Topbar title={lang.text_settings} {...this.props} navigateTo={navigate}/>
+        <ImageBackground source={require('../image/settingsbg.png')} style={{width:'100%', height: '100%'}}>
+        <Content>
+          <Text>Settings goes here</Text>
+        </Content>
+        </ImageBackground>
+        </Container>
+      )
+  }
 }
 
 export default Settings;

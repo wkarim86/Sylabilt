@@ -15,6 +15,7 @@ import GroupMeetings from '../screens/GroupMeetings';
 import MeetingDetails from '../screens/MeetingDetails';
 import AddClass from '../screens/AddClass';
 import ForgotPassword from '../screens/ForgotPassword';
+import Settings from '../screens/Settings';
 import {ScrollView} from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import { Root } from 'native-base';
@@ -37,6 +38,7 @@ const Drawer = DrawerNavigator(
     meetingdetails : {screen : MeetingDetails},
     addclass : {screen : AddClass},
     forgotpassword : {screen : ForgotPassword},
+    settings : {screen : Settings},
   },
   {
     initialRouteName : "splash",

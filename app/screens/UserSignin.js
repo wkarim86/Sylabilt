@@ -4,7 +4,8 @@ import {
   Text,
   Image,
   View,
-  TextInput
+  TextInput,
+  ImageBackground
 } from 'react-native';
 import {Container, Body, Content, Header, Left, Right, Button, Icon, Label, Input, Toast} from  'native-base';
 import {Grid, Col, Row} from 'react-native-easy-grid';
@@ -13,30 +14,53 @@ import styles from '../styles';
 import textStyles from '../styles/text';
 import Http from '../lib/http';
 import Settings from '../config/settings';
+import Loader from '../components/Loader';
 import Db from '../config/db';
+import Utils from '../lib/utils';
 var db = new Db();
 class UserSignin extends Component {
   constructor(props) {
     super(props);
-    this.state  = { username : null, password : null, friendList : [], userInfo: []};
+    this.state  = { username : null, password : null, isLoading : false};
   }
 
   doLogin() {
 
+    //initialize Loader
+    this.setState({isLoading: true});
+
     const loginUrl = Settings.endPoint + Settings.apis.login;
-    console.log(loginUrl);
     Http.post(loginUrl, {username: this.state.username, password: this.state.password}).then( (responseJson)=>{
       let response = responseJson.data.data;
 
-      if(response.status){
-        db.insert({schema:Db.schema.name, values :[{id:1, membershipId : response.membership, isLoggedIn : true}], isUpdate : true});
-        this.setState({
-          friendList : response.friends,
-          userInfo : [{user_id : response.id, name : response.name, username : response.username, email: response.email, dob : response.dob, gender : response.gender, school : response.school, status : response.status, phone : response.phone}]
-        });
-        console.log(this.state);
+      if(!responseJson.data.error){
+        db.insert({schema:Db.SettingsSchema.name, values :[{id:1, membershipId : response.membership, isLoggedIn : true}], isUpdate : true});
+        //insert userinfo into UserSchema
+        db.insert({ schema : Db.UserSchema.name,
+          values :[
+              {
+                id : 1,
+                user_id : response.id,
+                name : response.name,
+                username : response.username,
+                email: response.email,
+                dob : response.dob,
+                gender : response.gender,
+                school : response.school,
+                status : response.status,
+                phone : response.phone
+              }
+            ],
+            isUpdate : true
+          }
+        );
+
+        this.setState({isLoading: false});
+        //redirect to home screen
         this.props.navigation.navigate("home");
+
       }else{
+        this.setState({isLoading: false});
         alert("Invalid login. Try again");
       }
 
@@ -51,9 +75,15 @@ class UserSignin extends Component {
     const {navigate} = this.props.navigation;
     return (
         <Container>
-           <Image source={require('../image/loginbg.png')} style={styles.signupBg} />
+          {
+            Utils.renderIf(this.state.isLoading,
+              <Loader show={this.state.isLoading} size="large"/>
+            )
+          }
+           <ImageBackground source={require('../image/loginbg.png')} style={{width :'100%', height:'100%', zIndex:1}}>
           <Grid>
             <Row size={1}>
+
             </Row>
             <Row size={3} style={{justifyContent:'center', flexDirection : 'column'}}>
             <View style={styles.socialButtonGroupSignin}>
@@ -121,6 +151,7 @@ class UserSignin extends Component {
 
             </Row>
           </Grid>
+          </ImageBackground>
         </Container>
     );
   }

@@ -224,6 +224,15 @@ export default{
    height : 30,
    flex:1,
    justifyContent:'center'
+ },
+ loader : {
+   width:'100%',
+   height:'100%',
+   position:'absolute',
+   backgroundColor:'rgba(0,0,0,0.5)',
+   flex:1,
+   justifyContent:'center',
+   zIndex:2
  }
 
 
