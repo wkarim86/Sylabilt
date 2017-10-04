@@ -4,7 +4,7 @@ import {Container, Content, List, ListItem, Text, Body, Left, Right, Header, Foo
 import colors from '../strings/colors';
 import sidebarStyle from '../styles/sidebar';
 import Db from '../config/db';
-var db = new Db();
+
 const menus = [
     {
       title : 'Home',
@@ -61,26 +61,31 @@ const menus = [
 class Sidebar extends Component{
   constructor(props){
     super(props);
-    if(Db.getCount(Db.SettingsSchema) > 0) {
-      var isLoggedIn = Db.get(Db.SettingsSchema)[0].isLoggedIn;
-      if( isLoggedIn ){
-        this.state = {isLoggedIn : isLoggedIn};
-        if(this.state.isLoggedIn){
-          menus[9].title = "Logout";
-          menus[9].icon = require("../image/logoutico.png");
-        }
-      }
-    }
-
-
+    console.log("Constructor");
 
   }
 
 logout(){
-  db.insert({schema:Db.schema.name, values :[{id:1, isLoggedIn : false}], isUpdate : true});
+  db.insert({schema:Db.UserSchema.name, values :[{id:1, isLoggedIn : false}], isUpdate : true});
+  this.setState({isLoggedIn : false});
   this.props.navigation.navigate("signin");
 }
 
+componentDidMount = () =>{
+  console.log("componentDidMount");
+  var db = new Db();
+  console.log(db.get(Db.SettingsSchema)[0].isLoggedIn);
+ this.state = {isLoggedIn : false};
+  if(db.getCount(Db.SettingsSchema) > 0) {
+    this.setState({isLoggedIn : db.get(Db.SettingsSchema)[0].isLoggedIn});
+    console.log(this.state);
+      if(this.state.isLoggedIn){
+        menus[9].title = "Logout";
+        menus[9].icon = require("../image/logoutico.png");
+      }
+
+  }
+}
 
   render() {
     return(

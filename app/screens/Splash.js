@@ -18,14 +18,14 @@ export default class Splash extends Component{
 
   componentDidMount(){
     const db = new Db();
-    console.log(Db.getCount(Db.SettingsSchema));
-    console.log(Db.getCount(Db.UserSchema));
+    console.log(db.getCount(Db.SettingsSchema));
+    console.log(db.getCount(Db.UserSchema));
 
 
 
 
     //insert first time data
-    if(Db.getCount(Db.SettingsSchema) == 0){
+    if(db.getCount(Db.SettingsSchema) == 0){
         //db.insert({schema : Db.schema.name, values:[{id: 1,username : "", password : "", email : "", uid : "0", isLoggedIn : false}], isUpdate : false})
         db.insert({schema:Db.SettingsSchema.name, values :[{id:1, isLoggedIn : false}], isUpdate : false});
 
@@ -42,7 +42,8 @@ export default class Splash extends Component{
 
       }
 
-    if(Db.get(Db.SettingsSchema)[0].isLoggedIn) {
+    
+    if(db.get(Db.SettingsSchema)[0].isLoggedIn) {
       setTimeout(()=> {
         this.props.navigation.navigate('home');
        },1000);

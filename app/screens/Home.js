@@ -15,10 +15,9 @@ import TabMonth from './partials/tab_month';
 export default class Home extends Component{
   render (){
     const {navigate,state} = this.props.navigation;
-
     return (
       <Container>
-      <Topbar /*title={state.params.name} */  navigateTo={navigate} />
+      <Topbar /*title={state.params.name} */ title="Sylabilt" isSearchButton={true}  navigateTo={navigate} />
         <Tabs renderTabBar = {() => <ScrollableTab />} tabBarUnderlineStyle={{borderBottomColor : colors.white,
     borderBottomWidth : 4  }} >
 
@@ -38,7 +37,7 @@ export default class Home extends Component{
           </Tab>
         </Tabs>
 
-      
+
 
       </Container>
 

@@ -6,6 +6,7 @@ import textStyle from '../styles/text';
 import colors from '../strings/colors';
 import Utils from '../lib/utils';
 import {NavigationActions} from 'react-navigation';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 class Topbar extends Component {
 
 constructor(props){
@@ -27,7 +28,7 @@ constructor(props){
 
         {Utils.renderIf(this.props.isBackButton,
           <Button transparent onPress={ () => this.props.navigation.navigate(this.props.backKey) }>
-            <Icon name="arrow-back" style={{color: colors.black}} />
+            <Icon name="ios-arrow-back" style={{color: colors.black}} />
           </Button>
           )}
 
@@ -45,7 +46,7 @@ constructor(props){
              {this.props.title}
             </Text>
         </Body>
-        <Right style={{flex: 0.5}}>
+        <Right style={{flex: 0.6}}>
 
         {Utils.renderIf(this.props.isSearchButton,
           <Button transparent onPress={ this.props.searchBtnEventListner }>
@@ -55,7 +56,8 @@ constructor(props){
 
           {Utils.renderIf(this.props.isEditButton,
             <Button transparent onPress={ this.props.editBtnEventListner } >
-              <Text style={{color : colors.white} }>Edit</Text>
+              <FontAwesomeIcon name="edit" style={{color: colors.black, fontSize:20}} />
+
             </Button>
             )}
 

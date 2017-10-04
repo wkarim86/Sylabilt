@@ -43,10 +43,10 @@ class Db {
     }
   }
 
-  static get (schema) {
+  get (schema) {
     return realm.objects(schema.name).filtered("id=1");
   }
-  static getCount(schema){
+  getCount(schema){
     return realm.objects(schema.name).length;
   }
 
