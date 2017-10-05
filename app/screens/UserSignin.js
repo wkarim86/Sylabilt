@@ -17,7 +17,11 @@ import Settings from '../config/settings';
 import Loader from '../components/Loader';
 import Db from '../config/db';
 import Utils from '../lib/utils';
+import Sidebar from '../components/Sidebar';
+Global = require('../lib/global');
 var db = new Db();
+
+
 class UserSignin extends Component {
   constructor(props) {
     super(props);
@@ -56,6 +60,8 @@ class UserSignin extends Component {
         );
 
         this.setState({isLoading: false});
+        Global.loggedin = true;
+        Sidebar.refreshList();
         //redirect to home screen
         this.props.navigation.navigate("home");
 

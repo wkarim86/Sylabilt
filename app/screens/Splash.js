@@ -7,23 +7,17 @@ import {
 } from 'react-native';
 import {Container, Body, Content, Header, Title, Button} from  'native-base';
 import Db from '../config/db';
-
+Global  = require('../lib/global');
+const db = new Db();
 export default class Splash extends Component{
 
   constructor(props){
       super(props);
-      this.state = { realm : null};
+      Global.loggedin = db.get(Db.SettingsSchema)[0].isLoggedIn;
 
   }
 
   componentDidMount(){
-    const db = new Db();
-    console.log(db.getCount(Db.SettingsSchema));
-    console.log(db.getCount(Db.UserSchema));
-
-
-
-
     //insert first time data
     if(db.getCount(Db.SettingsSchema) == 0){
         //db.insert({schema : Db.schema.name, values:[{id: 1,username : "", password : "", email : "", uid : "0", isLoggedIn : false}], isUpdate : false})
@@ -42,7 +36,6 @@ export default class Splash extends Component{
 
       }
 
-    
     if(db.get(Db.SettingsSchema)[0].isLoggedIn) {
       setTimeout(()=> {
         this.props.navigation.navigate('home');

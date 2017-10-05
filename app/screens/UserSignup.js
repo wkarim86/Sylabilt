@@ -5,6 +5,7 @@ import {
   Image,
   View,
   TextInput,
+  ImageBackground,
   KeyboardAvoidingView
 } from 'react-native';
 import {Container, Body, Content, Header, Left, Right, Button, Icon, Label, Input, Toast} from  'native-base';
@@ -14,18 +15,80 @@ import styles from '../styles';
 import textStyles from '../styles/text';
 import Utils from '../lib/utils';
 import Settings from '../config/settings';
+import Http from '../lib/http';
+import Loader from '../components/Loader';
+import Db from '../config/db';
+var db = new Db();
+Global = require('../lib/global');
+const uuid = require('uuid/v1');
 
+var inputFields = {
+  username : null,
+  password : null
+}
 
 class UserSignup extends Component {
+
   constructor(props){
     super(props);
-    /*
-      do your logic here e.g. check user logged in sesison etc
-    */
+    this.state = {maskPassword : true, isLoading : false}
   }
 
-  showAlert(){
-    alert('Hello world');
+
+  doSignup(){
+    this.setState({isLoading: true});
+    const signupUrl = Settings.endPoint + Settings.apis.signup;
+    Http.post(signupUrl, {username: inputFields.username, password: inputFields.password, name : uuid(), email : uuid()}).then( (responseJson)=>{
+
+      let response = responseJson.data.data;
+      console.log(response);
+
+      if(!responseJson.data.error){
+        db.insert({schema:Db.SettingsSchema.name, values :[{id:1, membershipId : response.membership, isLoggedIn : true}], isUpdate : true});
+        //insert userinfo into UserSchema
+        db.insert({ schema : Db.UserSchema.name,
+          values :[
+              {
+                id : 1,
+                user_id : response.id,
+                name : response.name,
+                username : response.username,
+                email: response.email,
+                dob : response.dob,
+                gender : response.gender,
+                school : response.school,
+                status : response.status,
+                phone : response.phone
+              }
+            ],
+            isUpdate : true
+          }
+        );
+
+        this.setState({isLoading: false});
+        Global.loggedin = true;
+        Sidebar.refreshList();
+        //redirect to home screen
+        this.props.navigation.navigate("home");
+
+      }else{
+        this.setState({isLoading: false});
+        alert(response.toString());
+      }
+
+
+    }).catch( (error)=>{
+      console.log(error);
+    });
+  }
+
+  showPassword(){
+    if(this.state.maskPassword){
+      this.setState( {maskPassword: false})
+    }else{
+      this.setState( {maskPassword: true})
+    }
+
   }
 
   //Render screen components
@@ -33,7 +96,12 @@ class UserSignup extends Component {
     const {navigate} = this.props.navigation;
     return (
       <Container>
-       <Image source={require('../image/registerbg.png')} style={styles.signupBg} />
+        {
+          Utils.renderIf(this.state.isLoading,
+            <Loader show={this.state.isLoading} size="large"/>
+          )
+        }
+       <ImageBackground source={require('../image/registerbg.png')} style={styles.signupBg}>
          <Grid>
             <Row size={1} >
             </Row>
@@ -95,7 +163,7 @@ class UserSignup extends Component {
                   <KeyboardAvoidingView behavior="position">
                     <View style={styles.formControl}>
                         <Text style={styles.inputLabel}>Username</Text>
-                        <TextInput placeholder="handle" style={styles.inputField}></TextInput>
+                        <TextInput placeholder="handle" style={styles.inputField} onChangeText={(text)=> {inputFields.username = text;}}></TextInput>
                         <View style={{flex:2, flexDirection:'row'}}>
 
                             <Image source={require('../image/checkmark.png')} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignSelf:'center'}} />
@@ -105,10 +173,13 @@ class UserSignup extends Component {
 
                     <View style={styles.formControl}>
                         <Text style={styles.inputLabel}>Password</Text>
-                        <TextInput placeholder="password" style={styles.inputField}></TextInput>
+                        <TextInput placeholder="password" style={styles.inputField} secureTextEntry={this.state.maskPassword} onChangeText={(text)=> {inputFields.password = text;}}></TextInput>
                         <View style={{flex:2, flexDirection:'row'}}>
+                            <Button transparent onPress={()=>{ this.showPassword()}} style={{flex:1, paddingLeft:0, paddingRight:0}}>
+                              <Text style={styles.formHint}>Show Password</Text>
+                            </Button>
 
-                            <Text style={styles.formHint}>Show Password</Text>
+
                         </View>
                     </View>
                   </KeyboardAvoidingView>
@@ -116,8 +187,8 @@ class UserSignup extends Component {
 
                   <View style={styles.formControlV}>
                     <Text style={styles.privacyText}>By registering I confirm I am over the age of 13 and agree to Privacy Terms & Agreements</Text>
-                      <Button onPress = {() => {alert('Hello world')}} transparent style={{alignSelf:'center'}}>
-                    <Image source={require('../image/registerbutton.png')} style={{resizeMode:'contain'}}/>
+                      <Button onPress = {() => this.doSignup()} transparent style={{alignSelf:'center'}}>
+                        <Image source={require('../image/registerbutton.png')} style={{resizeMode:'contain'}}/>
                       </Button>
                     <Button transparent style={{alignSelf : 'center'}}><Text style={styles.linkButton}>Privacy Terms & Agreements</Text></Button>
                     <Button transparent
@@ -135,6 +206,7 @@ class UserSignup extends Component {
 
             </Row>
           </Grid>
+        </ImageBackground>
       </Container>
     );
   }

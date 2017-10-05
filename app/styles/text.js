@@ -129,6 +129,12 @@ const textStyle ={
     fontWeight: 'bold',
     color : colors.white
   },
+  textWhiteBig30 : {
+    fontFamily : 'SteelfishRg-Regular',
+    fontSize : 30,
+    fontWeight: 'bold',
+    color : colors.white
+  },
   textGrey30 : {
     color : colors.grey,
     fontFamily : 'SteelfishRg-Regular',
