@@ -29,6 +29,7 @@ const Drawer = DrawerNavigator(
     editprofile : {screen : EditProfile},
     mysyllabi : { screen : MySyllabi },
     addtask  : {screen : AddEditTask},
+    edittask : {screen : AddEditTask},
     exportcalendar : {screen : ExportCalendar},
     isbn : {screen : ISBNDeals},
     friends : {screen : Friends},

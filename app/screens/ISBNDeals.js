@@ -62,7 +62,7 @@ class ISBNDeals extends Component{
 
     return(
       <Container>
-      <Topbar title="Sylabilt Student Saver" navigateTo={navigate} isSearchButton={true}/>
+      <Topbar title="Sylabilt Student Saver" {...this.props} isSearchButton={true}/>
 
         <Grid>
           <Row size={1}>

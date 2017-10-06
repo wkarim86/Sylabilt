@@ -38,7 +38,7 @@ class Settings extends Component {
       const {navigate} = this.props.navigation;
       return(
         <Container>
-        <Topbar title={lang.text_settings} {...this.props} navigateTo={navigate}/>
+        <Topbar title={lang.text_settings} {...this.props}/>
         <ImageBackground source={require('../image/settingsbg.png')} style={{width:'100%', height: '100%'}}>
         <Content>
           <Grid>
@@ -56,7 +56,7 @@ class Settings extends Component {
                     <Text>Home</Text>
                   </Body>
                   <Right style={{flex:0.3}}>
-                    
+
 
                   </Right>
                 </ListItem>

@@ -11,7 +11,7 @@ class Topbar extends Component {
 
 constructor(props){
   super(props);
-  console.log(props);
+  console.log(props.navigation.state.params);
 
 }
 
@@ -27,13 +27,13 @@ constructor(props){
         <Left style={{flex :0.5}}>
 
         {Utils.renderIf(this.props.isBackButton,
-          <Button transparent onPress={ () => this.props.navigation.navigate(this.props.backKey) }>
+          <Button transparent onPress={ () => this.props.navigation.navigate(this.props.navigation.state.params.prevRoute) }>
             <Icon name="ios-arrow-back" style={{color: colors.black}} />
           </Button>
           )}
 
           {Utils.renderIf(!this.props.isBackButton,
-            <Button transparent onPress={()=>this.props.navigateTo("DrawerOpen")}>
+            <Button transparent onPress={()=>this.props.navigation.navigate("DrawerOpen")}>
                   <Icon name='menu' style={{color: colors.black}}/>
                 </Button>
 

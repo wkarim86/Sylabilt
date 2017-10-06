@@ -30,7 +30,7 @@ class EditProfile extends Component {
 
       <Container>
 
-      <Topbar title={"Edit Profile"} isSearchButton={false} navigateTo={navigate} />
+      <Topbar title={"Edit Profile"} isSearchButton={false} {...this.props} />
       <ImageBackground source={require('../image/editprofilebg.png')} style={{width: '100%', height : '100%'}}>
       <Content>
         <View style={{justifyContent: 'space-between', flexDirection :'row', padding : 20}}>

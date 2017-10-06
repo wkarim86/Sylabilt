@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import colors from '../strings/colors';
 export default{
-  signupBg : {        
+  signupBg : {
     width: '100%',
     height : '100%',
     zIndex:1
@@ -231,7 +231,11 @@ export default{
    flex:1,
    justifyContent:'center',
    zIndex:2
+ },
+ iconFont: {
+   fontSize : 20,
+   height : 22,
+   color : 'white'
  }
-
 
 }

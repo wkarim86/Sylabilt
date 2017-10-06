@@ -26,7 +26,7 @@ class AddEditTask extends Component{
     const {navigate} = this.props.navigation;
     return(
       <Container>
-      <Topbar title="Add Task" navigateTo={navigate} />
+      <Topbar title="Add Task" {...this.props} />
       <ImageBackground source={require('../image/agendabg.png')} style={{width: '100%', height : '100%'}}>
       <Content>
         <View style={styles.boxCenter}>

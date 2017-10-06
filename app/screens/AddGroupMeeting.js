@@ -28,7 +28,7 @@ class AddGroupMeeting extends Component{
     const {navigate} = this.props.navigation;
     return(
       <Container>
-      <Topbar title={lang.text_add_meeting} navigateTo={navigate}  />
+      <Topbar title={lang.text_add_meeting} {...this.props}  />
       <ImageBackground source={require('../image/Groupmeetingbg.png')} style={{width : '100%', height:'100%'}}>
         <Grid>
           <Row size={0.4} style={{flexDirection:'column'}}>

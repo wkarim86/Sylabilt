@@ -77,7 +77,7 @@ class MySyllabi extends Component {
     });
     return(
       <Container>
-        <Topbar title="MySyllabi" navigateTo={navigate} isEditButton={true} editBtnEventListner={ this.editAction }/>
+        <Topbar title="MySyllabi" {...this.props} isEditButton={true} editBtnEventListner={ this.editAction }/>
         <ImageBackground source={require('../image/syllabusBg.png')} style={{width: '100%', height : '100%'}}>
         <View style={{alignItems:'flex-end', justifyContent:'flex-end', padding : 10}}>
           {Utils.renderIf(this.state.editMode,

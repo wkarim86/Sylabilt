@@ -41,7 +41,7 @@ class ExplortCalendar extends Component{
     const isPaidMember = false;
     return(
       <Container>
-      <Topbar title="Export Calendar" navigateTo={navigate} />
+      <Topbar title="Export Calendar" {...this.props} />
       {Utils.renderIf(isPaidMember, <ExportView />)}
       {Utils.renderIf(!isPaidMember, <ExportError />)}
 

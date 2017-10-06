@@ -29,7 +29,7 @@ class Friends extends Component{
     const {navigate} = this.props.navigation;
     return(
       <Container>
-      <Topbar title={lang.text_friends} navigateTo={navigate} isAddButton={true} addBtnEventListner={() => this.props.navigation.navigate("addfriends", {navigation : this.props.navigation})} />
+      <Topbar title={lang.text_friends} {...this.props} isAddButton={true} addBtnEventListner={() => this.props.navigation.navigate("addfriends", {navigation : this.props.navigation})} />
       <ImageBackground source={require('../image/ExportCalendarBg.png')} style={{width : '100%', height : '100%'}}>
       <Content>
         <View style={{padding : 20}}>
