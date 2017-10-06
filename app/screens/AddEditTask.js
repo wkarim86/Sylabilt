@@ -16,6 +16,7 @@ import Utils from '../lib/utils';
 import Topbar from '../components/Topbar';
 import Server from '../lib/http';
 import Config from '../config/settings';
+import UIModal from '../components/Modal';
 
 class AddEditTask extends Component{
   constructor(props){
@@ -29,6 +30,9 @@ class AddEditTask extends Component{
       <Topbar title="Add Task" {...this.props} />
       <ImageBackground source={require('../image/agendabg.png')} style={{width: '100%', height : '100%'}}>
       <Content>
+
+        <UIModal />
+
         <View style={styles.boxCenter}>
           <Button transparent>
             <Image source={require('../image/confirm.png')} style={{width : 145, resizeMode :'contain'}} />
