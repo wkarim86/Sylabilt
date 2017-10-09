@@ -12,24 +12,37 @@ import {Container, Body, Content, Header, Left, Right, Button, Icon, Label, Inpu
 import {Grid, Col, Row} from 'react-native-easy-grid';
 import Utils from '../lib/utils';
 import Topbar from '../components/Topbar';
-import Server from '../lib/http';
+import Http from '../lib/http';
 import Config from '../config/settings';
 import lang from '../strings/values_en';
 import SearchBox from '../components/SearchBox';
 import FriendsList from '../components/FriendsList';
-
+Global  = require('../lib/global');
 class Friends extends Component{
   constructor(props){
     super(props);
-
+    this.loadFriendList();
   }
 
+  loadFriendList = () =>{
+    const url  = Config.endPointLocal + Config.apis.friendList + Global.userInfo.id;
+    console.log(url);
+    Http.get(url)
+    .then((responseJson) => {
+      const response = responseJson.data;
+      if(!response.error){
+        console.log(response.data.data);
+      }
+    }).catch( (error) => {
+      console.log(error);
+    })
+  }
 
   render(){
     const {navigate} = this.props.navigation;
     return(
       <Container>
-      <Topbar title={lang.text_friends} {...this.props} isAddButton={true} addBtnEventListner={() => this.props.navigation.navigate("addfriends", {navigation : this.props.navigation})} />
+      <Topbar title={lang.text_friends} {...this.props} isAddButton={true} addBtnEventListner={() => this.props.navigation.navigate("addfriends", {prevRoute : "friends"})} />
       <ImageBackground source={require('../image/ExportCalendarBg.png')} style={{width : '100%', height : '100%'}}>
       <Content>
         <View style={{padding : 20}}>

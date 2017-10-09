@@ -26,15 +26,16 @@ export default class Home extends Component{
       <Topbar /*title={state.params.name} */ title="Sylabilt" isSearchButton={true}  {...this.props} />
       <View style={{position:'absolute', zIndex:3, flex:1, justifyContent:'flex-end', alignSelf:'flex-end', bottom:'5%', right : '5%'}}>
         <ActionButtons buttonColor={colors.buttonColor} position="right" degrees={45}>
-          <ActionButtons.Item buttonColor={colors.buttonColor} title="Add Task" onPress={()=> navigate("addtask", {prevRoute : 'home'})}>
-            <Icon name="calendar-plus-o" style={styles.iconFont} />
+          <ActionButtons.Item buttonColor={colors.buttonColor} title="Add Friends" onPress={()=>{ navigate("addfriends", {prevRoute : 'home'})}}>
+            <Icon name="user-plus" style={styles.iconFont} />
           </ActionButtons.Item>
           <ActionButtons.Item buttonColor={colors.buttonColor} title="Add Group Meeting" onPress={()=>{ navigate("addmeeting", {prevRoute : 'home'})}}>
             <Icon name="group" style={styles.iconFont} />
           </ActionButtons.Item>
-          <ActionButtons.Item buttonColor={colors.buttonColor} title="Add Friends" onPress={()=>{ navigate("addfriends", {prevRoute : 'home'})}}>
-            <Icon name="user-plus" style={styles.iconFont} />
+          <ActionButtons.Item buttonColor={colors.buttonColor} title="Add Task" onPress={()=> navigate("addtask", {prevRoute : 'home'})}>
+            <Icon name="calendar-plus-o" style={styles.iconFont} />
           </ActionButtons.Item>
+
         </ActionButtons>
       </View>
       <ImageBackground source={require('../image/homebg.png')} style={styles.fullWidth}>

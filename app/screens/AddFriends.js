@@ -34,7 +34,7 @@ class AddFriends extends Component{
     const {navigate} = this.props.navigation;
     return(
       <Container>
-      <Topbar title={lang.text_add_friend} {...this.props} backKey="friends" isAddButton={true} isBackButton={true}/>
+      <Topbar title={lang.text_add_friend} {...this.props}  isBackButton={true}/>
       <ImageBackground source={require('../image/ExportCalendarBg.png')} style={{width : '100%', height : '100%'}}>
       <Content>
         <View style={{padding : 20}}>

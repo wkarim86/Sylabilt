@@ -139,6 +139,10 @@ const textStyle ={
     color : colors.grey,
     fontFamily : 'SteelfishRg-Regular',
     fontSize : 25
+  },
+  textCategoryOptions : {
+    fontSize: 30,
+    fontFamily : 'SteelfishRg-Italic'
   }
 
 

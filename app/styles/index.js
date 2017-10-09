@@ -236,6 +236,10 @@ export default{
    fontSize : 20,
    height : 22,
    color : 'white'
+ },
+ borderBottom : {
+   borderBottomWidth :1,
+   borderBottomColor : 'black'
  }
 
 }
