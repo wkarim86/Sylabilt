@@ -12,24 +12,33 @@ import Loader from '../../components/Loader';
 import AgendaListView from '../../components/AgendaListView';
 
 export default class TabAgenda extends Component{
+  constructor(props){
+    super(props);
+
+  }
   render () {
-      const taskBg = {
-          homework  : require('../image/homework.png'),
-          test  : require('../image/test.png'),
-          quiz  : require('../image/quiz.png'),
-          misc  : require('../image/misc.png')
+      const cards = {
+          homework  : require('../../image/card-blue.png'),
+          test  : require('../../image/card-red.png'),
+          quiz  : require('../../image/card-yellow.png'),
+          review : require('../../image/card-orange.png'),
+          misc  : require('../../image/card-purple.png')
       }
     return (
       <View>
 
       <View>
-      <Button transparent style={{alignSelf:'flex-end', marginRight:20, marginTop:20}}>
+      <Button transparent style={{alignSelf:'flex-end', marginRight:10, marginTop:20}}>
         <Image source={require('../../image/legendbutton.png')} style={{resizeMode:'contain', width:30}}/>
       </Button>
       </View>
 
+      <View style={{flex:0.2, height: 50}}>
+        <Text style={textStyle.whatsnext}>What's Next?</Text>
+      </View>
+
       <ScrollView style={style.paddingAround}>
-          <AgendaListView />
+          <AgendaListView card={cards.homework}/>
       </ScrollView>
 
       </View>

@@ -143,9 +143,33 @@ const textStyle ={
   textCategoryOptions : {
     fontSize: 30,
     fontFamily : 'SteelfishRg-Italic'
-  }
-
-
+  },
+  whatsnext : {
+    fontSize: 40,
+    fontFamily : 'SteelfishRg-Regular',
+    fontWeight :'bold',
+    color: colors.buttonColor,
+    transform : [{rotate : '-5deg'}],
+    alignSelf :'center'
+  },
+  textDue : {
+    fontFamily : 'SteelfishRg-Regular',
+    fontSize : 25,
+    fontWeight: 'bold',
+    color : colors.white
+  },
+  textDate : {
+    fontFamily : 'SteelfishRg-Regular',
+    fontSize : 50,
+    fontWeight : 'bold',
+    color: colors.white
+  },
+  textWeekName : {
+    fontFamily : 'SteelfishRg-Regular',
+    fontSize : 25,
+    fontWeight: 'bold',
+    color : colors.black
+  },
 }
 
 export default textStyle;

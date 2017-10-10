@@ -12,7 +12,7 @@ const settings =  {
     resetPassword   : 'user/reset_password/',
     forgotPassword  : 'user/forgot_password/',
     verifyEmail     : 'user/verify_email/',
-    fetchPosts      : 'post/',
+    post            : 'post/',
     createPost      : 'post/create/',
     updatePost      : 'post/update/',
     upload          : 'upload/',
