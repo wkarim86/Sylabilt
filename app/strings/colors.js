@@ -7,6 +7,7 @@ export default {
   buttonColor : '#55C77D',
   grey  : '#848484',
   green  : '#55C77D',
+  orange : '#FAD344',
   homework : '#4E97D6',
   test : '#D95846',
   quiz : '#EDC646',

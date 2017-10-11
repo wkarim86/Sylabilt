@@ -13,8 +13,10 @@ export default class Splash extends Component{
 
   constructor(props){
       super(props);
-      Global.loggedin = db.get(Db.SettingsSchema)[0].isLoggedIn;
-      Global.userInfo = db.get(Db.UserSchema)[0];
+      if(db.getCount(Db.SettingsSchema) > 0){
+        Global.loggedin = db.get(Db.SettingsSchema)[0].isLoggedIn;
+        Global.userInfo = db.get(Db.UserSchema)[0];
+      }
 
   }
 

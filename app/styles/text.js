@@ -170,6 +170,21 @@ const textStyle ={
     fontWeight: 'bold',
     color : colors.black
   },
+  textClass : {
+    fontSize: 35,
+    fontFamily : 'BradleyHandITCTT-Bold',
+    fontWeight :'bold',
+    color: colors.orange,
+    transform : [{rotate : '-5deg'}, {translateX : -50}],
+    alignSelf :'center'
+  },
+  taskDescription : {
+    fontSize: 18,
+    fontFamily : 'BradleyHandITCTT-Bold',
+    fontWeight : 'bold',
+    color: colors.white,
+    paddingTop: 20
+  }
 }
 
 export default textStyle;

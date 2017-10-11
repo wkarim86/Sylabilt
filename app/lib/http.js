@@ -4,7 +4,7 @@ var http = axios.create({
   baseUrl  : settings.serverUrl,
   timeout  : settings.requestTimeout,
   headers  : {
-    'api_token' : settings.apiToken     
+    'api-token' : settings.apiToken     
   }
 });
 export default http;

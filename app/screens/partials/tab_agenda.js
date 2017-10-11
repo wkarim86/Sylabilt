@@ -10,12 +10,25 @@ import Http from '../../lib/http';
 import Config from '../../config/settings';
 import Loader from '../../components/Loader';
 import AgendaListView from '../../components/AgendaListView';
-
+Global = require('../../lib/global');
 export default class TabAgenda extends Component{
   constructor(props){
     super(props);
-
+    this._loadPost(0);
   }
+
+
+  _loadPost = (offset : int) => {
+    const limit = 10; //10 posts per request
+    var url = Config.endPointLocal + Config.apis.post + Global.userInfo.id + '/' + limit;
+    console.log("========== URL: " + url);
+    Http.get(url, {offset : offset})
+    .then( (responseJson) => {
+      console.log('Response');
+      console.log(responseJson.data);
+    })
+  }
+
   render () {
       const cards = {
           homework  : require('../../image/card-blue.png'),

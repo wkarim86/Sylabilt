@@ -33,7 +33,8 @@ class UserSignin extends Component {
     //initialize Loader
     this.setState({isLoading: true});
 
-    const loginUrl = Settings.endPoint + Settings.apis.login;
+    const loginUrl = Settings.endPointLocal + Settings.apis.login;
+    console.log(loginUrl);
     Http.post(loginUrl, {username: this.state.username, password: this.state.password}).then( (responseJson)=>{
       let response = responseJson.data.data;
 

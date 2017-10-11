@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { View, Image, ImageBackground, Text, ScrollView} from 'react-native';
+import { View, Image, ImageBackground, Text, ScrollView,TouchableHighlight} from 'react-native';
 import {Container, Body, Content, Header, Left, Right, Button, Icon, Label, Input, ListItem, List} from  'native-base';
 import {Grid, Col, Row} from 'react-native-easy-grid';
 import colors from '../strings/colors';
@@ -26,13 +26,24 @@ class AgendaListView extends Component{
 
             <View style={{marginTop : 50, paddingLeft:20}}>
               <Text style={textStyle.textDue}>Due:</Text>
-              <Text style={textStyle.textDue}>Oct</Text>
-              <Text style={textStyle.textDate}>24</Text>
-              <Text style={textStyle.textWeekName}>Tuesday</Text>
+              <Text style={textStyle.textDue}>Sep</Text>
+              <Text style={textStyle.textDate}>13</Text>
+              <Text style={textStyle.textWeekName}>Wednesday</Text>
+            </View>
+
+            <View style={{paddingTop : 20}}>
+              <Button transparent onPress={()=> {console.log('task type clicked')}}>
+                <Text style={textStyle.labelWhiteItalic}>{('homework').toUpperCase()}</Text>
+              </Button>
             </View>
 
           </View>
-          <View style={{flex:0.6}}></View>
+          <View style={{flex:0.6, flexDirection: 'column', justifyContent:'center'}}>
+
+              <Text style={textStyle.textClass}>Mathematics</Text>
+              <Text style={textStyle.taskDescription} ellipsizeMode='tail' numberOfLines={3}>Task description goes here</Text>
+
+          </View>
 
         </View>
       </ImageBackground>

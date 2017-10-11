@@ -39,7 +39,7 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -47,6 +47,8 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>AmaticSC-Regular.ttf</string>
+		<string>Daniel-Bold.otf</string>
 		<string>SteelfishRg-Italic.ttf</string>
 		<string>SteelfishRg-Regular.ttf</string>
 		<string>Entypo.ttf</string>
@@ -61,11 +63,9 @@
 		<string>rubicon-icon-font.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
-		<string>MaterialCommunityIcons.ttf</string>
 		<string>Feather.ttf</string>
-		<string>AmaticSC-Regular.ttf</string>
-		<string>Bradley_Hand_ITC.ttf</string>
-		<string>Daniel-Bold.otf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>Bradley-Hand-ITC.ttf</string>
 	</array>
 </dict>
 </plist>
