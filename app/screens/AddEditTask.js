@@ -6,7 +6,8 @@ import {
   View,
   TextInput,
   ImageBackground,
-  Picker
+  Picker,
+  Alert
 } from 'react-native';
 import {Container, Body, Content, Header, Left, Right, Button, Icon, Label, Input, ListItem, List} from  'native-base';
 import {Grid, Col, Row} from 'react-native-easy-grid';
@@ -21,6 +22,7 @@ import Loader from '../components/Loader';
 import TaskTypeDropdown from '../components/TaskTypeDropdown';
 import DateTimePicker from 'react-native-datepicker';
 import PickerView from '../components/PickerView';
+import lang from '../strings/values_en';
 Global  = require('../lib/global');
 var classData = [];
 var repeatData = [
@@ -46,14 +48,16 @@ var formData = {
   parent : 0,
   task_type : null,
   description : null,
-  options : {
+  option_values : {
     alert : { label : null, option_id : null ,option_value : null},
     date :  { label : null, option_id : null ,option_value : null},
     repeat : { label : null, option_id : null ,option_value : null},
   },
   classTitle : null
 };
+
 var options = [];
+
 class AddEditTask extends Component{
   constructor(props){
     super(props);
@@ -89,11 +93,12 @@ class AddEditTask extends Component{
 
 
   loadClass = () => {
-    let url = Config.endPointLocal + Config.apis.getClass + Global.userInfo.id;
+    let url = Config.endPointLocal + Config.apis.getClass +'/' + Global.userInfo.id;
     Http.get(url)
     .then( (responseJson) => {
       let response = responseJson.data.data;
-
+      console.log('loadCLass');
+      console.log(response);
       response.map((value, index) => {
         classData.push({label : value.title, value: value.id});
       })
@@ -104,29 +109,23 @@ class AddEditTask extends Component{
   }
 
 
-  confirmHandle = (value) => {
-
-    if(classData) {
-      formData.parent = value
-      this.setState({formData: {parent : value}});
-      classData.forEach( (item) => {
-        if(item.value == value) {
-          formData.classTitle = item.label;
-        }
-      })
-      this.refs.ClassPicker.hide();
-    }else{
-      this.navigation.navigate("addclass");
-    }
-
+  classConfirmHandle = (value) => {
+    formData.parent = value
+        this.setState({formData: {parent : value}});
+        classData.forEach( (item) => {
+          if(item.value == value) {
+            formData.classTitle = item.label;
+          }
+        })
+        this.refs.ClassPicker.hide();
   }
 
   repeatConfirmHandle = (value) => {
 
       repeatData.forEach( (item) => {
         if(item.value == value) {
-          formData.options.repeat.option_value = item.label;
-          formData.options.repeat.label = item.label;
+          formData.option_values.repeat.option_value = item.label;
+          formData.option_values.repeat.label = item.label;
           this.setState({repeatSelectedValue : item.value});
 
         }
@@ -137,46 +136,39 @@ class AddEditTask extends Component{
   }
 
   alertConfirmHandle = (value) => {
-
       alertData.forEach( (item) => {
         if(item.value == value) {
-          formData.options.alert.label = item.label;
-          formData.options.alert.option_value = item.value;
+          formData.option_values.alert.label = item.label;
+          formData.option_values.alert.option_value = item.value;
           this.setState({alertSelectedValue : item.value});
-
         }
       })
       this.refs.AlertPicker.hide();
-
-
   }
 
   setDate = (date) => {
-    formData.options.date.option_value = date;
+    formData.option_values.date.option_value = date;
     this.setState({date : date});
   }
 
   onSubmit = () => {
-    console.log(options);
     let url = Config.endPointLocal + Config.apis.createPost + formData.task_type;
-
-    console.log(formData.options);
 
     if(!formData.task_type || formData.task_type == null){
       alert('Task type is required');
       return;
     }
-
      if(!formData.parent || formData.parent == 0){
        alert('Class is required');
        return;
      }
 
+     //Fix this portion don't need to create extra array
      //prepare options
      var postOptions = [];
-     postOptions.push(formData.options.alert);
-     postOptions.push(formData.options.repeat);
-     postOptions.push(formData.options.date);
+     postOptions.push(formData.option_values.alert);
+     postOptions.push(formData.option_values.repeat);
+     postOptions.push(formData.option_values.date);
 
      //parse only valid data
      var optionParam = [];
@@ -188,7 +180,7 @@ class AddEditTask extends Component{
        }
      });
 
-
+    console.log(optionParam);
 
     Http.post(url,formData)
     .then( (responseJson) => {
@@ -196,9 +188,6 @@ class AddEditTask extends Component{
       console.log(response);
       if(!response.error){
         alert('Task successfully created');
-        if(optionParam.length > 0){
-          this._addPostOptions({post_id : response.data.id, option_values : optionParam});
-        }
         this.props.navigation.navigate("home");
       }else{
         alert(response.data);
@@ -209,29 +198,20 @@ class AddEditTask extends Component{
     })
   }
 
-  _addPostOptions (params) {
-    let url = Config.endPointLocal + Config.apis.addPostOptions;
 
-    Http.post(url, params)
-    .then( (responseJson) => {
-      if(!responseJson.data.error){
-        console.log(responseJson.data.data);
-      }
-    });
-
-  }
 
   _loadPostOptions(){
     var output;
     let url = Config.endPointLocal + Config.apis.getPostOptions;
+
     Http.get(url).
     then((responseJson) => {
       output =  responseJson.data.data;
       options = output;
       //assign option ids
-      formData.options.alert.option_id = this._getOptionsId("Alert");
-      formData.options.repeat.option_id = this._getOptionsId("Repeat");
-      formData.options.date.option_id = this._getOptionsId("Date");
+      formData.option_values.alert.option_id = this._getOptionsId("Alert");
+      formData.option_values.repeat.option_id = this._getOptionsId("Repeat");
+      formData.option_values.date.option_id = this._getOptionsId("Date");
 
     });
     return output;
@@ -239,13 +219,29 @@ class AddEditTask extends Component{
 
   _getOptionsId(key){
     var output;
-    options.map((value, index) => {
+    options.map( (value, index) => {
       if(value.option_name == key){
-        output = value.option_id;
+        output = value.id;
       }
     });
     return output;
   }
+
+
+
+  openClassSelectionDropdown = () => {
+    if(classData.length == 0) {
+      Alert.alert(
+        lang.text_heading_class_error,
+        lang.text_error_class_notfound,
+        [{text : 'Not Now', style:'cancel'}, {text: 'Add Class', onPress : ()=> { this.props.navigation.navigate('addclass')}}],
+        {cancelable: true}
+        )
+    }else{
+      this.toggleDropdown(this.refs.ClassPicker);
+    }
+  }
+
 
   render(){
     const {navigate} = this.props.navigation;
@@ -326,7 +322,7 @@ class AddEditTask extends Component{
               <Icon name="arrow-forward" />
             </Right>
           </ListItem>
-          <ListItem icon style={{backgroundColor:'transparent'}} onPress={() => { this.toggleDropdown(this.refs.ClassPicker) }}>
+          <ListItem icon style={{backgroundColor:'transparent'}} onPress={() => { this.openClassSelectionDropdown()}}>
             <Body>
               <Text style={textStyles.textBig40}>Class</Text>
             </Body>
@@ -340,7 +336,7 @@ class AddEditTask extends Component{
               <Text style={textStyles.textBig40}>Alert</Text>
             </Body>
             <Right>
-              <Text>{(formData.options.alert.label) ? formData.options.alert.label : "None" }</Text>
+              <Text>{(formData.option_values.alert.label) ? formData.option_values.alert.label : "None" }</Text>
               <Icon name="arrow-forward" />
             </Right>
           </ListItem>
@@ -350,7 +346,7 @@ class AddEditTask extends Component{
               <Text style={textStyles.textBig40}>Repeat</Text>
             </Body>
             <Right>
-              <Text>{ (formData.options.repeat.label) ? formData.options.repeat.label : 'None'}</Text>
+              <Text>{ (formData.option_values.repeat.label) ? formData.option_values.repeat.label : 'None'}</Text>
               <Icon name="arrow-forward" />
             </Right>
           </ListItem>
@@ -367,8 +363,8 @@ class AddEditTask extends Component{
       <PickerView
         dataItems={classData}
         selectedIndex={formData.parent}
-        confirmCallback={ (value) => {this.confirmHandle(value)}}
-        confirmText={(classData) ? 'Confirm' : 'Add Class' }
+        confirmCallback={ (value) => {this.classConfirmHandle(value)}}
+        confirmText={(classData.length > 0) ? 'Confirm' : 'Add Class' }
         ref="ClassPicker"
       />
 

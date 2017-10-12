@@ -31,5 +31,7 @@ export default {
   text_logout : "Logout",
   text_add_meeting : "Add Group Meeting",
   text_add_class : "Add Class",
-  text_forgot_password : "Forgot Password"
+  text_forgot_password : "Forgot Password",
+  text_heading_class_error : "No class found",
+  text_error_class_notfound : "You need to select any class to assign the task. Add class first then create task."
 }

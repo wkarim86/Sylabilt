@@ -19,12 +19,12 @@ import Config from '../config/settings';
 import lang from '../strings/values_en';
 import styles from '../styles';
 import textStyles from '../styles/text';
-
-
+import PickerView from '../components/PickerView';
+import DateTimePicker from 'react-native-datepicker';
 class AddClass extends Component{
   constructor(props){
     super(props);
-    this.state = {selectedIndex : 0};
+    this.state = {daySelectedIndex : 0};
   }
   render(){
     const {navigate} = this.props.navigation;
@@ -61,14 +61,14 @@ class AddClass extends Component{
             <SegmentedControlIOS
             tintColor='#55C77D'
               values={['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']}
-              selectedIndex={this.state.selectedIndex}
+              selectedIndex={this.state.daySelectedIndex}
               onChange={(event) => {
-                this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex});
+                this.setState({daySelectedIndex: event.nativeEvent.selectedSegmentIndex});
               }}
               />
             </Body>
             <Right>
-              <Icon name="arrow-forward" />
+
             </Right>
             </ListItem>
 
@@ -88,7 +88,7 @@ class AddClass extends Component{
 
           </Row>
           <Row size={0.2} style={{justifyContent:'space-between', paddingLeft:20, paddingRight:20}}>
-            <TouchableHighlight>
+            <TouchableHighlight onPress={() => navigate('addtask')}>
               <Text style={textStyles.textLinkWhite17}>{lang.text_cancel}</Text>
               </TouchableHighlight>
 
