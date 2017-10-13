@@ -48,12 +48,7 @@ var formData = {
   parent : 0,
   task_type : null,
   description : null,
-  option_values : {
-    alert : { label : null, option_id : null ,option_value : null},
-    date :  { label : null, option_id : null ,option_value : null},
-    repeat : { label : null, option_id : null ,option_value : null},
-  },
-  classTitle : null
+  option_values : null
 };
 
 var options = [];
@@ -62,185 +57,10 @@ class AddEditTask extends Component{
   constructor(props){
     super(props);
     this.state = {isVisible : false};
-    console.log(Global.userInfo);
     formData.user_id = Global.userInfo.id;
     this.loadClass();
-    this._loadPostOptions();
-
   }
 
-  toggleVisible() {
-    if(this.state.isVisible){
-      this.setState({isVisible : false});
-    }else{
-      this.setState({isVisible : true});
-    }
-  }
-
-  toggleDropdown = (Ref) => {
-    let currentState = Ref.isOpen();
-    if(currentState){
-      Ref.hide();
-    }else{
-      Ref.show();
-    }
-  }
-
-  TaskTypeCallback = (value) => {
-    formData.task_type = value;
-    this.setState({isVisible:false});
-  }
-
-
-  loadClass = () => {
-    let url = Config.endPointLocal + Config.apis.getClass +'/' + Global.userInfo.id;
-    Http.get(url)
-    .then( (responseJson) => {
-      let response = responseJson.data.data;
-      console.log('loadCLass');
-      console.log(response);
-      response.map((value, index) => {
-        classData.push({label : value.title, value: value.id});
-      })
-
-    }).catch( (error)=> {
-      console.log(error);
-    })
-  }
-
-
-  classConfirmHandle = (value) => {
-    formData.parent = value
-        this.setState({formData: {parent : value}});
-        classData.forEach( (item) => {
-          if(item.value == value) {
-            formData.classTitle = item.label;
-          }
-        })
-        this.refs.ClassPicker.hide();
-  }
-
-  repeatConfirmHandle = (value) => {
-
-      repeatData.forEach( (item) => {
-        if(item.value == value) {
-          formData.option_values.repeat.option_value = item.label;
-          formData.option_values.repeat.label = item.label;
-          this.setState({repeatSelectedValue : item.value});
-
-        }
-      })
-      this.refs.RepeatPicker.hide();
-
-
-  }
-
-  alertConfirmHandle = (value) => {
-      alertData.forEach( (item) => {
-        if(item.value == value) {
-          formData.option_values.alert.label = item.label;
-          formData.option_values.alert.option_value = item.value;
-          this.setState({alertSelectedValue : item.value});
-        }
-      })
-      this.refs.AlertPicker.hide();
-  }
-
-  setDate = (date) => {
-    formData.option_values.date.option_value = date;
-    this.setState({date : date});
-  }
-
-  onSubmit = () => {
-    let url = Config.endPointLocal + Config.apis.createPost + formData.task_type;
-
-    if(!formData.task_type || formData.task_type == null){
-      alert('Task type is required');
-      return;
-    }
-     if(!formData.parent || formData.parent == 0){
-       alert('Class is required');
-       return;
-     }
-
-     //Fix this portion don't need to create extra array
-     //prepare options
-     var postOptions = [];
-     postOptions.push(formData.option_values.alert);
-     postOptions.push(formData.option_values.repeat);
-     postOptions.push(formData.option_values.date);
-
-     //parse only valid data
-     var optionParam = [];
-     postOptions.map((value, index) => {
-       if(value.option_value == null || !value.option_value){
-         return;
-       }else{
-         optionParam.push(value);
-       }
-     });
-
-    console.log(optionParam);
-
-    Http.post(url,formData)
-    .then( (responseJson) => {
-      let response = responseJson.data;
-      console.log(response);
-      if(!response.error){
-        alert('Task successfully created');
-        this.props.navigation.navigate("home");
-      }else{
-        alert(response.data);
-      }
-    })
-    .catch( (error) => {
-      console.log(error);
-    })
-  }
-
-
-
-  _loadPostOptions(){
-    var output;
-    let url = Config.endPointLocal + Config.apis.getPostOptions;
-
-    Http.get(url).
-    then((responseJson) => {
-      output =  responseJson.data.data;
-      options = output;
-      //assign option ids
-      formData.option_values.alert.option_id = this._getOptionsId("Alert");
-      formData.option_values.repeat.option_id = this._getOptionsId("Repeat");
-      formData.option_values.date.option_id = this._getOptionsId("Date");
-
-    });
-    return output;
-  }
-
-  _getOptionsId(key){
-    var output;
-    options.map( (value, index) => {
-      if(value.option_name == key){
-        output = value.id;
-      }
-    });
-    return output;
-  }
-
-
-
-  openClassSelectionDropdown = () => {
-    if(classData.length == 0) {
-      Alert.alert(
-        lang.text_heading_class_error,
-        lang.text_error_class_notfound,
-        [{text : 'Not Now', style:'cancel'}, {text: 'Add Class', onPress : ()=> { this.props.navigation.navigate('addclass')}}],
-        {cancelable: true}
-        )
-    }else{
-      this.toggleDropdown(this.refs.ClassPicker);
-    }
-  }
 
 
   render(){
@@ -264,20 +84,6 @@ class AddEditTask extends Component{
         </View>
 
         <List>
-
-        <ListItem icon style={{backgroundColor:'transparent'}}>
-        <Left>
-          <Text style={textStyles.textBig40}>Title</Text>
-        </Left>
-          <Body>
-            <TextInput placeholder="Enter title" onChangeText={(value) => { formData.title = value }} />
-
-          </Body>
-          <Right>
-            <Icon name="arrow-forward" />
-          </Right>
-        </ListItem>
-
 
 
           <ListItem icon onPress={() => { this.toggleVisible() }} style={{backgroundColor:'transparent'}}>
@@ -387,6 +193,155 @@ class AddEditTask extends Component{
       </Container>
     )
   }
+
+
+  setFormData = (...params) => {
+    this.setState({params});
+  }
+
+
+    toggleVisible() {
+      if(this.state.isVisible){
+        this.setState({isVisible : false});
+      }else{
+        this.setState({isVisible : true});
+      }
+    }
+
+    toggleDropdown = (Ref) => {
+      let currentState = Ref.isOpen();
+      if(currentState){
+        Ref.hide();
+      }else{
+        Ref.show();
+      }
+    }
+
+    TaskTypeCallback = (value) => {
+      formData.task_type = value;
+      this.setState({isVisible:false});
+    }
+
+
+    loadClass = () => {
+      let url = Config.endPointLocal + Config.apis.getClass +'/' + Global.userInfo.id;
+      Http.get(url)
+      .then( (responseJson) => {
+        let response = responseJson.data.data;
+        console.log('loadCLass');
+        console.log(response);
+        response.map((value, index) => {
+          classData.push({label : value.title, value: value.id});
+        })
+
+      }).catch( (error)=> {
+        console.log(error);
+      })
+    }
+
+
+    classConfirmHandle = (value) => {
+      formData.parent = value
+          this.setState({formData: {parent : value}});
+          classData.forEach( (item) => {
+            if(item.value == value) {
+              formData.classTitle = item.label;
+            }
+          })
+          this.refs.ClassPicker.hide();
+    }
+
+    repeatConfirmHandle = (value) => {
+
+        repeatData.forEach( (item) => {
+          if(item.value == value) {
+            formData.option_values.repeat.option_value = item.label;
+            formData.option_values.repeat.label = item.label;
+            this.setState({repeatSelectedValue : item.value});
+
+          }
+        })
+        this.refs.RepeatPicker.hide();
+
+
+    }
+
+    alertConfirmHandle = (value) => {
+        alertData.forEach( (item) => {
+          if(item.value == value) {
+            formData.option_values.alert.label = item.label;
+            formData.option_values.alert.option_value = item.value;
+            this.setState({alertSelectedValue : item.value});
+          }
+        })
+        this.refs.AlertPicker.hide();
+    }
+
+    setDate = (date) => {
+      formData.option_values.date.option_value = date;
+      this.setState({date : date});
+    }
+
+    onSubmit = () => {
+      let url = Config.endPointLocal + Config.apis.createPost + formData.task_type;
+
+      if(!formData.task_type || formData.task_type == null){
+        alert('Task type is required');
+        return;
+      }
+       if(!formData.parent || formData.parent == 0){
+         alert('Class is required');
+         return;
+       }
+
+       //Fix this portion don't need to create extra array
+       //prepare options
+       var postOptions = [];
+       postOptions.push(formData.option_values.alert);
+       postOptions.push(formData.option_values.repeat);
+       postOptions.push(formData.option_values.date);
+
+       //parse only valid data
+       var optionParam = [];
+       postOptions.map((value, index) => {
+         if(value.option_value == null || !value.option_value){
+           return;
+         }else{
+           optionParam.push(value);
+         }
+       });
+
+      console.log(optionParam);
+
+      Http.post(url,formData)
+      .then( (responseJson) => {
+        let response = responseJson.data;
+        console.log(response);
+        if(!response.error){
+          alert('Task successfully created');
+          this.props.navigation.navigate("home");
+        }else{
+          alert(response.data);
+        }
+      })
+      .catch( (error) => {
+        console.log(error);
+      })
+    }
+
+
+    openClassSelectionDropdown = () => {
+      if(classData.length == 0) {
+        Alert.alert(
+          lang.text_heading_class_error,
+          lang.text_error_class_notfound,
+          [{text : 'Not Now', style:'cancel'}, {text: 'Add Class', onPress : ()=> { this.props.navigation.navigate('addclass')}}],
+          {cancelable: true}
+          )
+      }else{
+        this.toggleDropdown(this.refs.ClassPicker);
+      }
+    }
 
 }
 export default AddEditTask;
