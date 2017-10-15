@@ -22,6 +22,9 @@ class Friends extends Component{
   constructor(props){
     super(props);
     this.loadFriendList();
+    const tempData = [{name : "John Mendoza", email: "johnmendoza@gmail.com", id: 1, avatar : require('../image/Home.png')}];
+    this.state = { friendlist : tempData};
+    
   }
 
   loadFriendList = () =>{
@@ -38,6 +41,15 @@ class Friends extends Component{
     })
   }
 
+  refreshData = () =>{
+    const ds = [{name : "Waqas Karim", email: "wkarim@gmail.com", id: 1, avatar : require('../image/Home.png')},{name : "Shabih Fatima", email: "shabih.fatima@gmail.com", id: 2, avatar : require('../image/Home.png')}];
+    this.setState({friendlist : ds});
+  }
+
+  searchbox = (value) => {
+    this.refreshData();
+  }
+
   render(){
     const {navigate} = this.props.navigation;
     return(
@@ -46,10 +58,10 @@ class Friends extends Component{
       <ImageBackground source={require('../image/ExportCalendarBg.png')} style={{width : '100%', height : '100%'}}>
       <Content>
         <View style={{padding : 20}}>
-            <SearchBox />
+            <SearchBox onChangeText = {this.searchbox}/>
          </View>
          <View style={{padding : 10}}>
-         <FriendsList dataList={[{name : "John Mendoza", email: "johnmendoza@gmail.com", id: 1, avatar : require('../image/Home.png')}]}/>
+         <FriendsList dataList={this.state.friendlist}/>
          </View>
       </Content>
       </ImageBackground>

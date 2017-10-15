@@ -11,6 +11,7 @@ import Config from '../../config/settings';
 import Loader from '../../components/Loader';
 import AgendaListView from '../../components/AgendaListView';
 Global = require('../../lib/global');
+
 export default class TabAgenda extends Component{
   constructor(props){
     super(props);
@@ -47,11 +48,17 @@ export default class TabAgenda extends Component{
       </View>
 
       <View style={{flex:0.2, height: 50}}>
-        <Text style={textStyle.whatsnext}>What's Next?</Text>
+        <Text style={textStyle.whatsnext}>Whats Next?</Text>
       </View>
 
       <ScrollView style={style.paddingAround}>
-          <AgendaListView card={cards.homework}/>
+        <List
+          dataArray={null}
+          renderRow={(data) => <AgendaListView card={cards.homework}/>}
+        >
+
+        </List>
+
       </ScrollView>
 
       </View>

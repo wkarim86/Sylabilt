@@ -26,32 +26,33 @@ import lang from '../strings/values_en';
 Global  = require('../lib/global');
 var classData = [];
 var repeatData = [
-  {label : 'Daily', value:1},
-  {label : 'Weekly', value:2},
-  {label : 'Monthly', value:3},
-  {label : 'Yearly', value:4}
+  {label : 'Daily', value:'DAILY'},
+  {label : 'Weekly', value:'WEEKLY'},
+  {label : 'Monthly', value:'MONTHLY'},
+  {label : 'Yearly', value:'YEARLY'}
 ];
 
 var alertData = [
-  {label : 'At time of event', value : 1},
-  {label : '5 minutes before', value : 2},
-  {label : '10 minutes before', value : 3},
-  {label : '15 minutes before', value : 4},
-  {label : '30 minutes before', value : 5},
-  {label : '1 hour before', value : 6},
-  {label : '2 hours before', value : 7},
-  {label : '1 day before', value : 8},
-  {label : '2 days before', value : 9},
+  {label : 'At time of event', value : null},
+  {label : '5 minutes before', value : '-PT5M'},
+  {label : '10 minutes before', value : '-PT10M'},
+  {label : '15 minutes before', value : '-PT15M'},
+  {label : '30 minutes before', value : '-PT30M'},
+  {label : '1 hour before', value : '-PT1H'},
+  {label : '2 hours before', value : '-PT2H'},
+  {label : '1 day before', value : '-P1D'},
+  {label : '2 days before', value : '-P2D'},
 ];
 var formData = {
+  user_id  : null,
   title : null,
   parent : 0,
   task_type : null,
   description : null,
-  option_values : null
+  option_values : []
 };
 
-var options = [];
+
 
 class AddEditTask extends Component{
   constructor(props){
@@ -91,7 +92,7 @@ class AddEditTask extends Component{
               <Text style={textStyles.textBig40}>Task Type</Text>
             </Body>
             <Right>
-              <Text>{(formData.task_type) ? formData.task_type : 'None'}</Text>
+              <Text>{(this.state.task_label) ? this.state.task_label : 'None'}</Text>
               <Icon name="arrow-forward" />
             </Right>
           </ListItem>
@@ -133,7 +134,7 @@ class AddEditTask extends Component{
               <Text style={textStyles.textBig40}>Class</Text>
             </Body>
             <Right>
-              <Text>{ (formData.classTitle) ? formData.classTitle : 'None' }</Text>
+              <Text>{ (this.state.class_label) ? this.state.class_label : 'None' }</Text>
               <Icon name="arrow-forward" />
             </Right>
           </ListItem>
@@ -142,7 +143,7 @@ class AddEditTask extends Component{
               <Text style={textStyles.textBig40}>Alert</Text>
             </Body>
             <Right>
-              <Text>{(formData.option_values.alert.label) ? formData.option_values.alert.label : "None" }</Text>
+              <Text>{(this.state.alert_label) ? this.state.alert_label : "None" }</Text>
               <Icon name="arrow-forward" />
             </Right>
           </ListItem>
@@ -152,7 +153,7 @@ class AddEditTask extends Component{
               <Text style={textStyles.textBig40}>Repeat</Text>
             </Body>
             <Right>
-              <Text>{ (formData.option_values.repeat.label) ? formData.option_values.repeat.label : 'None'}</Text>
+              <Text>{ (this.state.repeat_label) ? this.state.repeat_label : 'None'}</Text>
               <Icon name="arrow-forward" />
             </Right>
           </ListItem>
@@ -218,8 +219,8 @@ class AddEditTask extends Component{
     }
 
     TaskTypeCallback = (value) => {
+      this.setState({isVisible:false, task_label: value.toUpperCase()});
       formData.task_type = value;
-      this.setState({isVisible:false});
     }
 
 
@@ -231,7 +232,7 @@ class AddEditTask extends Component{
         console.log('loadCLass');
         console.log(response);
         response.map((value, index) => {
-          classData.push({label : value.title, value: value.id});
+          classData.push({label : value.description, value: value.id});
         })
 
       }).catch( (error)=> {
@@ -241,24 +242,20 @@ class AddEditTask extends Component{
 
 
     classConfirmHandle = (value) => {
-      formData.parent = value
-          this.setState({formData: {parent : value}});
+          formData.parent = value
           classData.forEach( (item) => {
             if(item.value == value) {
-              formData.classTitle = item.label;
+              this.setState({class_label : item.label});
             }
           })
-          this.refs.ClassPicker.hide();
+        this.refs.ClassPicker.hide();
     }
 
     repeatConfirmHandle = (value) => {
-
+        formData.option_values.push({repeat : value});
         repeatData.forEach( (item) => {
           if(item.value == value) {
-            formData.option_values.repeat.option_value = item.label;
-            formData.option_values.repeat.label = item.label;
-            this.setState({repeatSelectedValue : item.value});
-
+            this.setState({repeatSelectedValue : item.value, repeat_label : item.label});
           }
         })
         this.refs.RepeatPicker.hide();
@@ -267,23 +264,29 @@ class AddEditTask extends Component{
     }
 
     alertConfirmHandle = (value) => {
+      formData.option_values.push({alert : value})
         alertData.forEach( (item) => {
           if(item.value == value) {
-            formData.option_values.alert.label = item.label;
-            formData.option_values.alert.option_value = item.value;
-            this.setState({alertSelectedValue : item.value});
+            this.setState({alertSelectedValue : item.value, alert_label : item.label});
           }
         })
         this.refs.AlertPicker.hide();
     }
 
     setDate = (date) => {
-      formData.option_values.date.option_value = date;
       this.setState({date : date});
+      formData.option_values.push({date : date});
     }
 
     onSubmit = () => {
-      let url = Config.endPointLocal + Config.apis.createPost + formData.task_type;
+      let url = Config.endPointLocal + Config.apis.createPost + '/' +  formData.task_type;
+      console.log(url);
+      console.log("onSubmit : ");
+      console.log(formData);
+
+      if(!formData.description || formData.description == null){
+        alert('Description is required');
+      }
 
       if(!formData.task_type || formData.task_type == null){
         alert('Task type is required');
@@ -294,24 +297,7 @@ class AddEditTask extends Component{
          return;
        }
 
-       //Fix this portion don't need to create extra array
-       //prepare options
-       var postOptions = [];
-       postOptions.push(formData.option_values.alert);
-       postOptions.push(formData.option_values.repeat);
-       postOptions.push(formData.option_values.date);
 
-       //parse only valid data
-       var optionParam = [];
-       postOptions.map((value, index) => {
-         if(value.option_value == null || !value.option_value){
-           return;
-         }else{
-           optionParam.push(value);
-         }
-       });
-
-      console.log(optionParam);
 
       Http.post(url,formData)
       .then( (responseJson) => {
