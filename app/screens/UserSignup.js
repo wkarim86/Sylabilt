@@ -96,11 +96,9 @@ class UserSignup extends Component {
     const {navigate} = this.props.navigation;
     return (
       <Container>
-        {
-          Utils.renderIf(this.state.isLoading,
-            <Loader show={this.state.isLoading} size="large"/>
-          )
-        }
+
+        <Loader show={this.state.isLoading} size="large"/>
+
        <ImageBackground source={require('../image/registerbg.png')} style={styles.signupBg}>
          <Grid>
             <Row size={1} >

@@ -14,15 +14,21 @@ class Loader extends Component{
     super(props);
   }
   render(){
-    return(
-      <View style={styles.loader}>
-          <ActivityIndicator
-              animating={this.props.show}
-              size={this.props.size}
-              color="white"
-           />
-      </View>
-    )
+    
+      {
+        if(this.props.show) {
+          return <View style={styles.loader}>
+              <ActivityIndicator
+                  animating={this.props.show}
+                  size={this.props.size}
+                  color="white"
+               />
+          </View>
+        }else{
+          return null;
+        }
+      }
+
   }
 }
 export default Loader;

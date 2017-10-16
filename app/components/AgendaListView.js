@@ -9,8 +9,19 @@ import Utils from '../lib/utils';
 import Http from '../lib/http';
 import Config from '../config/settings';
 import Loader from '../components/Loader';
+const cards = [
+    { type : 'homework', value : require('../image/card-blue.png')},
+    { type : 'test', value  : require('../image/card-red.png')},
+    { type : 'quiz',  value : require('../image/card-yellow.png')},
+    { type : 'review', value : require('../image/card-orange.png')},
+    { type : 'misc', value  : require('../image/card-purple.png')}
+  ];
+
+
 
 class AgendaListView extends Component{
+
+
   constructor(props){
     super(props);
 
@@ -19,7 +30,7 @@ class AgendaListView extends Component{
   render(){
     return(
       <View style={{paddingBottom: 50}}>
-      <ImageBackground source={this.props.card} style={{width: '100%', height: 300}}>
+      <ImageBackground source={this._getCard(this.props.data.type)} style={{width: '100%', height: 300}}>
         <View style={{flex:1,flexDirection: 'row'}}>
 
           <View style={{flex:0.4, flexDirection:'column'}}>
@@ -33,15 +44,15 @@ class AgendaListView extends Component{
 
             <View style={{paddingTop : 20}}>
               <Button transparent onPress={()=> {console.log('task type clicked')}}>
-                <Text style={textStyle.labelWhiteItalic}>{('homework').toUpperCase()}</Text>
+                <Text style={textStyle.labelWhiteItalic}>{ this.props.data.type.toUpperCase()}</Text>
               </Button>
             </View>
 
           </View>
           <View style={{flex:0.6, flexDirection: 'column', justifyContent:'center'}}>
 
-              <Text style={textStyle.textClass}>Mathematics</Text>
-              <Text style={textStyle.taskDescription} ellipsizeMode='tail' numberOfLines={3}>Task description goes here</Text>
+              <Text style={textStyle.textClass} ellipsizeMode='tail' numberOfLines={1}>{this.props.data.class}</Text>
+              <Text style={textStyle.taskDescription} ellipsizeMode='tail' numberOfLines={3}>{this.props.data.description}</Text>
 
           </View>
 
@@ -49,6 +60,16 @@ class AgendaListView extends Component{
       </ImageBackground>
       </View>
     )
+  }
+
+  _getCard(keyword) {
+    let output = null;
+    cards.forEach( (item, key) => {
+      if(item.type == keyword){
+        output = item.value;
+      }
+    })
+    return output;
   }
 
 }

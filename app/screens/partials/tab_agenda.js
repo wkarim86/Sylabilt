@@ -13,34 +13,39 @@ import AgendaListView from '../../components/AgendaListView';
 Global = require('../../lib/global');
 
 export default class TabAgenda extends Component{
+
   constructor(props){
     super(props);
-    this._loadPost(0);
+    this.state = {dataSource : [], isLoading : true};
   }
 
+  componentDidMount(){
+    this._loadPost(0);
+  }
 
   _loadPost = (offset : int) => {
     const limit = 10; //10 posts per request
     var url = Config.endPointLocal + Config.apis.post + Global.userInfo.id + '/' + limit;
-    console.log("========== URL: " + url);
+
     Http.get(url, {offset : offset})
     .then( (responseJson) => {
       console.log('Response');
-      console.log(responseJson.data);
+      this.reloadData(responseJson.data.data);
+    }).
+    catch( (error) => {
+      console.log(error);
     })
   }
 
-  render () {
-      const cards = {
-          homework  : require('../../image/card-blue.png'),
-          test  : require('../../image/card-red.png'),
-          quiz  : require('../../image/card-yellow.png'),
-          review : require('../../image/card-orange.png'),
-          misc  : require('../../image/card-purple.png')
-      }
-    return (
-      <View>
+  reloadData = ( obj ) => {
+    this.setState({dataSource : obj, isLoading:  false});
+  }
 
+  render () {
+
+    return (
+      <View style={{flex:1}}>
+        <Loader show={this.state.isLoading} size="large"/>
       <View>
       <Button transparent style={{alignSelf:'flex-end', marginRight:10, marginTop:20}}>
         <Image source={require('../../image/legendbutton.png')} style={{resizeMode:'contain', width:30}}/>
@@ -53,11 +58,9 @@ export default class TabAgenda extends Component{
 
       <ScrollView style={style.paddingAround}>
         <List
-          dataArray={null}
-          renderRow={(data) => <AgendaListView card={cards.homework}/>}
-        >
-
-        </List>
+          dataArray={this.state.dataSource}
+          renderRow={(item) => <AgendaListView data={item} />  }
+        />
 
       </ScrollView>
 

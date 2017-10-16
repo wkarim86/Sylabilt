@@ -26,6 +26,7 @@ import lang from '../strings/values_en';
 Global  = require('../lib/global');
 var classData = [];
 var repeatData = [
+  {label : 'None', value:null},
   {label : 'Daily', value:'DAILY'},
   {label : 'Weekly', value:'WEEKLY'},
   {label : 'Monthly', value:'MONTHLY'},
@@ -33,7 +34,8 @@ var repeatData = [
 ];
 
 var alertData = [
-  {label : 'At time of event', value : null},
+  {label : 'None', value : null},
+  {label : 'At time of event', value : '-PT0M'},
   {label : '5 minutes before', value : '-PT5M'},
   {label : '10 minutes before', value : '-PT10M'},
   {label : '15 minutes before', value : '-PT15M'},
@@ -49,7 +51,7 @@ var formData = {
   parent : 0,
   task_type : null,
   description : null,
-  option_values : []
+  options : []
 };
 
 
@@ -57,7 +59,7 @@ var formData = {
 class AddEditTask extends Component{
   constructor(props){
     super(props);
-    this.state = {isVisible : false};
+    this.state = {isVisible : false, isLoading : false};
     formData.user_id = Global.userInfo.id;
     this.loadClass();
   }
@@ -70,6 +72,7 @@ class AddEditTask extends Component{
     return(
       <Container>
       <Topbar title="Add Task" {...this.props} />
+      <Loader show={this.state.isLoading} size="large"/>
       <ImageBackground source={require('../image/agendabg.png')} style={{width: '100%', height : '100%'}}>
       <Content>
       {
@@ -86,7 +89,6 @@ class AddEditTask extends Component{
 
         <List>
 
-
           <ListItem icon onPress={() => { this.toggleVisible() }} style={{backgroundColor:'transparent'}}>
             <Body>
               <Text style={textStyles.textBig40}>Task Type</Text>
@@ -98,15 +100,15 @@ class AddEditTask extends Component{
           </ListItem>
           <ListItem icon style={{backgroundColor:'transparent'}}>
             <Body>
-              <Text style={textStyles.textBig40}>Date</Text>
+              <Text style={textStyles.textBig40}>Start Date</Text>
             </Body>
             <Right>
 
             <DateTimePicker
-              date={this.state.date}
+              date={this.state.start_date}
               mode="datetime"
               placeholder="None"
-              format="YYYY-MM-DD h:mm:ss"
+              format="YYYY-MM-DD H:mm"
               confirmBtnText="Confirm"
               cancelBtnText="Cancel"
               showIcon={false}
@@ -129,6 +131,41 @@ class AddEditTask extends Component{
               <Icon name="arrow-forward" />
             </Right>
           </ListItem>
+
+          <ListItem icon style={{backgroundColor:'transparent'}}>
+            <Body>
+              <Text style={textStyles.textBig40}>End Date</Text>
+            </Body>
+            <Right>
+
+            <DateTimePicker
+              date={this.state.end_date}
+              mode="datetime"
+              placeholder="None"
+              format="YYYY-MM-DD H:mm"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              showIcon={false}
+              customStyles={{
+              dateIcon: {
+              position: 'absolute',
+              left: 0,
+              top: 4,
+              marginLeft: 0
+              },
+              dateInput: {
+              borderWidth:0,
+
+            }
+              // ... You can check the source to find the other keys.
+              }}
+                onDateChange={(edate) => { this.setEndDate(edate) }}
+          />
+
+              <Icon name="arrow-forward" />
+            </Right>
+          </ListItem>
+
           <ListItem icon style={{backgroundColor:'transparent'}} onPress={() => { this.openClassSelectionDropdown()}}>
             <Body>
               <Text style={textStyles.textBig40}>Class</Text>
@@ -252,7 +289,7 @@ class AddEditTask extends Component{
     }
 
     repeatConfirmHandle = (value) => {
-        formData.option_values.push({repeat : value});
+        formData.options.push({repeat : value});
         repeatData.forEach( (item) => {
           if(item.value == value) {
             this.setState({repeatSelectedValue : item.value, repeat_label : item.label});
@@ -264,7 +301,7 @@ class AddEditTask extends Component{
     }
 
     alertConfirmHandle = (value) => {
-      formData.option_values.push({alert : value})
+      formData.options.push({alert : value})
         alertData.forEach( (item) => {
           if(item.value == value) {
             this.setState({alertSelectedValue : item.value, alert_label : item.label});
@@ -274,8 +311,13 @@ class AddEditTask extends Component{
     }
 
     setDate = (date) => {
-      this.setState({date : date});
-      formData.option_values.push({date : date});
+      this.setState({start_date : date});
+      formData.options.push({start_date : date});
+    }
+
+    setEndDate = (date) =>{
+      this.setState({end_date : date});
+      formData.options.push({end_date : date});
     }
 
     onSubmit = () => {
@@ -284,8 +326,11 @@ class AddEditTask extends Component{
       console.log("onSubmit : ");
       console.log(formData);
 
+
+
       if(!formData.description || formData.description == null){
         alert('Description is required');
+        return;
       }
 
       if(!formData.task_type || formData.task_type == null){
@@ -298,15 +343,18 @@ class AddEditTask extends Component{
        }
 
 
+      this.setState({isLoading : true});
 
       Http.post(url,formData)
       .then( (responseJson) => {
         let response = responseJson.data;
         console.log(response);
         if(!response.error){
+          this.setState({isLoading : false});
           alert('Task successfully created');
           this.props.navigation.navigate("home");
         }else{
+          this.setState({isLoading : false});
           alert(response.data);
         }
       })

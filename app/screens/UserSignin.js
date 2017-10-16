@@ -82,11 +82,9 @@ class UserSignin extends Component {
     const {navigate} = this.props.navigation;
     return (
         <Container>
-          {
-            Utils.renderIf(this.state.isLoading,
-              <Loader show={this.state.isLoading} size="large"/>
-            )
-          }
+
+          <Loader show={this.state.isLoading} size="large"/>
+
            <ImageBackground source={require('../image/loginbg.png')} style={{width :'100%', height:'100%', zIndex:1}}>
           <Grid>
             <Row size={1}>
