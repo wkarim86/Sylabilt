@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {ScrollView, Image} from 'react-native';
 import {Container, Content, List, ListItem, Text, Body, Left, Right, Header, Footer} from 'native-base';
 import colors from '../strings/colors';
+import textStyle from '../styles/text';
 import sidebarStyle from '../styles/sidebar';
 import Db from '../config/db';
 var db = new Db();
@@ -81,7 +82,7 @@ componentWillMount = () =>{
 }
 
 
-static refreshList(){  
+static refreshList(){
   menus[9].title = "Logout";
   menus[9].icon = require("../image/logoutico.png");
 }
@@ -91,7 +92,7 @@ static refreshList(){
       <Container>
       <Header style={{backgroundColor: colors.headerColor}}>
         <Left>
-          <Text>Username</Text>
+          <Text style={textStyle.labelUsername} ellipsizeMode='tail' numberOfLines={1}>{Global.userInfo.name}</Text>
         </Left>
         <Right>
           <Image source={require('../image/editprofileico.png')} style={{ width:40, height:40, resizeMode:'contain'}} />
