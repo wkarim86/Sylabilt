@@ -9,6 +9,7 @@ import Utils from '../lib/utils';
 import Http from '../lib/http';
 import Config from '../config/settings';
 import Loader from '../components/Loader';
+var moment = require('moment');
 const cards = [
     { type : 'homework', value : require('../image/card-blue.png')},
     { type : 'test', value  : require('../image/card-red.png')},
@@ -23,11 +24,12 @@ class AgendaListView extends Component{
 
 
   constructor(props){
-    super(props);
-
+    super(props);  
+    console.log(this.props.data.options);
   }
 
   render(){
+
     return(
       <View style={{paddingBottom: 50}}>
       <ImageBackground source={this._getCard(this.props.data.type)} style={{width: '100%', height: 300}}>
@@ -38,7 +40,7 @@ class AgendaListView extends Component{
             <View style={{marginTop : 50, paddingLeft:20}}>
               <Text style={textStyle.textDue}>Due:</Text>
               <Text style={textStyle.textDue}>Sep</Text>
-              <Text style={textStyle.textDate}>13</Text>
+              <Text style={textStyle.textDate}>15</Text>
               <Text style={textStyle.textWeekName}>Wednesday</Text>
             </View>
 
@@ -51,7 +53,7 @@ class AgendaListView extends Component{
           </View>
           <View style={{flex:0.6, flexDirection: 'column', justifyContent:'center'}}>
 
-              <Text style={textStyle.textClass} ellipsizeMode='tail' numberOfLines={1}>{this.props.data.class}</Text>
+              <Text style={textStyle.textClass} ellipsizeMode='tail' numberOfLines={1}>{this.props.data.taxonomy.class}</Text>
               <Text style={textStyle.taskDescription} ellipsizeMode='tail' numberOfLines={3}>{this.props.data.description}</Text>
 
           </View>

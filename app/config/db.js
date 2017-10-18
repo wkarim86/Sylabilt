@@ -39,7 +39,8 @@ class Db {
       phone : {type : 'string', optional :true},
       gender : {type :'int', optional : true},
       school : {type :'string', optional : true},
-      status : {type :'int', default :0,  optional : true}
+      status : {type :'int', default :0,  optional : true},
+      profile_pic : {type : 'string', default : null, optional : true}
     }
   }
 

@@ -186,8 +186,9 @@ const textStyle ={
     paddingTop: 20
   },
   labelUsername : {
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: 'BradleyHandITCTT-Bold',
+    fontWeight : 'bold',
     color: colors.black
   }
 }

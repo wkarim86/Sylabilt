@@ -262,6 +262,7 @@ class AddEditTask extends Component{
 
 
     loadClass = () => {
+      classData = [];
       let url = Config.endPointLocal + Config.apis.getClass +'/' + Global.userInfo.id;
       Http.get(url)
       .then( (responseJson) => {
