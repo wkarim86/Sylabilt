@@ -18,14 +18,18 @@ const cards = [
     { type : 'misc', value  : require('../image/card-purple.png')}
   ];
 
-
-
+const monthName = ['Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug','Sep','Oct','Nov', 'Dec'];
+const weekDay  = ['Sun','Monday','Tuesday', 'Wednesday', 'Thursday','Friday','Saturday'];
+const due = null;
 class AgendaListView extends Component{
 
 
   constructor(props){
-    super(props);  
+    super(props);
     console.log(this.props.data.options);
+    if(this.props.data.options.length > 0) {
+      due = new Date(this.props.data.options[0].option_values[0].end_date);
+    }
   }
 
   render(){
@@ -39,9 +43,9 @@ class AgendaListView extends Component{
 
             <View style={{marginTop : 50, paddingLeft:20}}>
               <Text style={textStyle.textDue}>Due:</Text>
-              <Text style={textStyle.textDue}>Sep</Text>
-              <Text style={textStyle.textDate}>15</Text>
-              <Text style={textStyle.textWeekName}>Wednesday</Text>
+              <Text style={textStyle.textDue}>{monthName[due.getMonth()]}</Text>
+              <Text style={textStyle.textDate}>{due.getDate()}</Text>
+              <Text style={textStyle.textWeekName}>{weekDay[due.getDay()]}</Text>
             </View>
 
             <View style={{paddingTop : 20}}>
@@ -73,6 +77,9 @@ class AgendaListView extends Component{
     })
     return output;
   }
+
+
+
 
 }
 

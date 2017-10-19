@@ -190,6 +190,13 @@ const textStyle ={
     fontFamily: 'BradleyHandITCTT-Bold',
     fontWeight : 'bold',
     color: colors.black
+  },
+  textNotFound : {
+    fontFamily : 'SteelfishRg-Regular',
+    fontSize : 25,
+    fontWeight: 'bold',
+    color : colors.white,
+    textAlign: 'center'
   }
 }
 

@@ -54,7 +54,7 @@ var formData = {
   options : []
 };
 
-
+var tempOptions = {};
 
 class AddEditTask extends Component{
   constructor(props){
@@ -270,7 +270,7 @@ class AddEditTask extends Component{
         console.log('loadCLass');
         console.log(response);
         response.map((value, index) => {
-          classData.push({label : value.description, value: value.id});
+          classData.push({label : value.class, value: value.post_id});
         })
 
       }).catch( (error)=> {
@@ -280,7 +280,8 @@ class AddEditTask extends Component{
 
 
     classConfirmHandle = (value) => {
-          formData.parent = value
+
+          formData.parent = value;
           classData.forEach( (item) => {
             if(item.value == value) {
               this.setState({class_label : item.label});
@@ -290,7 +291,7 @@ class AddEditTask extends Component{
     }
 
     repeatConfirmHandle = (value) => {
-        formData.options.push({repeat : value});
+        tempOptions.repeat = value;
         repeatData.forEach( (item) => {
           if(item.value == value) {
             this.setState({repeatSelectedValue : item.value, repeat_label : item.label});
@@ -302,7 +303,7 @@ class AddEditTask extends Component{
     }
 
     alertConfirmHandle = (value) => {
-      formData.options.push({alert : value})
+      tempOptions.alert = value;
         alertData.forEach( (item) => {
           if(item.value == value) {
             this.setState({alertSelectedValue : item.value, alert_label : item.label});
@@ -313,18 +314,20 @@ class AddEditTask extends Component{
 
     setDate = (date) => {
       this.setState({start_date : date});
-      formData.options.push({start_date : date});
+      tempOptions.start_date = date;
     }
 
     setEndDate = (date) =>{
       this.setState({end_date : date});
-      formData.options.push({end_date : date});
+      tempOptions.end_date = date;
     }
 
     onSubmit = () => {
       let url = Config.endPointLocal + Config.apis.createPost + '/' +  formData.task_type;
       console.log(url);
       console.log("onSubmit : ");
+      formData.options = [];
+      formData.options.push(tempOptions);
       console.log(formData);
 
 
@@ -361,7 +364,7 @@ class AddEditTask extends Component{
       })
       .catch( (error) => {
         console.log(error);
-      })
+      });
     }
 
 

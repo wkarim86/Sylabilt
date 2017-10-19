@@ -10,13 +10,14 @@ import Http from '../../lib/http';
 import Config from '../../config/settings';
 import Loader from '../../components/Loader';
 import AgendaListView from '../../components/AgendaListView';
+import NotFound from '../../components/NotFound';
 Global = require('../../lib/global');
 
 export default class TabAgenda extends Component{
 
   constructor(props){
     super(props);
-    this.state = {dataSource : [], isLoading : true};
+    this.state = {dataSource : [], isLoading : true, notFound : false};
   }
 
   componentDidMount(){
@@ -31,8 +32,12 @@ export default class TabAgenda extends Component{
     .then( (responseJson) => {
       console.log('Response');
       this.reloadData(responseJson.data.data);
+      if(responseJson.data.data == ''){
+        this.setState({notFound : true});
+      }
     }).
     catch( (error) => {
+      this.setState({isLoading : false})
       console.log(error);
     })
   }
@@ -57,6 +62,7 @@ export default class TabAgenda extends Component{
       </View>
 
       <ScrollView style={style.paddingAround}>
+        {Utils.renderIf(this.state.notFound, <NotFound text="You have no task yet. Create task by clicking on green + button."/>)}
         <List
           dataArray={this.state.dataSource}
           renderRow={(item) => <AgendaListView data={item} />  }
