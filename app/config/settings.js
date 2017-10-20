@@ -24,10 +24,9 @@ const settings =  {
     rejectInvite    : 'friends/reject_invite',
     deleteFriend    : 'friends/delete',
     friendList      : 'friends/list',
-    getClass        : 'post/class'
-
+    getClass        : 'post/class',
+    removeUploadFile : 'upload/remove/'
   },
-
   requestTimeout : 5000
 
 }

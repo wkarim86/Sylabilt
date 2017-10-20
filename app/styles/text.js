@@ -21,6 +21,11 @@ const textStyle ={
     fontStyle : 'normal',
     fontFamily : 'SteelfishRg-Regular'
   },
+  font15Italic : {
+    fontSize : 15,
+    fontStyle : 'italic',
+    fontFamily : 'SteelfishRg-Italic'
+  },
   font17Italic : {
     fontSize : 17,
     fontStyle : 'italic',
@@ -28,6 +33,12 @@ const textStyle ={
   },
   labelWhiteItalic : {
     fontSize : 20,
+    color : colors.white,
+    fontStyle : 'italic',
+    fontFamily: 'SteelfishRg-Italic'
+  },
+  labelWhite15Italic : {
+    fontSize : 15,
     color : colors.white,
     fontStyle : 'italic',
     fontFamily: 'SteelfishRg-Italic'

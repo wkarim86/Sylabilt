@@ -9,6 +9,7 @@ import {Container, Body, Content, Header, Title, Button} from  'native-base';
 import Db from '../config/db';
 Global  = require('../lib/global');
 const db = new Db();
+
 export default class Splash extends Component{
 
   constructor(props){
@@ -41,7 +42,7 @@ export default class Splash extends Component{
 
     if(db.get(Db.SettingsSchema)[0].isLoggedIn) {
       setTimeout(()=> {
-        this.props.navigation.navigate('home');
+        this.props.navigation.navigate('addclass');
        },1000);
     }else{
       setTimeout(()=> {

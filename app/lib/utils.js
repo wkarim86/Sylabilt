@@ -38,6 +38,9 @@ const utilFunctions  = {
     // }else{
     //
     // }
+  },
+  calcFileSize (size){
+    return size / 1024 / 1204; //return kilobytes
   }
 
 };

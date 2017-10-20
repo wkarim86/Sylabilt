@@ -45,6 +45,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string/>
+	<key>NSCameraUsageDescription</key>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AmaticSC-Regular.ttf</string>
