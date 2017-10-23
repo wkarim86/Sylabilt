@@ -241,5 +241,5 @@ export default{
    borderBottomWidth :1,
    borderBottomColor : 'black'
  }
- 
+
 }

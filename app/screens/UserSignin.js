@@ -37,6 +37,13 @@ class UserSignin extends Component {
     console.log(loginUrl);
     Http.post(loginUrl, {username: this.state.username, password: this.state.password}).then( (responseJson)=>{
       let response = responseJson.data.data;
+      console.log(response, typeof response);
+
+      if(response == null) {
+        this.setState({isLoading: false});
+        alert('Username or password may incorrect');
+        return false;
+      }
 
       if(!responseJson.data.error){
         db.insert({schema:Db.SettingsSchema.name, values :[{id:1, membershipId : response.membership, isLoggedIn : true}], isUpdate : true});
@@ -62,17 +69,19 @@ class UserSignin extends Component {
 
         this.setState({isLoading: false});
         Global.loggedin = true;
+        Global.userInfo = db.get(Db.UserSchema)[0];
         Sidebar.refreshList();
         //redirect to home screen
         this.props.navigation.navigate("home");
 
       }else{
         this.setState({isLoading: false});
-        alert("Invalid login. Try again");
+        alert(response);
       }
 
 
     }).catch( (error)=>{
+
       console.log(error);
     });
 

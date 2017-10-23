@@ -42,7 +42,7 @@ export default class Splash extends Component{
 
     if(db.get(Db.SettingsSchema)[0].isLoggedIn) {
       setTimeout(()=> {
-        this.props.navigation.navigate('addclass');
+        this.props.navigation.navigate('home');
        },1000);
     }else{
       setTimeout(()=> {

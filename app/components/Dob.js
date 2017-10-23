@@ -5,20 +5,16 @@ import colors from '../strings/colors';
 class Dob extends Component{
  constructor(props){
    super(props);
-   const date = new Date();
-   this.state = { date : date };
+   const d = new Date(this.props.date);
+   this.state = { date : d };
+   
  }
 
- renderPItem() {
-   var output = '';
-
-   const months = ['Jan', 'Feb', 'MNar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep','Oct','Nov','Dec'];
-   const years = date.getFullYear() - 100;
-   for(var i = 0; i < years; i++){
-     output += (date.getFullYear() - i )  + '\n';
-   }
-   return output;
+ _onValueChange = (value) => {
+   this.setState({date: value});
+   this.props.onDateChange(value);
  }
+
 
   render(){
 
@@ -32,7 +28,7 @@ class Dob extends Component{
            confirmBtnText="Done"
            cancelBtnText="Cancel"
            iconSource={require('../image/down_arrow.png')}
-           onDateChange={(date) => {this.setState({date : date})}}
+           onDateChange={(date) => {this._onValueChange(date)}}
            customStyles={
              {
                dateInput : {

@@ -1,5 +1,7 @@
 import React from 'react';
 import {findNodeHandle, Platform, AlertIOS, Alert} from 'react-native';
+import Http from './http';
+import Config from '../config/settings';
 
 const utilFunctions  = {
   renderIf(condition, component ){
@@ -41,6 +43,9 @@ const utilFunctions  = {
   },
   calcFileSize (size){
     return size / 1024 / 1204; //return kilobytes
+  },
+  loadUserProfile ( user_id ) {
+      
   }
 
 };

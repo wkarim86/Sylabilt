@@ -43,6 +43,7 @@ class AddClass extends Component{
   constructor(props){
     super(props);
     this.state = {daySelectedIndex : 0, isLoading : false};
+    console.log(Global.userInfo.id);
   }
   render(){
     const {navigate} = this.props.navigation;
@@ -221,6 +222,7 @@ class AddClass extends Component{
             let filename = res.fileName.split('.');
 
             let formData = new FormData();
+            formData.append("type", "post");
             formData.append("attachment",{uri : res.uri, type : mimeType, name : filename[0]});
 
             this._updateStates({fileName : filename[0], isLoading: true, isAttachment: true});
