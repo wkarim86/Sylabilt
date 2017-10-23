@@ -30,6 +30,7 @@ class UserThumbnail extends Component {
         <Text>Edit Picture</Text>
       </Button>
 
+
     )
   }
 
@@ -91,7 +92,7 @@ class UserThumbnail extends Component {
   _uploadOnServer(fileSource) {
 
     if(Utils.calcFileSize(fileSource.fileSize) > 10) {
-       this.alertDropdown.alertWithType('error', "File Error", "File size is exceeded. Upload less than 10 MB");
+       Utils.showAlertDialog({ title : "File Error", message : "File size is exceeded. Upload less than 10 MB", okText : ""});
        return false;
     }else{
 
@@ -102,14 +103,27 @@ class UserThumbnail extends Component {
 
         let formData = new FormData();
         formData.append("type", "profile");
+        formData.append("user_id", Global.userInfo.user_id);
         formData.append("attachment",{uri : fileSource.uri, type : mimeType, name : filename[0]});
         console.log(formData, url);
 
         Http.defaults.headers.post['Content-Type'] = 'multipart/form-data';
         Http.post(url,formData).then( (response) => {
             if(!response.data.error) {
-              this.alertDropdown.alertWithType('success', "Picture Update", "Your profile picture hase been updated.");
+              Utils.showAlertDialog({title : "Picture Update", message : "Your profile picture hase been updated.", okText : "Alright"});
+              db.insert({ schema : Db.UserSchema.name,
+                values :[
+                    {
+                      id : 1,
+                      profile_pic : response.data.data.file
+                    }
+                  ],
+                  isUpdate : true
+                }
+              );
 
+            }else{
+              Utils.showAlertDialog({title : "File Upload", message:  response.data.error, okText:""});
             }
 
         }).catch( (error) => {

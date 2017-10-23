@@ -48,12 +48,9 @@ class AddClass extends Component{
   render(){
     const {navigate} = this.props.navigation;
     return(
-
-
-
       <Container>
         <Loader show={this.state.isLoading} size="large"/>
-      <Topbar title={lang.text_add_class} {...this.props}  />
+      <Topbar title={lang.text_add_class} {...this.props} isBackButton={true} />
       <ImageBackground source={require('../image/Groupmeetingbg.png')} style={{width : '100%', height:'100%'}}>
         <Grid>
           <Row size={0.4} style={{flexDirection:'column'}}>
@@ -141,7 +138,7 @@ class AddClass extends Component{
 
           </Row>
           <Row size={0.2} style={{justifyContent:'space-between', paddingLeft:20, paddingRight:20}}>
-            <TouchableHighlight onPress={() => navigate('addtask')}>
+            <TouchableHighlight onPress={() => navigate(this.props.params.prevRoute)}>
               <Text style={textStyle.textLinkWhite17}>{lang.text_cancel}</Text>
               </TouchableHighlight>
 

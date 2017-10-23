@@ -29,7 +29,7 @@ class ChangePassword extends Component {
   render () {
     return (
       <Container>
-      <Topbar title={"Change Password"} isSearchButton={false} {...this.props} isBack={true} />
+      <Topbar title={"Change Password"} isSearchButton={false} {...this.props} isBackButton={true} />
       <ImageBackground source={require('../image/editprofilebg.png')} style={{width: '100%', height : '100%'}}>
       <Content>
 
@@ -50,8 +50,8 @@ class ChangePassword extends Component {
       </View>
 
       <View style={{flex:2, flexDirection:'row'}}>
-          <Button transparent onPress={()=>{ this.showPassword()}} style={{flex:1, paddingLeft:0, paddingRight:0}}>
-            <Text style={styles.formHint}>Show Password</Text>
+          <Button transparent onPress={()=>{ this.showPassword()}} style={{flex:1, paddingLeft:0, paddingRight:0, justifyContent:'center'}}>
+            <Text style={textStyles.textLinkWhite17}>Show Password</Text>
           </Button>
       </View>
 

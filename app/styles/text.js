@@ -111,6 +111,11 @@ const textStyle ={
     fontStyle : 'italic',
     color : colors.white
   },
+  textBigItalic20 : {
+    fontFamily : 'SteelfishRg-Italic',
+    fontSize : 20,
+    fontWeight : 'bold'
+  },
   textBig40 : {
     fontFamily : 'SteelfishRg-Regular',
     fontSize : 30,

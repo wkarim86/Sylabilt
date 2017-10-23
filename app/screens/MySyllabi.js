@@ -14,46 +14,16 @@ import styles from '../styles';
 import textStyles from '../styles/text';
 import Utils from '../lib/utils';
 import Topbar from '../components/Topbar';
-import Server from '../lib/http';
+import Http from '../lib/http';
 import Config from '../config/settings';
-
+import Loader from '../components/Loader';
+Global  = require('../lib/global');
+var classData = [];
 class MySyllabi extends Component {
   constructor(props){
     super(props);
     this.state = {editMode : false}
   }
-
-  editAction =() => {
-    if(!this.state.editMode){
-      this.setState({editMode : true});
-    }else{
-      this.setState({editMode : false});
-    }
-  }
-
-  deleteSylabi = (id) => {
-      alert(id);
-  }
-
-  addNewSylabi = () => {
-    //upload new syllabi
-    let api_url = Config.endPoint + Config.apis.resetPassword;
-    Server.post(api_url)
-    .then( (response) => {
-      console.log(response);
-    }).
-    catch( (error)=>{
-      console.log(error);
-    })
-    // Http.get(Config.siteUrl + Config.apiPath + Config.resetPassword)
-    // .then( (response) = {
-    //   console.log(response);
-    // })
-    // .catch( (error) => {
-    //   console.log(error);
-    // });
-  }
-
   render(){
     const {navigate} = this.props.navigation;
     var items = ['Accounting A14', 'Earth Science', ' Chem 183', 'Maths101'];
@@ -81,7 +51,7 @@ class MySyllabi extends Component {
         <ImageBackground source={require('../image/syllabusBg.png')} style={{width: '100%', height : '100%'}}>
         <View style={{alignItems:'flex-end', justifyContent:'flex-end', padding : 10}}>
           {Utils.renderIf(this.state.editMode,
-            <Button transparent style={{alignSelf:'flex-end'}} onPress = {() => this.addNewSylabi()}>
+            <Button transparent style={{alignSelf:'flex-end'}} onPress = {() => this.openAddClass()}>
               <Image source={addBtn} style={{width:40, height:40, resizeMode: 'contain'}} />
             </Button>
           )}
@@ -98,6 +68,38 @@ class MySyllabi extends Component {
 
     );
   }
+
+
+    editAction =() => {
+      if(!this.state.editMode){
+        this.setState({editMode : true});
+      }else{
+        this.setState({editMode : false});
+      }
+    }
+
+    deleteSylabi = (id) => {
+        alert(id);
+    }
+
+   openAddClass() {
+     this.props.navigation.navigate('addclass', {prevRoute : 'mysyllabi'});
+   }
+
+   loadClass = () => {
+     classData = [];
+     let url = Config.endPointLocal + Config.apis.getClass +'/' + Global.userInfo.id;
+     Http.get(url)
+     .then( (responseJson) => {
+       let response = responseJson.data.data;
+       response.map((value, index) => {
+         classData.push({label : value.class, value: value.id, attachment : value.attachment[0].file});
+       });
+
+     }).catch( (error)=> {
+       console.log(error);
+     })
+   }
 
 }
 

@@ -1,5 +1,6 @@
 const settings =  {
   siteUrl  : 'http://api.sylabilt.com/',
+  resourceUrl  : 'http://localhost/sylabilt-api/storage/upload/',
   endPoint  : 'http://api.sylabilt.com/public/api/',
   endPointLocal : 'http://localhost/sylabilt-api/public/api/',
   apiToken : 'Jmnx9P8p3Y0rRy7yxkaLa5oF7IQ1ir5Y',
@@ -7,7 +8,7 @@ const settings =  {
     login           : 'user/login',
     signup          : 'register/user',
     oauth           : 'register/oauth',
-    getUser         : 'users',
+    getUser         : 'user',
     updateProfile   : 'user/update/profile',
     resetPassword   : 'user/reset_password',
     forgotPassword  : 'user/forgot_password',

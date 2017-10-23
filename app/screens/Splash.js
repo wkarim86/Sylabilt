@@ -6,6 +6,7 @@ import {
   ImageBackground
 } from 'react-native';
 import {Container, Body, Content, Header, Title, Button} from  'native-base';
+import Utils from '../lib/utils';
 import Db from '../config/db';
 Global  = require('../lib/global');
 const db = new Db();
@@ -42,6 +43,7 @@ export default class Splash extends Component{
 
     if(db.get(Db.SettingsSchema)[0].isLoggedIn) {
       setTimeout(()=> {
+        Utils.loadUserProfile(Global.userInfo.user_id);
         this.props.navigation.navigate('home');
        },1000);
     }else{

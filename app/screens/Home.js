@@ -12,13 +12,20 @@ import colors from '../strings/colors';
 import tabStyle from '../styles/tabs';
 import styles from '../styles';
 import textStyle from '../styles/text';
+import Utils from '../lib/utils';
 import TabAgenda from './partials/tab_agenda';
 import TabDay from './partials/tab_day';
 import TabWeek from './partials/tab_week';
 import TabMonth from './partials/tab_month';
 import ActionButtons from 'react-native-circular-action-menu';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AdBanner  from '../components/AdBanner';
+import TaskLegend from '../components/TaskLegend';
 export default class Home extends Component{
+  constructor(props){
+    super(props);
+    this.state = {showLegend: false};
+  }
   render (){
     const {navigate,state} = this.props.navigation;
     return (
@@ -39,6 +46,13 @@ export default class Home extends Component{
         </ActionButtons>
       </View>
       <ImageBackground source={require('../image/homebg.png')} style={styles.fullWidth}>
+
+      <View style={{position:'absolute', zIndex:10, right:10, top: 60}}>
+      <Button transparent style={{alignSelf:'flex-end', marginRight:10, marginTop:20}} onPress={ ()=> { this._toggleLegend()}}>
+        <Image source={require('../image/legendbutton.png')} style={{resizeMode:'contain', width:30}}/>
+      </Button>
+      </View>
+
         <Tabs renderTabBar = {() => <ScrollableTab />} tabBarUnderlineStyle={{borderBottomColor : colors.white,
     borderBottomWidth : 4  }} >
           <Tab heading="Agenda" style={{backgroundColor:'transparent'}}  tabStyle={tabStyle.bg} textStyle={tabStyle.text} activeTabStyle={tabStyle.active} activeTextStyle={tabStyle.activeText} >
@@ -55,14 +69,29 @@ export default class Home extends Component{
           <Tab heading="Month" style={{backgroundColor:'transparent'}} tabStyle={tabStyle.bg} textStyle={tabStyle.text} activeTabStyle={tabStyle.active} activeTextStyle={tabStyle.activeText} >
             <TabMonth />
           </Tab>
+
+
         </Tabs>
+
+        {
+          Utils.renderIf(this.state.showLegend,<TaskLegend />)
+        }
+        <AdBanner />
+
+
 
       </ImageBackground>
 
       </Container>
-
-
-
       );
   }
+
+  _toggleLegend () {
+    if(this.state.showLegend) {
+      this.setState({showLegend : false});
+    }else{
+      this.setState({showLegend : true});
+    }
+  }
+
 }

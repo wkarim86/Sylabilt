@@ -11,6 +11,7 @@ import Config from '../../config/settings';
 import Loader from '../../components/Loader';
 import AgendaListView from '../../components/AgendaListView';
 import NotFound from '../../components/NotFound';
+
 Global = require('../../lib/global');
 
 export default class TabAgenda extends Component{
@@ -51,13 +52,9 @@ export default class TabAgenda extends Component{
     return (
       <View style={{flex:1}}>
         <Loader show={this.state.isLoading} size="large"/>
-      <View>
-      <Button transparent style={{alignSelf:'flex-end', marginRight:10, marginTop:20}}>
-        <Image source={require('../../image/legendbutton.png')} style={{resizeMode:'contain', width:30}}/>
-      </Button>
-      </View>
 
-      <View style={{flex:0.2, height: 50}}>
+
+      <View style={{flex:0.2, height: 50, marginTop:20}}>
         <Text style={textStyle.whatsnext}>Whats Next?</Text>
       </View>
 

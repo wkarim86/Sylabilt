@@ -29,6 +29,7 @@ Global  = require('../lib/global');
 class EditProfile extends Component {
   constructor(props){
     super(props);
+
     console.log('User Data:', Global.userInfo);
     this.state =  {
       username : Global.userInfo.username,
@@ -37,6 +38,7 @@ class EditProfile extends Component {
       name: Global.userInfo.name,
       phone: Global.userInfo.phone,
       school : Global.userInfo.school,
+      profile_pic : Global.userInfo.profile_pic,
       isLoading : false};
 
   }
@@ -51,7 +53,7 @@ class EditProfile extends Component {
       <ImageBackground source={require('../image/editprofilebg.png')} style={{width: '100%', height : '100%'}}>
       <Content>
         <View style={{justifyContent: 'space-between', flexDirection :'row', padding : 20}}>
-        <UserThumbnail  />
+        <UserThumbnail imageSource={Config.resourceUrl + this.state.profile_pic} />
         <ShareProfileButton />
         </View>
 

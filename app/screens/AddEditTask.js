@@ -270,7 +270,7 @@ class AddEditTask extends Component{
         console.log('loadCLass');
         console.log(response);
         response.map((value, index) => {
-          classData.push({label : value.class, value: value.post_id});
+          classData.push({label : value.class, value: value.id});
         })
 
       }).catch( (error)=> {
@@ -373,7 +373,7 @@ class AddEditTask extends Component{
         Alert.alert(
           lang.text_heading_class_error,
           lang.text_error_class_notfound,
-          [{text : 'Not Now', style:'cancel'}, {text: 'Add Class', onPress : ()=> { this.props.navigation.navigate('addclass')}}],
+          [{text : 'Not Now', style:'cancel'}, {text: 'Add Class', onPress : ()=> { this.props.navigation.navigate('addclass', {prevRoute: 'addtask'})}}],
           {cancelable: true}
           )
       }else{

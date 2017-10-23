@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {ScrollView, Image} from 'react-native';
-import {Container, Content, List, ListItem, Text, Body, Left, Right, Header, Footer} from 'native-base';
+import {Container, Content, List, ListItem, Text, Body, Left, Right, Header, Footer, Thumbnail} from 'native-base';
 import colors from '../strings/colors';
 import textStyle from '../styles/text';
 import sidebarStyle from '../styles/sidebar';
+import Config from '../config/settings';
 import Db from '../config/db';
 var db = new Db();
 Global = require('../lib/global');
@@ -60,10 +61,14 @@ const menus = [
     }
   ];
 
+
+
 class Sidebar extends Component{
   constructor(props){
     super(props);
-    this.state = {isLoggedIn : Global.loggedin};
+    const profilePic = (Global.userInfo.profile_pic) ? { uri : Config.resourceUrl + Global.userInfo.profile_pic} : require('../image/editprofileico.png');
+    this.state = {isLoggedIn : Global.loggedin, avatar : profilePic};
+    console.log('sidebar', this.state.avatar, Global.userInfo.profile_pic);
   }
 
 logout(){
@@ -95,7 +100,7 @@ static refreshList(){
           <Text style={textStyle.labelUsername} ellipsizeMode='tail' numberOfLines={1}>{Global.userInfo.name}</Text>
         </Left>
         <Right>
-          <Image source={require('../image/editprofileico.png')} style={{ width:40, height:40, resizeMode:'contain'}} />
+          <Thumbnail source={this.state.avatar} small/>
         </Right>
         </Header>
       <Content>

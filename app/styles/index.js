@@ -240,6 +240,10 @@ export default{
  borderBottom : {
    borderBottomWidth :1,
    borderBottomColor : 'black'
+ },
+ adsBanner : {
+   backgroundColor : colors.white,
+   flex:0.23
  }
 
 }
