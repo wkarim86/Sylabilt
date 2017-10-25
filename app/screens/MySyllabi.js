@@ -23,6 +23,7 @@ class MySyllabi extends Component {
   constructor(props){
     super(props);
     this.state = {editMode : false}
+    this.loadClass();
   }
   render(){
     const {navigate} = this.props.navigation;
@@ -93,8 +94,11 @@ class MySyllabi extends Component {
      .then( (responseJson) => {
        let response = responseJson.data.data;
        response.map((value, index) => {
-         classData.push({label : value.class, value: value.id, attachment : value.attachment[0].file});
+         let file = (value.attachment.length > 0) ? value.attachment[0].file : null;
+         classData.push({label : value.class, value: value.id, attachment : file});
        });
+
+       console.log("Classes: ",classData);
 
      }).catch( (error)=> {
        console.log(error);
