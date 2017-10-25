@@ -32,19 +32,38 @@ export default class TabAgenda extends Component{
     Http.get(url, {offset : offset})
     .then( (responseJson) => {
       console.log('Response');
-      this.reloadData(responseJson.data.data);
+
       if(responseJson.data.data == ''){
-        this.setState({notFound : true});
+        this.setState({notFound : true, errorMsg : "You have no task yet. Create task by clicking on green + button."});
+      }else{
+        this.reloadData(responseJson.data.data);
       }
     }).
     catch( (error) => {
-      this.setState({isLoading : false})
-      console.log(error);
+      this.setState({isLoading : false, notFound : true});
+      if (error.response) {
+         // The request was made and the server responded with a status code
+         // that falls out of the range of 2xx
+         console.log("error data: ",error.response.data);
+         console.log("error status: ",error.response.status);
+         console.log("error headers",error.response.headers);
+       } else if (error.request) {
+         // The request was made but no response was received
+         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+         // http.ClientRequest in node.js
+         console.log("error request",error.request);
+         this.setState({errorMsg: error.request.responseText});
+
+       } else {
+         // Something happened in setting up the request that triggered an Error
+         console.log('Error', error.message);
+       }
+       console.log("Error Config: ",error.config);
     })
   }
 
   reloadData = ( obj ) => {
-    this.setState({dataSource : obj, isLoading:  false});
+    this.setState({dataSource : obj, isLoading:  false, notFound : false});
   }
 
   render () {
@@ -59,7 +78,7 @@ export default class TabAgenda extends Component{
       </View>
 
       <ScrollView style={style.paddingAround}>
-        {Utils.renderIf(this.state.notFound, <NotFound text="You have no task yet. Create task by clicking on green + button."/>)}
+        {Utils.renderIf(this.state.notFound, <NotFound text={this.state.errorMsg}/>)}
         <List
           dataArray={this.state.dataSource}
           renderRow={(item) => <AgendaListView data={item} />  }

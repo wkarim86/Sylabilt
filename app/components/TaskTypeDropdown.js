@@ -4,7 +4,6 @@ import {
   Image,
   View,
   ActivityIndicator,
-  Modal,
   ImageBackground,
   TouchableHighlight
 } from 'react-native';

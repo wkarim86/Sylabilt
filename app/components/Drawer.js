@@ -17,6 +17,7 @@ import AddClass from '../screens/AddClass';
 import ForgotPassword from '../screens/ForgotPassword';
 import Settings from '../screens/Settings';
 import ChangePassword from '../screens/ChangePassword';
+import FileViewer from '../screens/FileViewer';
 import {ScrollView} from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import { Root } from 'native-base';
@@ -42,6 +43,7 @@ const Drawer = DrawerNavigator(
     forgotpassword : {screen : ForgotPassword},
     settings : {screen : Settings},
     changepassword : {screen : ChangePassword},
+    fileviewer : {screen : FileViewer},
   },
   {
     initialRouteName : "splash",
