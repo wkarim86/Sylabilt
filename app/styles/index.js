@@ -244,6 +244,15 @@ export default{
  adsBanner : {
    backgroundColor : colors.white,
    flex:0.23
+ },
+ noBorder : {
+   borderBottomWidth: 0,
+   borderRightWidth: 0,
+   borderLeftWidth : 0,
+   borderTopWidth: 0
+ },
+ transparent : {
+   backgroundColor : 'transparent'
  }
 
 }

@@ -19,7 +19,7 @@ const cards = [
   ];
 
 const monthName = ['Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug','Sep','Oct','Nov', 'Dec'];
-const weekDay  = ['Sun','Monday','Tuesday', 'Wednesday', 'Thursday','Friday','Saturday'];
+const weekDay  = ['Sunday','Monday','Tuesday', 'Wednesday', 'Thursday','Friday','Saturday'];
 const due = null;
 class AgendaListView extends Component{
 
@@ -28,7 +28,7 @@ class AgendaListView extends Component{
     super(props);
     console.log(this.props.data.options);
     if(this.props.data.options.length > 0) {
-      due = new Date(this.props.data.options[0].option_values[0].end_date);
+      due = moment(this.props.data.options[0].option_values[0].end_date);
     }
   }
 
@@ -43,9 +43,9 @@ class AgendaListView extends Component{
 
             <View style={{marginTop : 50, paddingLeft:20}}>
               <Text style={textStyle.textDue}>Due:</Text>
-              <Text style={textStyle.textDue}>{monthName[due.getMonth()]}</Text>
-              <Text style={textStyle.textDate}>{due.getDate()}</Text>
-              <Text style={textStyle.textWeekName}>{weekDay[due.getDay()]}</Text>
+              <Text style={textStyle.textDue}>{monthName[due.month()]}</Text>
+              <Text style={textStyle.textDate}>{due.date()}</Text>
+              <Text style={textStyle.textWeekName}>{weekDay[due.day()]}</Text>
             </View>
 
             <View style={{paddingTop : 20}}>

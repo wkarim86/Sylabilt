@@ -213,7 +213,32 @@ const textStyle ={
     fontWeight: 'bold',
     color : colors.white,
     textAlign: 'center'
-  }
+  },
+  labelHome : {
+    fontFamily : 'SteelfishRg-Italic',
+    fontSize : 25,
+    color: colors.homework
+  },
+  labelTest : {
+    fontFamily : 'SteelfishRg-Italic',
+    fontSize : 25,
+    color: colors.test
+  },
+  labelQuiz : {
+    fontFamily : 'SteelfishRg-Italic',
+    fontSize : 25,
+    color: colors.quiz
+  },
+  labelReview : {
+    fontFamily : 'SteelfishRg-Italic',
+    fontSize : 25,
+    color: colors.review
+  },
+  labelMisc : {
+    fontFamily : 'SteelfishRg-Italic',
+    fontSize : 25,
+    color: colors.misc
+  },
 }
 
 export default textStyle;
