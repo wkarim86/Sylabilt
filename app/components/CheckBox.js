@@ -22,6 +22,7 @@ class CheckBox extends Component{
 
   render(){
     const {value, style} = this.props;
+    console.log("CheckBox", value);
     const customStyle = Object.assign(defaults, style);
     return(
       <View style={{borderRadius : customStyle.borderRadius, borderColor : customStyle.borderColor, borderWidth : customStyle.borderWidth, width : customStyle.width, height : customStyle.height }}>
@@ -33,7 +34,6 @@ class CheckBox extends Component{
   }
 
 renderCheckBox(value){
-
   if(value){
     return <Image source={require('../image/checkmarklarge.png')} style={{resizeMode : 'contain', position:'absolute', top: -10}} />
   }else{

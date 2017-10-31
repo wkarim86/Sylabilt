@@ -28,8 +28,6 @@ class Settings extends Component {
     super(props);
     this.state = { localSounds : { "homework": false, "test" : false, "quiz" : false, "review" : false, "misc" : false}};
 
-    console.log("Settings", this.state.localSounds);
-
   }
 
   toggleCheckbox(trigger){
@@ -43,6 +41,7 @@ class Settings extends Component {
 
     render(){
       const {navigate} = this.props.navigation;
+      console.log('states', this.state.localSounds);
       return(
         <Container>
         <Topbar title={lang.text_settings} {...this.props}/>
@@ -65,7 +64,7 @@ class Settings extends Component {
                   </Body>
                   <Right style={{flex:0.3}}>
 
-                  <CheckBox value={this.state.localSounds.homework} onToggle={(value) => {this.setState({localSounds : {"homework" : value}})}} style={{borderColor: colors.homework}} />
+                  <CheckBox value={this.state.localSounds.homework} onToggle={(value) => this.updateState('local',{"homework" : value})} style={{borderColor: colors.homework}} />
 
 
                   </Right>
@@ -75,7 +74,7 @@ class Settings extends Component {
                     <Text style={textStyles.labelTest}>Test</Text>
                   </Body>
                   <Right style={{flex:0.3}}>
-                  <CheckBox value={this.state.localSounds.test} onToggle={(value) => {this.setState({localSounds : {"test" : value}})} } style={{borderColor: colors.test}} />
+                  <CheckBox value={this.state.localSounds.test} onToggle={(value) => this.updateState('local',{"test" : value}) } style={{borderColor: colors.test}} />
 
                   </Right>
                 </ListItem>
@@ -84,7 +83,7 @@ class Settings extends Component {
                     <Text style={textStyles.labelQuiz}>Quiz</Text>
                   </Body>
                   <Right style={{flex:0.3}}>
-
+<CheckBox value={this.state.localSounds.quiz} onToggle={(value) => this.updateState('local',{"quiz" : value}) } style={{borderColor: colors.quiz}} />
                   </Right>
                 </ListItem>
                 <ListItem  button style={[styles.noBorder, styles.transparent]}>
@@ -92,7 +91,7 @@ class Settings extends Component {
                     <Text style={textStyles.labelReview}>Review</Text>
                   </Body>
                   <Right style={{flex:0.3}}>
-
+<CheckBox value={this.state.localSounds.review} onToggle={(value) => this.updateState('local',{"review" : value}) } style={{borderColor: colors.review}} />
                   </Right>
                 </ListItem>
                 <ListItem button style={[styles.noBorder, styles.transparent]}>
@@ -100,7 +99,7 @@ class Settings extends Component {
                     <Text style={textStyles.labelMisc}>Misc</Text>
                   </Body>
                   <Right style={{flex:0.3}}>
-
+<CheckBox value={this.state.localSounds.misc} onToggle={(value) => this.updateState('local',{"misc" : value}) } style={{borderColor: colors.misc}} />
 
                   </Right>
                 </ListItem>
@@ -163,11 +162,11 @@ class Settings extends Component {
   }
 
 
-_updateState (prevState, value){
-
-  const tempobj = Object.assign(prevState, value);
-  console.log(tempobj);
-
+updateState (key, value){
+  if( key == 'local'){
+    let tempObject  = Object.assign({}, this.state.localSounds, value);
+    this.setState({localSounds: tempObject});
+  }
 }
 
 
