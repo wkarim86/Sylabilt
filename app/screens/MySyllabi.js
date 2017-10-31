@@ -97,7 +97,7 @@ class MySyllabi extends Component {
 
    loadClass = () => {
      classData = [];
-     let url = Config.endPointLocal + Config.apis.getClass +'/' + Global.userInfo.id;
+     let url = Config.endPoint + Config.apis.getClass +'/' + Global.userInfo.id;
      Http.get(url)
      .then( (responseJson) => {
        this.setState({isLoading: false});

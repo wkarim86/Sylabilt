@@ -169,7 +169,7 @@ class AddClass extends Component{
   }
 
   _sendForm = (params) => {
-    let url = Config.endPointLocal + Config.apis.createPost + '/class';
+    let url = Config.endPoint + Config.apis.createPost + '/class';
     this.setState({isLoading : true});
     console.log(params);
 
@@ -214,7 +214,7 @@ class AddClass extends Component{
             }
 
 
-            let url = Config.endPointLocal + Config.apis.upload;
+            let url = Config.endPoint + Config.apis.upload;
             let mimeType = "application/pdf,application/octet-stream,application/vnd.mspowerpoint";
             let filename = res.fileName.split('.');
 
@@ -249,7 +249,7 @@ class AddClass extends Component{
   }
 
   _deleteAttachment = () => {
-    let url = Config.endPointLocal + Config.apis.removeUploadFile + this.state.attachment_id;
+    let url = Config.endPoint + Config.apis.removeUploadFile + this.state.attachment_id;
     Http.post(url).then( (response) => {
         console.log("Remove Uploaded File", response.data);
         this._updateStates({attachment_id: null, fileName : "", isAttachment: false});

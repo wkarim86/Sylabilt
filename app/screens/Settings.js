@@ -26,7 +26,9 @@ import CheckBox from '../components/CheckBox';
 class Settings extends Component {
   constructor(props){
     super(props);
-    this.state = { localSounds : { "homework": false, "test" : false, "quiz" : false, "review" : false, "misc" : false}};
+    this.state = { localSounds : { "homework": false, "test" : false, "quiz" : false, "review" : false, "misc" : false},
+                    pushSounds : { "homework": false, "test" : false, "quiz" : false, "review" : false, "misc" : false}
+                  };
 
   }
 
@@ -111,6 +113,7 @@ class Settings extends Component {
                     <Text style={textStyles.labelHome}>Home</Text>
                   </Body>
                   <Right style={{flex:0.3}}>
+                  <CheckBox value={this.state.pushSounds.homework} onToggle={(value) => this.updateState('push',{"homework" : value})} style={{borderColor: colors.homework}} />
 
 
                   </Right>
@@ -120,6 +123,7 @@ class Settings extends Component {
                     <Text style={textStyles.labelTest}>Test</Text>
                   </Body>
                   <Right style={{flex:0.3}}>
+                  <CheckBox value={this.state.pushSounds.test} onToggle={(value) => this.updateState('push',{"test" : value})} style={{borderColor: colors.test}} />
 
                   </Right>
                 </ListItem>
@@ -128,6 +132,7 @@ class Settings extends Component {
                     <Text style={textStyles.labelQuiz}>Quiz</Text>
                   </Body>
                   <Right style={{flex:0.3}}>
+                  <CheckBox value={this.state.pushSounds.quiz} onToggle={(value) => this.updateState('push',{"quiz" : value})} style={{borderColor: colors.quiz}} />
 
                   </Right>
                 </ListItem>
@@ -136,6 +141,7 @@ class Settings extends Component {
                     <Text style={textStyles.labelReview}>Review</Text>
                   </Body>
                   <Right style={{flex:0.3}}>
+                  <CheckBox value={this.state.pushSounds.review} onToggle={(value) => this.updateState('push',{"review" : value})} style={{borderColor: colors.review}} />
 
 
                   </Right>
@@ -145,6 +151,7 @@ class Settings extends Component {
                     <Text style={textStyles.labelMisc}>Misc</Text>
                   </Body>
                   <Right style={{flex:0.3}}>
+                  <CheckBox value={this.state.pushSounds.misc} onToggle={(value) => this.updateState('push',{"misc" : value})} style={{borderColor: colors.misc}} />
 
 
                   </Right>
@@ -166,6 +173,9 @@ updateState (key, value){
   if( key == 'local'){
     let tempObject  = Object.assign({}, this.state.localSounds, value);
     this.setState({localSounds: tempObject});
+  }else{
+    let tempPushObj  = Object.assign({}, this.state.pushSounds, value);
+    this.setState({pushSounds: tempPushObj});
   }
 }
 

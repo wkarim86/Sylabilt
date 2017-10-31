@@ -24,11 +24,11 @@ class Friends extends Component{
     this.loadFriendList();
     const tempData = [{name : "John Mendoza", email: "johnmendoza@gmail.com", id: 1, avatar : require('../image/Home.png')}];
     this.state = { friendlist : tempData};
-    
+
   }
 
   loadFriendList = () =>{
-    const url  = Config.endPointLocal + Config.apis.friendList + Global.userInfo.id;
+    const url  = Config.endPoint + Config.apis.friendList + Global.userInfo.id;
     console.log(url);
     Http.get(url)
     .then((responseJson) => {
@@ -42,7 +42,7 @@ class Friends extends Component{
   }
 
   refreshData = () =>{
-    const ds = [{name : "Waqas Karim", email: "wkarim@gmail.com", id: 1, avatar : require('../image/Home.png')},{name : "Shabih Fatima", email: "shabih.fatima@gmail.com", id: 2, avatar : require('../image/Home.png')}];
+    const ds = [{name : "Jone Doe", email: "jonedoe@gmail.com", id: 1, avatar : require('../image/Home.png')},{name : "Sarah Alen", email: "s.alen@gmail.com", id: 2, avatar : require('../image/Home.png')}];
     this.setState({friendlist : ds});
   }
 

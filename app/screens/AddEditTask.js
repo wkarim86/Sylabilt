@@ -263,7 +263,7 @@ class AddEditTask extends Component{
 
     loadClass = () => {
       classData = [];
-      let url = Config.endPointLocal + Config.apis.getClass +'/' + Global.userInfo.id;
+      let url = Config.endPoint + Config.apis.getClass +'/' + Global.userInfo.id;
       Http.get(url)
       .then( (responseJson) => {
         let response = responseJson.data.data;
@@ -323,7 +323,7 @@ class AddEditTask extends Component{
     }
 
     onSubmit = () => {
-      let url = Config.endPointLocal + Config.apis.createPost + '/' +  formData.task_type;
+      let url = Config.endPoint + Config.apis.createPost + '/' +  formData.task_type;
       console.log(url);
       console.log("onSubmit : ");
       formData.options = [];

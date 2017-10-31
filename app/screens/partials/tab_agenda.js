@@ -27,7 +27,7 @@ export default class TabAgenda extends Component{
 
   _loadPost = (offset : int) => {
     const limit = 10; //10 posts per request
-    var url = Config.endPointLocal + Config.apis.post + Global.userInfo.id + '/' + limit;
+    var url = Config.endPoint + Config.apis.post + Global.userInfo.id + '/' + limit;
 
     Http.get(url, {offset : offset})
     .then( (responseJson) => {

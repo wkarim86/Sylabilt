@@ -112,7 +112,7 @@ _onDateChange = (value) => {
 
 _onSubmit = () => {
   this.setState({isLoading : true}); //enable loader overlay
-  const url = Config.endPointLocal + Config.apis.updateProfile;
+  const url = Config.endPoint + Config.apis.updateProfile;
   const formData = {
     user_id : Global.userInfo.user_id,
     name : this.state.name,
