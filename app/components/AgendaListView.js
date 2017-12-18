@@ -56,7 +56,9 @@ class AgendaListView extends Component{
 
           </View>
           <View style={{flex:0.6, flexDirection: 'column', justifyContent:'center'}}>
-
+            <Button transparent onPress={() => {console.log('detail screen')}} style={{ position: 'absolute', right: 10, top : 50}}>
+              <Image source={require('../image/info-button.png')} style={{ width : 20, height : 20}} />
+            </Button>
               <Text style={textStyle.textClass} ellipsizeMode='tail' numberOfLines={1}>{this.props.data.taxonomy.class}</Text>
               <Text style={textStyle.taskDescription} ellipsizeMode='tail' numberOfLines={3}>{this.props.data.description}</Text>
 

@@ -1,4 +1,7 @@
 module.exports = {
   loggedin : false,
-  userInfo  : []
+  userInfo  : [],
+  next_page_url : null,
+  toRecord : 0,
+  dataSource : []
 };

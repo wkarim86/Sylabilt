@@ -1,7 +1,7 @@
 const settings =  {
-  siteUrl  : 'http://api.sylabilt.com/',
+  siteUrl  : 'http://www.sylabilt.com/',
   resourceUrl  : 'http://localhost/sylabilt-api/storage/upload/',
-  endPoint  : 'http://api.sylabilt.com/public/api/',
+  endPoint  : 'http://api.sylabilt.com',
   endPointLocal : 'http://localhost/sylabilt-api/public/api/',
   apiToken : 'Jmnx9P8p3Y0rRy7yxkaLa5oF7IQ1ir5Y',
   apis     : {

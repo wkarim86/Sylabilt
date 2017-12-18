@@ -12,21 +12,24 @@ import {Container, Body, Content, Header, Left, Right, Button, Icon, Label, Inpu
 import {Grid, Col, Row} from 'react-native-easy-grid';
 import Utils from '../lib/utils';
 import Topbar from '../components/Topbar';
-import Server from '../lib/http';
-import Config from '../config/settings';
+import Http from '../lib/http';
+import Settings from '../config/settings';
 import lang from '../strings/values_en';
 import styles from '../styles';
 import textStyles from '../styles/text';
+import Loader from '../components/Loader';
 
 class ForgotPassword extends Component{
   constructor(props){
     super(props);
+    this.state = { isLoading: false};
 
   }
   render(){
     const {navigate} = this.props.navigation;
     return(
       <Container>
+        <Loader show={this.state.isLoading} size="large"/>
       <ImageBackground source={require('../image/SilverBG.png')} style={{width : '100%', height:'100%'}}>
           <Grid>
             <Row size={0.6} style={{justifyContent: 'center', alignItems: 'center', flexDirection : 'column', padding:40}}>
@@ -36,8 +39,8 @@ class ForgotPassword extends Component{
             </Row>
             <Row size={0.4} style={{flexDirection:'column', padding:20}}>
               <Text style={textStyles.textGrey30}>Email</Text>
-              <TextInput style={styles.inputFieldForgotEmail} />
-              <Button transparent style={{alignSelf : 'center', marginTop: 40}}>
+              <TextInput style={styles.inputFieldForgotEmail}  onSubmitEditing={ () => { this.doPasswordReset() }} autoFocus={true} keyboardType={'email-address'} onChangeText={ (value) => { this.setState({email : value})}} />
+              <Button transparent style={{alignSelf : 'center', marginTop: 40}} onPress = { () => { this.doPasswordReset() }}>
                 <Image source={require('../image/resetpassword.png')} />
               </Button>
               <Button transparent style={{alignSelf : 'center', marginTop: 20}} onPress={() => this.props.navigation.goBack()}>
@@ -49,6 +52,19 @@ class ForgotPassword extends Component{
       </ImageBackground>
       </Container>
     )
+  }
+
+  doPasswordReset = () => {
+    let url = Settings.endPointLocal + Settings.endPointLocal + Settings.apis.reset_password;
+    let postParam = { email : this.state.email };
+    Http.post(url, {postParam}).then( this._callback )
+    .catch( this._errorCallback);
+  }
+  _callback = (response) => {
+    console.log('Response:',response);
+  }
+  _errorCallback = ( error ) => {
+    console.log('Response Error:', error)
   }
 }
 export default ForgotPassword;

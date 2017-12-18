@@ -20,7 +20,10 @@ import Utils from '../lib/utils';
 import Sidebar from '../components/Sidebar';
 Global = require('../lib/global');
 var db = new Db();
-
+const FBSDK = require('react-native-fbsdk');
+const {
+  LoginManager,
+} = FBSDK;
 
 class UserSignin extends Component {
   constructor(props) {
@@ -76,15 +79,32 @@ class UserSignin extends Component {
 
       }else{
         this.setState({isLoading: false});
-        alert(response);
+        let error = Utils.parseError(response);
+        alert(error);
       }
 
 
     }).catch( (error)=>{
-
-      console.log(error);
+      this.setState({isLoading: false});
+      console.log('Error', error);
     });
 
+  }
+
+  doFbLogin = () =>{
+    LoginManager.logInWithReadPermissions(['public_profile']).then(
+        function(result) {
+          if (result.isCancelled) {
+            alert('Login cancelled');
+          } else {
+            alert('Login success with permissions: '
+              +result.grantedPermissions.toString());
+          }
+        },
+        function(error) {
+          alert('Login fail with error: ' + error);
+        }
+      );
   }
 
   render() {
@@ -102,7 +122,7 @@ class UserSignin extends Component {
             <Row size={3} style={{justifyContent:'center', flexDirection : 'column'}}>
             <View style={styles.socialButtonGroupSignin}>
 
-                <Button style={styles.socialButon} transparent>
+                <Button style={styles.socialButon} transparent onPress={ ()=>this.doFbLogin()}>
                   <Image source={require('../image/facebook.png')} />
                 </Button>
                 <Button style={styles.socialButon} transparent >
@@ -122,7 +142,7 @@ class UserSignin extends Component {
                   </View>
                     <View style={{flex:0.8, flexDirection:'row'}}>
                       <Text style={styles.inputLabel}>Username</Text>
-                      <TextInput placeholder="handle" style={styles.inputField} onChangeText={(text) => this.setState({username:text})}></TextInput>
+                      <TextInput placeholder="handle" ref="handle" autoFocus={true} returnKeyType={"next"} style={styles.inputField} onChangeText={(text) => this.setState({username:text})} onSubmitEditing={(event)=>{ this.refs.password.focus()}}></TextInput>
                     </View>
                 </View>
 
@@ -132,7 +152,8 @@ class UserSignin extends Component {
                     </View>
                     <View style={{flex:0.8, flexDirection:'row'}}>
                       <Text style={styles.inputLabel}>Password</Text>
-                      <TextInput placeholder="password" style={styles.inputField} secureTextEntry={true} onChangeText={(text) => this.setState({password:text})}></TextInput>
+                      <TextInput placeholder="password" ref="password" style={styles.inputField} autoFocus={true} returnKeyType = {"go"}
+ secureTextEntry={true} onChangeText={(text) => this.setState({password:text})} onSubmitEditing={(event) => { this.doLogin()}}></TextInput>
                     </View>
 
                 </View>

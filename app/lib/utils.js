@@ -52,7 +52,7 @@ const utilFunctions  = {
     return size / 1024 / 1204; //return kilobytes
   },
   loadUserProfile ( user_id ) {
-      const url  = Config.endPointLocal + Config.apis.getUser + "/" + Global.userInfo.user_id;
+      const url  = Config.endPoint + Config.apis.getUser + "/" + Global.userInfo.user_id;
       console.log('loadUserProfile', url);
       Http.get(url).then( (responseJson) => {
         let response = responseJson.data.data;
@@ -82,6 +82,81 @@ const utilFunctions  = {
       }).catch( (error) => {
         console.log(error);
       });
+  },
+  loadMore(url, extras){
+    Http.get(url).then( (response)=> {
+        extras.callback(response.data);
+    }).catch( (error) => {
+      console.log("loadMore: ",error);
+    })
+  },
+  loadPost(offset : int, successCallback = null, errorCallback = null){
+    const limit = 1; //10 posts per request
+    var url = Config.endPoint + Config.apis.post + Global.userInfo.id + '/' + limit;
+
+
+    Http.get(url, {offset : offset})
+    .then( (responseJson) => {
+      console.log('Response', responseJson.data);
+
+
+      if(responseJson.data.data == ''){
+        errorCallback({ error : "You have no task yet. Create task by clicking on green + button."})
+
+      }else{
+        if(responseJson.data.next_page_url){
+          Global.next_page_url = responseJson.data.next_page_url;
+          Global.toRecord = responseJson.data.to;
+        }
+        Global.dataSource = responseJson.data.data;
+        successCallback(Global.dataSource);
+      }
+    }).
+    catch( (error) => {
+
+
+      if (error.response) {
+         // The request was made and the server responded with a status code
+         // that falls out of the range of 2xx
+         console.log("error data: ",error.response.data);
+         console.log("error status: ",error.response.status);
+         console.log("error headers",error.response.headers);
+       } else if (error.request) {
+         // The request was made but no response was received
+         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+         // http.ClientRequest in node.js
+         console.log("error request",error.request);
+         errorCallback({error : error.request.responseText});
+
+
+       } else {
+         // Something happened in setting up the request that triggered an Error
+         console.log('Error', error.message);
+         errorCallback({error : error.message});
+       }
+       console.log("Error Config: ",error.config);
+    })
+  },
+  hasKey(obj, key){
+    let arr = Object.keys(obj);
+    let result = false;
+    arr.forEach( (v) => {
+      if(v == key){
+        result = true;
+      }
+    });
+    return result;
+  },
+  parseError (obj) {
+    let output = '';
+    if(typeof obj != 'undefined'){
+      for(keys in obj){
+        output += obj[keys] + '\r\n';
+      }
+
+    }
+
+    return output;
   }
 
 };

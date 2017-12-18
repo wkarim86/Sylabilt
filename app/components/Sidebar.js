@@ -88,6 +88,7 @@ componentWillMount = () =>{
 
 
 static refreshList(){
+  console.log("refreshList", Global.loggedin);
   menus[9].title = "Logout";
   menus[9].icon = require("../image/logoutico.png");
 }

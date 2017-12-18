@@ -24,70 +24,15 @@ const uuid = require('uuid/v1');
 
 var inputFields = {
   username : null,
-  password : null
+  password : null,
+  email    : null
 }
 
 class UserSignup extends Component {
 
   constructor(props){
     super(props);
-    this.state = {maskPassword : true, isLoading : false}
-  }
-
-
-  doSignup(){
-    this.setState({isLoading: true});
-    const signupUrl = Settings.endPoint + Settings.apis.signup;
-    Http.post(signupUrl, {username: inputFields.username, password: inputFields.password, name : uuid(), email : uuid()}).then( (responseJson)=>{
-
-      let response = responseJson.data.data;
-      console.log(response);
-
-      if(!responseJson.data.error){
-        db.insert({schema:Db.SettingsSchema.name, values :[{id:1, membershipId : response.membership, isLoggedIn : true}], isUpdate : true});
-        //insert userinfo into UserSchema
-        db.insert({ schema : Db.UserSchema.name,
-          values :[
-              {
-                id : 1,
-                user_id : response.id,
-                name : response.name,
-                username : response.username,
-                email: response.email,
-                dob : response.dob,
-                gender : response.gender,
-                school : response.school,
-                status : response.status,
-                phone : response.phone
-              }
-            ],
-            isUpdate : true
-          }
-        );
-
-        this.setState({isLoading: false});
-        Global.loggedin = true;
-        Sidebar.refreshList();
-        //redirect to home screen
-        this.props.navigation.navigate("home");
-
-      }else{
-        this.setState({isLoading: false});
-        alert(response.toString());
-      }
-
-
-    }).catch( (error)=>{
-      console.log(error);
-    });
-  }
-
-  showPassword(){
-    if(this.state.maskPassword){
-      this.setState( {maskPassword: false})
-    }else{
-      this.setState( {maskPassword: true})
-    }
+    this.state = {maskPassword : true, isLoading : false, handleMark : null, emailCheck : null, handleError : null}
 
   }
 
@@ -101,7 +46,7 @@ class UserSignup extends Component {
 
        <ImageBackground source={require('../image/registerbg.png')} style={styles.signupBg}>
          <Grid>
-            <Row size={1} >
+            <Row size={0.8} >
             </Row>
             <Row size={5}>
               <View style={{ flexDirection : 'column', flex : 1}}>
@@ -164,8 +109,17 @@ class UserSignup extends Component {
                         <TextInput placeholder="handle" style={styles.inputField} onChangeText={(text)=> {inputFields.username = text;}}></TextInput>
                         <View style={{flex:2, flexDirection:'row'}}>
 
-                            <Image source={require('../image/checkmark.png')} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignSelf:'center'}} />
-                            <Text style={{flexWrap: 'wrap', flex:1, textAlign: 'right', padding:5}}>Handle Available</Text>
+                            <Image source={this.state.handleCheck} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignSelf:'center'}} />
+                            <Text style={{flexWrap: 'wrap', flex:1, textAlign: 'right', padding:5}}>{this.state.handleError}</Text>
+                        </View>
+                    </View>
+
+                    <View style={styles.formControl}>
+                        <Text style={styles.inputLabel}>Email</Text>
+                        <TextInput placeholder="email" style={styles.inputField} onChangeText={(text)=> {inputFields.email = text;}}></TextInput>
+                        <View style={{flex:2, flexDirection:'row'}}>
+                            <Image source={this.state.emailCheck} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignSelf:'center'}} />
+
                         </View>
                     </View>
 
@@ -208,6 +162,80 @@ class UserSignup extends Component {
       </Container>
     );
   }
+
+
+  doSignup(){
+    this.setState({isLoading: true});
+    const signupUrl = Settings.endPoint + Settings.apis.signup;
+    let params = {
+      username : inputFields.username,
+      password : inputFields.password,
+      email : inputFields.email
+    }
+    Http.post(signupUrl, params).then( (responseJson)=>{
+
+      let response = responseJson.data.data;
+      console.log('response',response);
+
+      if(!responseJson.data.error){
+        db.insert({schema:Db.SettingsSchema.name, values :[{id:1, membershipId : response.membership, isLoggedIn : true}], isUpdate : true});
+        //insert userinfo into UserSchema
+        db.insert({ schema : Db.UserSchema.name,
+          values :[
+              {
+                id : 1,
+                user_id : response.id,
+                name : response.name,
+                username : response.username,
+                email: response.email,
+                dob : response.dob,
+                gender : response.gender,
+                school : response.school,
+                status : response.status,
+                phone : response.phone
+              }
+            ],
+            isUpdate : true
+          }
+        );
+
+        this.setState({isLoading: false});
+        Global.loggedin = true;
+        Sidebar.refreshList();
+        //redirect to home screen
+        this.props.navigation.navigate("home");
+
+      }else{
+        this.setState({isLoading: false});
+        //check what error are thrown form api
+        if(Utils.hasKey(response, 'username')) {
+          this.setState({handleCheck : require('../image/closemark.png'), handleError: 'Not Available'});
+        }else{
+          this.setState({handleCheck : require('../image/checkmark.png'), handleError : 'Handle Available'});
+        }
+
+        let error = Utils.parseError(response);
+        alert(error);
+
+      }
+
+
+    }).catch( (error)=>{
+      this.setState({isLoading: false});
+      alert(error);
+      console.log(error);
+    });
+  }
+
+  showPassword(){
+    if(this.state.maskPassword){
+      this.setState( {maskPassword: false})
+    }else{
+      this.setState( {maskPassword: true})
+    }
+
+  }
+
 }
 
 export default UserSignup;
