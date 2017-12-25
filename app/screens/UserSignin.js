@@ -20,10 +20,6 @@ import Utils from '../lib/utils';
 import Sidebar from '../components/Sidebar';
 Global = require('../lib/global');
 var db = new Db();
-const FBSDK = require('react-native-fbsdk');
-const {
-  LoginManager,
-} = FBSDK;
 
 class UserSignin extends Component {
   constructor(props) {
@@ -92,19 +88,7 @@ class UserSignin extends Component {
   }
 
   doFbLogin = () =>{
-    LoginManager.logInWithReadPermissions(['public_profile']).then(
-        function(result) {
-          if (result.isCancelled) {
-            alert('Login cancelled');
-          } else {
-            alert('Login success with permissions: '
-              +result.grantedPermissions.toString());
-          }
-        },
-        function(error) {
-          alert('Login fail with error: ' + error);
-        }
-      );
+    
   }
 
   render() {

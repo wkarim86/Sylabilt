@@ -1,6 +1,6 @@
 {
   "name": "Sylabilt",
-  "version": "0.0.1",
+  "version": "2.0.1",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -20,7 +20,6 @@
     "react-native-document-picker": "^2.1.0",
     "react-native-dropdownalert": "^3.1.2",
     "react-native-easy-grid": "^0.1.15",
-    "react-native-fbsdk": "^0.6.3",
     "react-native-image-picker": "^0.26.7",
     "react-native-smart-picker": "^1.0.2",
     "react-native-togglebox": "^1.0.2",

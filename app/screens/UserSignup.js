@@ -39,6 +39,8 @@ class UserSignup extends Component {
   //Render screen components
   render() {
     const {navigate} = this.props.navigation;
+    let checkMark = require('../image/checkmark.png');
+    let uncheckMark = require('../image/closemark.png');
     return (
       <Container>
 
@@ -109,8 +111,26 @@ class UserSignup extends Component {
                         <TextInput placeholder="handle" style={styles.inputField} onChangeText={(text)=> {inputFields.username = text;}}></TextInput>
                         <View style={{flex:2, flexDirection:'row'}}>
 
-                            <Image source={this.state.handleCheck} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignSelf:'center'}} />
-                            <Text style={{flexWrap: 'wrap', flex:1, textAlign: 'right', padding:5}}>{this.state.handleError}</Text>
+                        {
+                          Utils.renderIf(this.state.handleCheck,
+                             <Image source={uncheckMark} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignSelf:'center'}} />
+                              <View>
+                              <Text style={{flexWrap: 'wrap', flex:1, textAlign: 'right', padding:5}}>Not Available</Text>
+                              </View>
+                          )
+                        }
+
+                        {
+                          Utils.renderIf(!this.state.handleCheck,
+                            <View>
+                             <Image source={checkMark} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignSelf:'center'}} />
+
+                              <Text style={{flexWrap: 'wrap', flex:1, textAlign: 'right', padding:5}}>Handle Available</Text>
+                              </View>
+                          )
+                        }
+
+
                         </View>
                     </View>
 
@@ -118,7 +138,17 @@ class UserSignup extends Component {
                         <Text style={styles.inputLabel}>Email</Text>
                         <TextInput placeholder="email" style={styles.inputField} onChangeText={(text)=> {inputFields.email = text;}}></TextInput>
                         <View style={{flex:2, flexDirection:'row'}}>
-                            <Image source={this.state.emailCheck} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignSelf:'center'}} />
+                        {
+                          Utils.renderIf(this.state.emailCheck,
+                              <Image source={uncheckMark} style={{flex:0.5,resizeMode :'contain', width:20, height:18, justifyContent:'flex-start'}} />
+                          )
+                        }
+                        {
+                          Utils.renderIf(!this.state.emailCheck,
+                              <Image source={checkMark} style={{flex:0.5,resizeMode :'contain', width:20, height:18, justifyContent:'flex-start'}} />
+                          )
+                        }
+
 
                         </View>
                     </View>
@@ -162,6 +192,7 @@ class UserSignup extends Component {
       </Container>
     );
   }
+
 
 
   doSignup(){
@@ -209,9 +240,16 @@ class UserSignup extends Component {
         this.setState({isLoading: false});
         //check what error are thrown form api
         if(Utils.hasKey(response, 'username')) {
-          this.setState({handleCheck : require('../image/closemark.png'), handleError: 'Not Available'});
+          this.setState({handleCheck : true});
         }else{
-          this.setState({handleCheck : require('../image/checkmark.png'), handleError : 'Handle Available'});
+          this.setState({handleCheck : false});
+        }
+
+        if(Utils.hasKey(response, 'email')) {
+          this.setState({emailCheck : true});
+
+        }else{
+          this.setState({emailCheck : false});
         }
 
         let error = Utils.parseError(response);
