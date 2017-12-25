@@ -32,7 +32,7 @@ class UserSignup extends Component {
 
   constructor(props){
     super(props);
-    this.state = {maskPassword : true, isLoading : false, handleMark : null, emailCheck : null, handleError : null}
+    this.state = {maskPassword : true, isLoading : false, handleCheck : null, emailCheck : null}
 
   }
 
@@ -110,23 +110,21 @@ class UserSignup extends Component {
                         <Text style={styles.inputLabel}>Username</Text>
                         <TextInput placeholder="handle" style={styles.inputField} onChangeText={(text)=> {inputFields.username = text;}}></TextInput>
                         <View style={{flex:2, flexDirection:'row'}}>
-
                         {
                           Utils.renderIf(this.state.handleCheck,
+                             <View style={{flex:1, flexDirection:'row'}}>
                              <Image source={uncheckMark} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignSelf:'center'}} />
-                              <View>
-                              <Text style={{flexWrap: 'wrap', flex:1, textAlign: 'right', padding:5}}>Not Available</Text>
-                              </View>
+                             <Text style={{flexWrap: 'wrap', flex:1, textAlign: 'right', padding:5}}>Not Available</Text>
+                             </View>
                           )
                         }
 
                         {
-                          Utils.renderIf(!this.state.handleCheck,
-                            <View>
+                          Utils.renderIf((typeof this.state.handleCheck == 'boolean' && !this.state.handleCheck),
+                            <View style={{flex:1, flexDirection:'row'}}>
                              <Image source={checkMark} style={{flex:0.5,resizeMode :'contain', width:20, height:18, padding:5, justifyContent:'center', alignSelf:'center'}} />
-
-                              <Text style={{flexWrap: 'wrap', flex:1, textAlign: 'right', padding:5}}>Handle Available</Text>
-                              </View>
+                             <Text style={{flexWrap: 'wrap', flex:1, textAlign: 'right', padding:5}}>Handle Available</Text>
+                             </View>
                           )
                         }
 
@@ -144,7 +142,7 @@ class UserSignup extends Component {
                           )
                         }
                         {
-                          Utils.renderIf(!this.state.emailCheck,
+                          Utils.renderIf((typeof this.state.emailCheck == 'boolean' && !this.state.emailCheck),
                               <Image source={checkMark} style={{flex:0.5,resizeMode :'contain', width:20, height:18, justifyContent:'flex-start'}} />
                           )
                         }

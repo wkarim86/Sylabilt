@@ -29,7 +29,11 @@ const settings =  {
     getClass        : 'post/class',
     removeUploadFile : 'upload/remove/'
   },
-  requestTimeout : 5000
+  requestTimeout : 5000,
+  checgg: {
+    apiKey : 'c8a80053988dbffc1397f77ef60f82af',
+    password: '5232634'
+  }
 
 }
 export default settings;
