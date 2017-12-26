@@ -30,7 +30,7 @@ const settings =  {
     removeUploadFile : 'upload/remove/'
   },
   requestTimeout : 5000,
-  checgg: {
+  chegg: {
     apiKey : 'c8a80053988dbffc1397f77ef60f82af',
     password: '5232634'
   }

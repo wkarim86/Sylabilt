@@ -12,7 +12,7 @@ import {Container, Body, Content, Header, Left, Right, Button, Icon, Label, Inpu
 import {Grid, Col, Row} from 'react-native-easy-grid';
 import Utils from '../lib/utils';
 import Topbar from '../components/Topbar';
-import Server from '../lib/http';
+import Http from '../lib/http';
 import Config from '../config/settings';
 import lang from '../strings/values_en';
 import BookDetails from '../components/BookDetails';
@@ -55,7 +55,7 @@ class ISBNDeals extends Component{
           {
             Utils.renderIf(this.state.isSearh,
               <Row size={0.2} style={{backgroundColor:'#F3F3F3', padding:20}}>
-                  <SearchBox placeholder="Enter ISBN number" onChangeText = { (value)=> this.setState({keyword: value})} onSubmitEditing={ () => alert(this.state.keyword)}/>
+                  <SearchBox placeholder="Enter ISBN number" onChangeText = { (value)=> this.setState({keyword: value})} onSubmitEditing={ this.loadBook() }/>
                </Row>
             )
           }
@@ -104,6 +104,28 @@ toggleSearch = () =>{
         alert('All filter applied');
         break;
     }
+  }
+
+  loadBook = () =>{
+    let url = 'http://api.chegg.com/rent.svc';
+    console.log(Config.chegg.apiKey);
+    formData = {
+      params: {
+        KEY : Config.chegg.apiKey,
+        PW : Config.chegg.password,
+        R: 'JSON',
+        results_per_page : 1,
+        V : 4.0,
+        isbn : this.state.keyword
+      }
+    }
+    Http.get(url, formData).then( (responseJson) => {
+      let response = responseJson.data;
+      console.log('Chegg',response);
+
+    }).catch( (error) => {
+      console.log(error);
+    });
   }
 
 }
