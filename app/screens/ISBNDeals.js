@@ -23,13 +23,9 @@ import SearchBox from '../components/SearchBox';
 class ISBNDeals extends Component{
   constructor(props){
     super(props);
-    this.state = {isSearch: false}
+    this.state = {isSearch: false, bookDataset : {}, dataLoaded: false}
 
   }
-
-
-
-
 
   render(){
     const {navigate} = this.props.navigation;
@@ -47,6 +43,8 @@ class ISBNDeals extends Component{
       action : () => {this.filterAction('ebook')}
     }];
 
+
+
     return(
       <Container>
       <Topbar title="Sylabilt Student Saver" {...this.props} isSearchButton={true} searchBtnEventListner={ ()=> this.toggleSearch() }/>
@@ -55,13 +53,18 @@ class ISBNDeals extends Component{
           {
             Utils.renderIf(this.state.isSearh,
               <Row size={0.2} style={{backgroundColor:'#F3F3F3', padding:20}}>
-                  <SearchBox placeholder="Enter ISBN number" onChangeText = { (value)=> this.setState({keyword: value})} onSubmitEditing={ this.loadBook() }/>
+                  <SearchBox placeholder="Enter ISBN number" onChangeText = { (value)=> this.setState({keyword: value})} onSubmitEditing={ () => {this.loadBook()} }/>
                </Row>
             )
           }
           <Row size={1}>
 
-              <BookDetails title="Critical Thinking, Ninth Edition" publishDate="July 22nd, 2008" isbn="0073386677" thumbnail="https://images-na.ssl-images-amazon.com/images/I/41vX-ZjCTbL.jpg" />
+            {
+              Utils.renderIf(this.state.dataLoaded,
+                <BookDetails title={this.state.bookDataset.BookInfo.Title} publishDate={this.state.bookDataset.BookInfo.PubDate} isbn={this.state.bookDataset.ISBN} thumbnail={ this.state.bookDataset.BookInfo.ImageMedium } />
+              )
+            }
+
 
           </Row>
           <Row size={2}>
@@ -84,6 +87,7 @@ toggleSearch = () =>{
   }else{
     this.setState({isSearh : true});
   }
+
 }
 
   filterAction = (filter) => {
@@ -108,7 +112,6 @@ toggleSearch = () =>{
 
   loadBook = () =>{
     let url = 'http://api.chegg.com/rent.svc';
-    console.log(Config.chegg.apiKey);
     formData = {
       params: {
         KEY : Config.chegg.apiKey,
@@ -119,13 +122,32 @@ toggleSearch = () =>{
         isbn : this.state.keyword
       }
     }
+
     Http.get(url, formData).then( (responseJson) => {
       let response = responseJson.data;
       console.log('Chegg',response);
+      if(response.Error){
+        alert(response.ErrorMessage);
+      }else{
+        this.setBookDataSet(response.Data.Items[0]); // Items will always be 1 as getting single book record
+        console.log('bookData', this.getBookDataSet());
+        this.setState({dataLoaded: true});
+      }
 
     }).catch( (error) => {
       console.log(error);
     });
+
+  }
+
+
+  setBookDataSet = ( data ) => {
+    this.bookDataset = data;
+    this.setState({bookDataset: data});
+  }
+
+  getBookDataSet = () => {
+    return this.state.bookDataset;
   }
 
 }

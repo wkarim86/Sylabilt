@@ -191,6 +191,13 @@ export default{
    marginRight: 5
 
  },
+ bookFilterButtonSelected : {
+   backgroundColor : '#54585e',
+   padding: 10,
+   marginLeft: 5,
+   marginRight: 5
+
+ },
  bookListItem : {
    backgroundColor : '#55C77D',
    borderRadius : 5,
