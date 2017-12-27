@@ -59,11 +59,7 @@ class ISBNDeals extends Component{
           }
           <Row size={1}>
 
-            {
-              Utils.renderIf(this.state.dataLoaded,
-                <BookDetails title={this.state.bookDataset.BookInfo.Title} publishDate={this.state.bookDataset.BookInfo.PubDate} isbn={this.state.bookDataset.ISBN} thumbnail={ this.state.bookDataset.BookInfo.ImageMedium } />
-              )
-            }
+             <BookDetails title={this.state.bookTitle} publishDate={this.state.PubDate} isbn={this.state.ISBN} thumbnail={ this.state.bookCover } />
 
 
           </Row>
@@ -110,7 +106,7 @@ toggleSearch = () =>{
     }
   }
 
-  loadBook = () =>{
+   loadBook = () =>{
     let url = 'http://api.chegg.com/rent.svc';
     formData = {
       params: {
@@ -130,8 +126,8 @@ toggleSearch = () =>{
         alert(response.ErrorMessage);
       }else{
         this.setBookDataSet(response.Data.Items[0]); // Items will always be 1 as getting single book record
-        console.log('bookData', this.getBookDataSet());
         this.setState({dataLoaded: true});
+        console.log('state', this.getBookDataSet());
       }
 
     }).catch( (error) => {
@@ -143,11 +139,11 @@ toggleSearch = () =>{
 
   setBookDataSet = ( data ) => {
     this.bookDataset = data;
-    this.setState({bookDataset: data});
+    this.setState({bookTitle: data.BookInfo.Title, PubDate : data.BookInfo.PubDate, ISBN : data.ISBN, bookCover: data.BookInfo.ImageMedium});
   }
 
   getBookDataSet = () => {
-    return this.state.bookDataset;
+    return this.state;
   }
 
 }
