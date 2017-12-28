@@ -245,7 +245,7 @@ const textStyle ={
     fontWeight :'bold',
     color: colors.buttonColor,
     alignSelf :'center',
-    textStyle:'underline'
+    textDecorationLine:'underline'
   },
   dayLabel : {
     fontSize: 30,

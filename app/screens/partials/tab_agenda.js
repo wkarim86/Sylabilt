@@ -101,6 +101,7 @@ _onScroll = (event) => {
           })
           console.log(tempData);
           this.setState({dataSource : tempData});
+          Global.tasks = tempData;
 
         }
       });

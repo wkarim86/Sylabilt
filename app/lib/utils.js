@@ -90,7 +90,7 @@ const utilFunctions  = {
       console.log("loadMore: ",error);
     })
   },
-  loadPost(offset : int, successCallback = null, errorCallback = null){
+  loadPost(offset : int, successCallback = null, errorCallback = null, currentIndex = null){
     const limit = 1; //10 posts per request
     var url = Config.endPoint + Config.apis.post + Global.userInfo.id + '/' + limit;
 
