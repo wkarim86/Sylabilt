@@ -239,6 +239,22 @@ const textStyle ={
     fontSize : 25,
     color: colors.misc
   },
+  dateLabel : {
+    fontSize: 70,
+    fontFamily : 'SteelfishRg-Regular',
+    fontWeight :'bold',
+    color: colors.buttonColor,
+    alignSelf :'center',
+    textStyle:'underline'
+  },
+  dayLabel : {
+    fontSize: 30,
+    fontFamily : 'SteelfishRg-Regular',
+    fontWeight :'bold',
+    color: colors.buttonColor,
+    transform : [{rotate : '-20deg'}],
+    alignSelf :'center'
+  },
 }
 
 export default textStyle;
