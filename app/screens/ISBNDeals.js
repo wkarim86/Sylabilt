@@ -136,7 +136,6 @@ toggleSearch = () =>{
 
   }
 
-
   setBookDataSet = ( data ) => {
     this.bookDataset = data;
     this.setState({bookTitle: data.BookInfo.Title, PubDate : data.BookInfo.PubDate, ISBN : data.ISBN, bookCover: data.BookInfo.ImageMedium});
