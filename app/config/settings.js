@@ -31,8 +31,9 @@ const settings =  {
   },
   requestTimeout : 5000,
   chegg: {
-    apiKey : 'c8a80053988dbffc1397f77ef60f82af',
-    password: '5232634'
+    url      : 'http://api.chegg.com/rent.svc',
+    apiKey   : 'c8a80053988dbffc1397f77ef60f82af',
+    password : '5232634'
   }
 
 }

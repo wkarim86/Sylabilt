@@ -11,7 +11,7 @@ import styles from '../styles';
 import textStyles from '../styles/text';
 import lang from '../strings/values_en';
 
-class BookAffiliates extends Component {
+class BookAffiliateList extends Component {
   constructor(props){
     super(props);
   }
@@ -41,4 +41,4 @@ render(){
 }
 
 }
-export default BookAffiliates;
+export default BookAffiliateList;

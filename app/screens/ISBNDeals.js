@@ -15,62 +15,47 @@ import Topbar from '../components/Topbar';
 import Http from '../lib/http';
 import Config from '../config/settings';
 import lang from '../strings/values_en';
-import BookDetails from '../components/BookDetails';
-import BookFilters from '../components/BookFilters';
-import BookAffiliates from '../components/BookAffiliates';
+import BookDetails from './partials/BookDetails';
 import SearchBox from '../components/SearchBox';
+import Loader from '../components/Loader';
 
 class ISBNDeals extends Component{
   constructor(props){
     super(props);
-    this.state = {isSearch: false, bookDataset : {}, dataLoaded: false}
+    this.state = {isSearch: false, bookDataset : {}, dataLoaded: false, isLoading: false}
 
   }
 
   render(){
     const {navigate} = this.props.navigation;
-    const filterItems = [{
-      text : lang.text_buy,
-      action : () => {this.filterAction('buy') }
-    },{
-      text : lang.text_rent,
-      action : () => {this.filterAction('rent')}
-    },{
-      text : lang.text_sell,
-      action : () => {this.filterAction('sell')}
-    },{
-      text : lang.text_ebook,
-      action : () => {this.filterAction('ebook')}
-    }];
-
-
 
     return(
       <Container>
-      <Topbar title="Sylabilt Student Saver" {...this.props} isSearchButton={true} searchBtnEventListner={ ()=> this.toggleSearch() }/>
 
-        <Grid>
+      <Topbar title="Sylabilt Student Saver" {...this.props} isSearchButton={true} searchBtnEventListner={ ()=> this.toggleSearch() }/>
+      <Loader show={this.state.isLoading} size="large"/>
+
           {
             Utils.renderIf(this.state.isSearh,
-              <Row size={0.2} style={{backgroundColor:'#F3F3F3', padding:20}}>
+              <View style={{backgroundColor:'#F3F3F3', padding:20, height:80}}>
                   <SearchBox placeholder="Enter ISBN number" onChangeText = { (value)=> this.setState({keyword: value})} onSubmitEditing={ () => {this.loadBook()} }/>
-               </Row>
+               </View>
             )
           }
-          <Row size={1}>
 
-             <BookDetails title={this.state.bookTitle} publishDate={this.state.PubDate} isbn={this.state.ISBN} thumbnail={ this.state.bookCover } />
+          <View style={{flex:1}}>
+
+          {
+            Utils.renderIf(this.state.dataLoaded,
+              <BookDetails datasource={this.state.bookDataset} />
+            )
+          }
 
 
-          </Row>
-          <Row size={2}>
-            <View style={{flex:1}}>
-                <BookFilters filterData = {filterItems}/>
-                <BookAffiliates />
 
-            </View>
-          </Row>
-        </Grid>
+          </View>
+
+
 
 
       </Container>
@@ -86,28 +71,10 @@ toggleSearch = () =>{
 
 }
 
-  filterAction = (filter) => {
-    switch (filter){
-      case 'buy' :
-        alert('Buy filter called');
-        break;
-      case 'rent' :
-        alert('Rent filter called');
-        break;
-      case 'sell' :
-        alert('Sell filter called');
-        break;
-      case 'ebook' :
-        alert('Ebook filter called');
-        break;
-      default :
-        alert('All filter applied');
-        break;
-    }
-  }
+
 
    loadBook = () =>{
-    let url = 'http://api.chegg.com/rent.svc';
+    let url = Config.chegg.url;
     formData = {
       params: {
         KEY : Config.chegg.apiKey,
@@ -118,31 +85,34 @@ toggleSearch = () =>{
         isbn : this.state.keyword
       }
     }
-
+    this.setState({isLoading:true});
     Http.get(url, formData).then( (responseJson) => {
       let response = responseJson.data;
       console.log('Chegg',response);
+
       if(response.Error){
         alert(response.ErrorMessage);
+        this.setState({isLoading:false});
       }else{
-        this.setBookDataSet(response.Data.Items[0]); // Items will always be 1 as getting single book record
-        this.setState({dataLoaded: true});
-        console.log('state', this.getBookDataSet());
+        this.setBookInfo(response.Data.Items[0]); // Items will always be 1 as getting single book record
+        this.setState({dataLoaded: true, isLoading: false});
+        console.log('Data', this.getBookData());
       }
 
     }).catch( (error) => {
       console.log(error);
+      this.setState({isLoading:false});
     });
 
   }
 
-  setBookDataSet = ( data ) => {
+  setBookInfo = ( data ) => {
     this.bookDataset = data;
-    this.setState({bookTitle: data.BookInfo.Title, PubDate : data.BookInfo.PubDate, ISBN : data.ISBN, bookCover: data.BookInfo.ImageMedium});
+    this.setState({bookDataset: data});
   }
 
-  getBookDataSet = () => {
-    return this.state;
+  getBookData = () => {
+    return this.state.bookDataset;
   }
 
 }
