@@ -92,8 +92,13 @@ const utilFunctions  = {
   },
   loadPost(offset : int, successCallback = null, errorCallback = null, currentIndex = null){
     const limit = 1; //10 posts per request
-    var url = Config.endPoint + Config.apis.post + Global.userInfo.id + '/' + limit;
-
+    var url = null;
+    console.log('url', Global.next_page_url);
+    if(Global.next_page_url !== null){
+      url = Config.endPoint + Config.apis.post + Global.userInfo.id + '/' + limit;
+    }else{
+      url = Global.next_page_url;
+    }
 
     Http.get(url, {offset : offset})
     .then( (responseJson) => {

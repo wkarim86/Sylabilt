@@ -90,22 +90,34 @@ _onScroll = (event) => {
   let currentItemIndex = Math.ceil(currentOffset / itemHeight);
   console.log("offset", currentItemIndex);
   if(currentItemIndex == Global.toRecord){
-    if(Global.next_page_url) {
-      Utils.loadMore(Global.next_page_url, {
-        callback : (res) => {
-          Global.next_page_url = res.next_page_url;
-          Global.toRecord  = res.to;
-          let tempData = this.state.dataSource;
-          res.data.map( (v, k) => {
-            tempData.push(v);
-          })
-          console.log(tempData);
-          this.setState({dataSource : tempData});
-          
 
-        }
-      });
-    }
+    this._loadPost(0, (response) => {
+      Global.next_page_url = res.next_page_url;
+      Global.toRecord  = res.to;
+      let tempData = this.state.dataSource;
+      response.map( (v, k) => {
+        tempData.push(v);
+      })
+      console.log(tempData);
+      this.setState({dataSource : tempData});
+    })
+
+    // if(Global.next_page_url) {
+    //   Utils.loadMore(Global.next_page_url, {
+    //     callback : (res) => {
+    //       Global.next_page_url = res.next_page_url;
+    //       Global.toRecord  = res.to;
+    //       let tempData = this.state.dataSource;
+    //       res.data.map( (v, k) => {
+    //         tempData.push(v);
+    //       })
+    //       console.log(tempData);
+    //       this.setState({dataSource : tempData});
+    //
+    //
+    //     }
+    //   });
+    // }
 
   }
 }

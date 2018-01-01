@@ -33,7 +33,8 @@ const settings =  {
   chegg: {
     url      : 'http://api.chegg.com/rent.svc',
     apiKey   : 'c8a80053988dbffc1397f77ef60f82af',
-    password : '5232634'
+    password : '5232634',
+    logo     : require('../image/chegg_logo.png')
   }
 
 }

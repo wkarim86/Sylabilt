@@ -10,34 +10,46 @@ import colors from '../strings/colors';
 import styles from '../styles';
 import textStyles from '../styles/text';
 import lang from '../strings/values_en';
-
+import Config from '../config/settings';
 class BookAffiliateList extends Component {
   constructor(props){
     super(props);
   }
 
 render(){
+  const data =  this.props.data;
+  console.log('BookAffiliateList', data[0]);
   return(
-    <ScrollView>
-      <List>
-        <ListItem style={styles.bookListItem}>
-          <Left>
-              <Image source={{ uri : 'https://upload.wikimedia.org/wikipedia/en/e/e3/Abebooks-logo.png'}} style={{resizeMode : 'cover', width : 90}} />
-          </Left>
-          <Body style={{flex :1, flexDirection : 'column'}}>
+      <List dataArray={data[0].items}
+        renderRow={(item) =>
+          <ListItem style={styles.bookListItem} >
+            <Left>
+                <Image source={Config.chegg.logo} style={{resizeMode : 'cover', width : 90, height: 20}} />
+            </Left>
+            <Body style={{flex :1, flexDirection : 'column'}}>
 
-            <Text style={textStyles.bookListItemText}>Type : Rent</Text>
-            <Text style={textStyles.bookListItemText}>Cost : $88.99</Text>
-            <Text style={textStyles.bookListItemText}>S/H : 7.99</Text>
+              <Text style={textStyles.bookListItemText}>Type : {item.desc}</Text>
+              <Text style={textStyles.bookListItemText}>Cost : {item.price}</Text>
+              <Text style={textStyles.bookListItemText}>S/H : {this.props.data[0].shipping}</Text>
 
-          </Body>
-          <Right>
-            <Text style={textStyles.bookListItemPrice}>Total $: 92.99</Text>
-          </Right>
-        </ListItem>
-      </List>
-    </ScrollView>
+            </Body>
+            <Right>
+              <Text style={textStyles.bookListItemPrice}>Total { Math.round(parseInt(item.price) + parseInt(this.props.data[0].shipping))}</Text>
+            </Right>
+          </ListItem>
+
+        }
+        >
+    </List>
   )
+}
+
+getUniquiKey ( id ){
+  return id.split("|")[1];
+}
+
+renderListByType (type) {
+
 }
 
 }

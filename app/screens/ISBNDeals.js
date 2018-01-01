@@ -28,7 +28,7 @@ class ISBNDeals extends Component{
 
   render(){
     const {navigate} = this.props.navigation;
-
+    let keyword = '';
     return(
       <Container>
 
@@ -38,7 +38,7 @@ class ISBNDeals extends Component{
           {
             Utils.renderIf(this.state.isSearh,
               <View style={{backgroundColor:'#F3F3F3', padding:20, height:80}}>
-                  <SearchBox placeholder="Enter ISBN number" onChangeText = { (value)=> this.setState({keyword: value})} onSubmitEditing={ () => {this.loadBook()} }/>
+                  <SearchBox placeholder="Enter ISBN number" onChangeText={(value) => { keyword = value}}  onSubmitEditing={ (value) => {this.loadBook( keyword )} }/>
                </View>
             )
           }
@@ -46,8 +46,8 @@ class ISBNDeals extends Component{
           <View style={{flex:1}}>
 
           {
-            Utils.renderIf(this.state.dataLoaded,
-              <BookDetails datasource={this.state.bookDataset} />
+            Utils.renderIf(this.state.bookDataset.length > 0,
+              <BookDetails datasource={this.state.bookDataset[0]} />
             )
           }
 
@@ -73,7 +73,7 @@ toggleSearch = () =>{
 
 
 
-   loadBook = () =>{
+   loadBook = ( keyword) =>{
     let url = Config.chegg.url;
     formData = {
       params: {
@@ -82,7 +82,7 @@ toggleSearch = () =>{
         R: 'JSON',
         results_per_page : 1,
         V : 4.0,
-        isbn : this.state.keyword
+        isbn : keyword
       }
     }
     this.setState({isLoading:true});
@@ -94,7 +94,7 @@ toggleSearch = () =>{
         alert(response.ErrorMessage);
         this.setState({isLoading:false});
       }else{
-        this.setBookInfo(response.Data.Items[0]); // Items will always be 1 as getting single book record
+        this.setBookInfo(response.Data.Items); // Items will always be 1 as getting single book record
         this.setState({dataLoaded: true, isLoading: false});
         console.log('Data', this.getBookData());
       }
@@ -107,7 +107,6 @@ toggleSearch = () =>{
   }
 
   setBookInfo = ( data ) => {
-    this.bookDataset = data;
     this.setState({bookDataset: data});
   }
 
