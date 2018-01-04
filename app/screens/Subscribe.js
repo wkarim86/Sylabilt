@@ -42,8 +42,9 @@ class Subscribe extends Component{
           <Grid>
             <Col size={1}>
               <List>
-                <ListItem style={{borderBottomWidth:0}}><Text style={textStyle.subscribePackageHeading}>FREE.0</Text></ListItem>
-                <ListItem style={{borderBottomWidth:0}}><Text style={textStyle.subscribePackageHeading}>FREE.0</Text></ListItem>
+                <ListItem style={{borderBottomWidth:0}}><Text style={textStyle.subscribePackageHeading}>FREE .0</Text></ListItem>
+                <ListItem style={{borderBottomWidth:0}}><Text style={textStyle.packageListText}>ADS</Text></ListItem>
+                <ListItem style={{borderBottomWidth:0}}><Text style={textStyle.packageListText}>ADS</Text></ListItem>
               </List>
             </Col>
             <Col size={1}>
