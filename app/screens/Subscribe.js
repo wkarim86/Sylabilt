@@ -34,9 +34,30 @@ class Subscribe extends Component{
       <Container>
         <Loader show={this.state.isLoading} size="large"/>
         <Topbar title={lang.text_subscribe} {...this.props} />
-        <ImageBackground source={require('../image/Groupmeetingbg.png')} style={{width : '100%', height:'100%'}}>
+
+        <ImageBackground source={require('../image/subscribebg.png')} style={{width : '100%', height:'100%'}}>
+
         <Content>
-          <Text>Subscribe</Text>
+          <Text style={[textStyle.headingBradley,{color : 'white', fontSize:40, textAlign:'center'}]}>Pricing</Text>
+          <Grid>
+            <Col size={1}>
+              <List>
+                <ListItem style={{borderBottomWidth:0}}><Text style={textStyle.subscribePackageHeading}>FREE.0</Text></ListItem>
+                <ListItem style={{borderBottomWidth:0}}><Text style={textStyle.subscribePackageHeading}>FREE.0</Text></ListItem>
+              </List>
+            </Col>
+            <Col size={1}>
+              <List>
+                <ListItem style={{borderBottomWidth:0}}><Text style={textStyle.subscribePackageHeading}>Flow 2.0</Text></ListItem>
+              </List>
+            </Col>
+            <Col size={1}>
+              <List>
+                <ListItem style={{borderBottomWidth:0}}><Text style={textStyle.subscribePackageHeading}>Go 4.0</Text></ListItem>
+              </List>
+            </Col>
+          </Grid>
+
         </Content>
         </ImageBackground>
       </Container>

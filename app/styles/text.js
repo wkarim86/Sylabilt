@@ -255,6 +255,21 @@ const textStyle ={
     transform : [{rotate : '-20deg'}],
     alignSelf :'center'
   },
+  subscribePackageHeading : {
+    fontSize: 22,
+    fontFamily : 'BradleyHandITCTT-Bold',
+    fontWeight : 'bold',
+    color: colors.white
+  },
+  packageListText : {
+    fontSize: 18,
+    fontFamily : 'BradleyHandITCTT-Bold',        
+    color: colors.white
+  },
+  headingBradley: {
+    fontFamily : 'BradleyHandITCTT-Bold',
+    fontWeight : 'bold'
+  }
 }
 
 export default textStyle;
