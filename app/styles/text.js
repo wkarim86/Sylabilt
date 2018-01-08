@@ -256,15 +256,21 @@ const textStyle ={
     alignSelf :'center'
   },
   subscribePackageHeading : {
-    fontSize: 22,
-    fontFamily : 'BradleyHandITCTT-Bold',
+    fontSize: 15,
+    fontFamily : 'Daniel-Bold',
     fontWeight : 'bold',
-    color: colors.white
+    color: colors.white,
+    textAlign: 'center',
+    padding:10
   },
   packageListText : {
-    fontSize: 18,
-    fontFamily : 'BradleyHandITCTT-Bold',        
-    color: colors.white
+    fontSize: 20,
+    fontFamily : 'AmaticSC-Regular',
+    color: colors.white,
+    flexDirection:'row',
+    alignSelf : 'center',
+    padding: 10,
+
   },
   headingBradley: {
     fontFamily : 'BradleyHandITCTT-Bold',

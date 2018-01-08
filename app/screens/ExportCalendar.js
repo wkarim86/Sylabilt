@@ -24,6 +24,8 @@ import lang from '../strings/values_en';
 class ExplortCalendar extends Component{
   constructor(props){
     super(props);
+    const {navigate} = this.props.navigation;
+    this.navigate = navigate;
 
   }
 
@@ -31,13 +33,12 @@ class ExplortCalendar extends Component{
     Alert.alert(
       lang.alertdialog_heading_export,
       lang.alertdialog_text,
-      [{text : 'Not Now', style:'cancel'}, {text: 'Subscribe', onPress : ()=> {alert('Subscribe')}}],
+      [{text : 'Not Now', style:'cancel'}, {text: 'Subscribe', onPress : ()=> { this.navigate('subscribe')}}],
       {cancelable: true}
       )
   }
 
   render(){
-    const {navigate} = this.props.navigation;
     const isPaidMember = false;
     return(
       <Container>

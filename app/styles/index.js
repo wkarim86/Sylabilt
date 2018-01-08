@@ -268,6 +268,13 @@ export default{
  },
  transparent : {
    backgroundColor : 'transparent'
+ },
+ buttonGreen : {
+   backgroundColor : colors.buttonColor,
+   padding:10,
+   alignSelf: 'center',
+   borderRadius : 10,
+   width:'100%'
  }
 
 }
