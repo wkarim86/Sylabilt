@@ -18,6 +18,7 @@ import Loader from '../components/Loader';
 import Db from '../config/db';
 import Utils from '../lib/utils';
 import Sidebar from '../components/Sidebar';
+import SocialLogin from '../wrappers/sociallogin';
 Global = require('../lib/global');
 var db = new Db();
 
@@ -25,6 +26,7 @@ class UserSignin extends Component {
   constructor(props) {
     super(props);
     this.state  = { username : null, password : null, isLoading : false};
+    this.socialLogin = new SocialLogin();
   }
 
   doLogin() {
@@ -87,9 +89,6 @@ class UserSignin extends Component {
 
   }
 
-  doFbLogin = () =>{
-    
-  }
 
   render() {
     const {navigate} = this.props.navigation;
@@ -106,7 +105,7 @@ class UserSignin extends Component {
             <Row size={3} style={{justifyContent:'center', flexDirection : 'column'}}>
             <View style={styles.socialButtonGroupSignin}>
 
-                <Button style={styles.socialButon} transparent onPress={ ()=>this.doFbLogin()}>
+                <Button style={styles.socialButon} transparent onPress={ ()=>this.socialLogin.doFbLogin()}>
                   <Image source={require('../image/facebook.png')} />
                 </Button>
                 <Button style={styles.socialButon} transparent >
