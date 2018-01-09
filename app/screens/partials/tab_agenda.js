@@ -90,38 +90,38 @@ _onScroll = (event) => {
   let currentItemIndex = Math.ceil(currentOffset / itemHeight);
   console.log("offset", currentItemIndex, 'Global.toRecord', Global.toRecord);
   if(currentItemIndex == Global.toRecord){
-    console.log('Iam here at double');
-    setTimeout( ()=> {
-      this._loadPost(0, (response) => {
-        //Global.next_page_url = res.next_page_url;
-        //Global.toRecord  = res.to;
-        let tempData = this.state.dataSource;
-        response.map( (v, k) => {
-          tempData.push(v);
-        })
 
-        this.setState({dataSource : tempData});
-      });
-
-    }, 1000); //call loadpost method after 1 sec to update Global.toRecord value
-
-
-    // if(Global.next_page_url) {
-    //   Utils.loadMore(Global.next_page_url, {
-    //     callback : (res) => {
-    //       Global.next_page_url = res.next_page_url;
-    //       Global.toRecord  = res.to;
-    //       let tempData = this.state.dataSource;
-    //       res.data.map( (v, k) => {
-    //         tempData.push(v);
-    //       })
-    //       console.log(tempData);
-    //       this.setState({dataSource : tempData});
+    // setTimeout( ()=> {
+    //   this._loadPost(0, (response) => {
+    //     //Global.next_page_url = res.next_page_url;
+    //     //Global.toRecord  = res.to;
+    //     let tempData = this.state.dataSource;
+    //     response.map( (v, k) => {
+    //       tempData.push(v);
+    //     })
     //
-    //
-    //     }
+    //     this.setState({dataSource : tempData});
     //   });
-    // }
+    //
+    // }, 1000);
+
+
+    if(Global.next_page_url) {
+      Utils.loadMore(Global.next_page_url, {
+        callback : (res) => {
+          Global.next_page_url = res.next_page_url;
+          Global.toRecord  = res.to;
+          let tempData = this.state.dataSource;
+          res.data.map( (v, k) => {
+            tempData.push(v);
+          })
+          console.log(tempData);
+          this.setState({dataSource : tempData});
+
+
+        }
+      });
+    }
 
   }
 }

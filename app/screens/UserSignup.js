@@ -32,8 +32,8 @@ class UserSignup extends Component {
 
   constructor(props){
     super(props);
-    this.state = {maskPassword : true, isLoading : false, handleCheck : null, emailCheck : null}
-
+    this.state = {maskPassword : true, isLoading : false, handleCheck : null, emailCheck : null};
+    
   }
 
   //Render screen components
