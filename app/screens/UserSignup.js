@@ -6,7 +6,9 @@ import {
   View,
   TextInput,
   ImageBackground,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback
 } from 'react-native';
 import {Container, Body, Content, Header, Left, Right, Button, Icon, Label, Input, Toast} from  'native-base';
 import {Grid, Col, Row} from 'react-native-easy-grid';
@@ -33,7 +35,7 @@ class UserSignup extends Component {
   constructor(props){
     super(props);
     this.state = {maskPassword : true, isLoading : false, handleCheck : null, emailCheck : null};
-    
+
   }
 
   //Render screen components
@@ -42,6 +44,9 @@ class UserSignup extends Component {
     let checkMark = require('../image/checkmark.png');
     let uncheckMark = require('../image/closemark.png');
     return (
+      <TouchableWithoutFeedback
+        onPress={()=>{Keyboard.dismiss()}}
+        >
       <Container>
 
         <Loader show={this.state.isLoading} size="large"/>
@@ -108,7 +113,13 @@ class UserSignup extends Component {
                   <KeyboardAvoidingView behavior="position">
                     <View style={styles.formControl}>
                         <Text style={styles.inputLabel}>Username</Text>
-                        <TextInput placeholder="handle" style={styles.inputField} onChangeText={(text)=> {inputFields.username = text;}}></TextInput>
+                        <TextInput ref="handle"
+                          placeholder="handle"
+                          style={styles.inputField}
+                          returnKeyType={"next"}
+                          onChangeText={(text)=> {inputFields.username = text;}}
+                          onSubmitEditing={(event)=>{ this.refs.email.focus()}}
+                          ></TextInput>
                         <View style={{flex:2, flexDirection:'row'}}>
                         {
                           Utils.renderIf(this.state.handleCheck,
@@ -134,7 +145,13 @@ class UserSignup extends Component {
 
                     <View style={styles.formControl}>
                         <Text style={styles.inputLabel}>Email</Text>
-                        <TextInput placeholder="email" style={styles.inputField} onChangeText={(text)=> {inputFields.email = text;}}></TextInput>
+                        <TextInput ref="email"
+                          placeholder="email"
+                          style={styles.inputField}
+                          returnKeyType={"next"}
+                          onChangeText={(text)=> {inputFields.email = text;}}
+                          onSubmitEditing={(event)=>{ this.refs.password.focus()}}
+                          ></TextInput>
                         <View style={{flex:2, flexDirection:'row'}}>
                         {
                           Utils.renderIf(this.state.emailCheck,
@@ -153,7 +170,14 @@ class UserSignup extends Component {
 
                     <View style={styles.formControl}>
                         <Text style={styles.inputLabel}>Password</Text>
-                        <TextInput placeholder="password" style={styles.inputField} secureTextEntry={this.state.maskPassword} onChangeText={(text)=> {inputFields.password = text;}}></TextInput>
+                        <TextInput ref="password"
+                          placeholder="password"
+                          style={styles.inputField}
+                          secureTextEntry={this.state.maskPassword}
+                          returnKeyType={"done"}
+                          onChangeText={(text)=> {inputFields.password = text;}}
+                          onSubmitEditing={(event)=>{ this.doSignup()}}
+                          ></TextInput>
                         <View style={{flex:2, flexDirection:'row'}}>
                             <Button transparent onPress={()=>{ this.showPassword()}} style={{flex:1, paddingLeft:0, paddingRight:0}}>
                               <Text style={styles.formHint}>Show Password</Text>
@@ -188,6 +212,7 @@ class UserSignup extends Component {
           </Grid>
         </ImageBackground>
       </Container>
+    </TouchableWithoutFeedback>
     );
   }
 
@@ -196,11 +221,13 @@ class UserSignup extends Component {
   doSignup(){
     this.setState({isLoading: true});
     const signupUrl = Settings.endPoint + Settings.apis.signup;
+
     let params = {
       username : inputFields.username,
       password : inputFields.password,
       email : inputFields.email
     }
+    console.log('Signup', params);
     Http.post(signupUrl, params).then( (responseJson)=>{
 
       let response = responseJson.data.data;

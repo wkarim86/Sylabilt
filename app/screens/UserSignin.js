@@ -5,7 +5,9 @@ import {
   Image,
   View,
   TextInput,
-  ImageBackground
+  ImageBackground,
+  Keyboard,
+  TouchableWithoutFeedback
 } from 'react-native';
 import {Container, Body, Content, Header, Left, Right, Button, Icon, Label, Input, Toast} from  'native-base';
 import {Grid, Col, Row} from 'react-native-easy-grid';
@@ -93,6 +95,11 @@ class UserSignin extends Component {
   render() {
     const {navigate} = this.props.navigation;
     return (
+      <TouchableWithoutFeedback
+        onPress={()=>{Keyboard.dismiss()}}
+        >
+
+
         <Container>
 
           <Loader show={this.state.isLoading} size="large"/>
@@ -125,7 +132,7 @@ class UserSignin extends Component {
                   </View>
                     <View style={{flex:0.8, flexDirection:'row'}}>
                       <Text style={styles.inputLabel}>Username</Text>
-                      <TextInput placeholder="handle" ref="handle" autoFocus={true} returnKeyType={"next"} style={styles.inputField} onChangeText={(text) => this.setState({username:text})} onSubmitEditing={(event)=>{ this.refs.password.focus()}}></TextInput>
+                      <TextInput placeholder="handle" ref="handle" returnKeyType={"next"} style={styles.inputField} onChangeText={(text) => this.setState({username:text})} onSubmitEditing={(event)=>{ this.refs.password.focus()}}></TextInput>
                     </View>
                 </View>
 
@@ -135,7 +142,7 @@ class UserSignin extends Component {
                     </View>
                     <View style={{flex:0.8, flexDirection:'row'}}>
                       <Text style={styles.inputLabel}>Password</Text>
-                      <TextInput placeholder="password" ref="password" style={styles.inputField} autoFocus={true} returnKeyType = {"go"}
+                      <TextInput placeholder="password" ref="password" style={styles.inputField} returnKeyType = {"go"}
  secureTextEntry={true} onChangeText={(text) => this.setState({password:text})} onSubmitEditing={(event) => { this.doLogin()}}></TextInput>
                     </View>
 
@@ -171,6 +178,8 @@ class UserSignin extends Component {
           </Grid>
           </ImageBackground>
         </Container>
+
+        </TouchableWithoutFeedback>
     );
   }
 
